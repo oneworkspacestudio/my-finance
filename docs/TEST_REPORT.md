@@ -27,11 +27,11 @@ real local managed OneAccount acceptance passes. Owner delivery remains pending.
 | FIN-13 | NOT TESTED | Outage/429 and last-good/stale UI acceptance outstanding. Pagination repeated-cursor/limit fails instead of partial success. |
 | FIN-14 | DEFERRED | No unattended bank-sync worker under enforced OneAccount/E2EE. Native open-budget Sync supported. |
 | FIN-15 | PARTIAL | Mock expiry/check/revocation passes; ledger retained. Real bank revocation/renewal not tested. |
-| FIN-16 | PASS | Native CSV applied import gives Grocer -1234p / Refund +250p and correct 122472p balance. |
-| FIN-17 | PASS (local) | Export encrypt/decrypt byte-identical; clean import preserves ledger/categories/balances/budget. Snapshot/My Drive encrypted copies match; browser-closed scheduled run and clean CLI restore pass; overwrite refused. Managed Drive browsing pending. |
+| FIN-16 | PASS | Native CSV applied import gives Grocer -1234p / Refund +250p and correct 122472p balance. Repeating the same CSV reports zero new transactions with an empty date filter. |
+| FIN-17 | PASS (local) | Export encrypt/decrypt byte-identical; clean import preserves ledger/categories/balances/budget. Snapshot/My Drive encrypted copies match; browser-closed scheduled run and clean CLI restore pass; overwrite refused. Fresh Workspace100/real MyAccounts/Drive displays encrypted snapshots; Drive UI download matches Finance snapshot SHA256. |
 | FIN-18 | PASS (local) | File ACL and owner-only bank/backup/snapshot/private-primitive/admin guards exercised. Real local MyAccounts member checks also pass. |
 | FIN-19 | PARTIAL | Go tests/vet pass. govulncheck: zero affected symbols/imported-package vulnerabilities; three unreachable required-module records. npm: zero high/critical, three moderate records through disabled Akahu/uuid. Defender candidate-directory and rebuilt final executable scans found no threats. Public asset size/SHA256 and anonymous portable download verified. |
-| FIN-20 | PARTIAL | Welcome/native 360px and 768px have no document overflow; screenshots reviewed. Full keyboard-only editing pending. |
+| FIN-20 | PARTIAL | Welcome/native 360px and 768px have no document overflow; screenshots reviewed. Keyboard Tab/Enter reaches Add New, edits notes/payment and saves exactly 101p; balance becomes 122371p. Full accessibility audit remains outstanding. |
 | FIN-21 | PARTIAL | Native API restart/clean server restore preserve data. Installer sidecar selection regression fixed/tested. Launcher interruption/restart exposed and fixed ordered-migration downgrade rejection; restart regression and final ledger/snapshot checks pass. Owner update/rollback and reboot/power-loss pending. |
 | FIN-22 | NOT TESTED | Public HTTPS callbacks not tested. Real local MyAccounts redirect observed; banking needs provider application/consent. |
 
@@ -55,6 +55,20 @@ real local managed OneAccount acceptance passes. Owner delivery remains pending.
 Integration scripts require explicit FINANCE_MODULE_ROOT (pinned npm cache),
 FINANCE_TEST_URL and named synthetic paths. Never target owner data. Sanitized
 reports/screenshots go under docs/evidence; cookies/keys/raw logs are excluded.
+
+Supplemental `test/e2e/repeat-csv-review.mjs` and `keyboard-transaction.mjs`
+record the exact shipping-fixture browser checks. Run repeated CSV against the
+fictional native-browser fixture after its two-row import; run keyboard entry
+once against its 122472p balance. Both require `FINANCE_SYNTHETIC_ONLY=1` plus
+the explicit module root, test URL and evidence folder. These are stateful
+acceptance harnesses rather than independent unit tests.
+
+`managed-drive-snapshot.mjs` followed by `managed-drive-download.mjs` records
+the real Drive flow in disposable ManagedFixture4 on localhost47300, with generated
+example.test users from its private test-users.json. It requires the same explicit
+synthetic acknowledgement. Three encrypted retention-tier files are visible and
+the UI download equals the snapshot bytes. Private browser profiles, session
+state, test-user credentials and raw captures are excluded from published evidence.
 
 ## Provider qualification still required
 

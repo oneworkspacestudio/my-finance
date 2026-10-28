@@ -202,3 +202,22 @@ Full source/licences/Actual+HyperFormula preferred sources provided. Final fixed
 launcher boots existing schema2 data; ledger10/ACL6/snapshot6 checks pass. Defender
 old candidate directory and final rebuilt executable found no threats. Nothing
 installed on owner hosts yet. Suite100 publication/delivery still outstanding.
+
+## Supplemental acceptance and final suite rebuild
+
+Shipping bytes also pass repeated native CSV review (0 new rows, no date filter),
+keyboard-only Tab/Enter notes/payment save (101p; cash122371p), and a fresh real
+Workspace100/MyAccounts/Drive fixture: encrypted snapshot files visible in My Drive;
+UI download SHA matches Finance bytes. Exact stateful harnesses and synthetic
+screenshots/report are under test/e2e and docs/evidence. Syntax checks pass.
+No owner or real banking fixtures were used. All task-owned test services stopped.
+
+Suite100 first candidate remained unpublished. New origin2252e9b adds Forms2 and
+a critical protected-update startup fix, so canceled only own draft/uploads before
+publication, retained upstream changes and froze effdc0e for a rebuild. Supported
+signed Android publisher and public-channel verification must complete before
+normal protected delivery. App1 remains immutable/published/promoted. Primary
+still96/30apps at last read; secondary Forms98/Forms2 per its handoff. Inspect actual
+state before installing, preserving credentials/contracts/bytes and recovery.
+Chrome DESKTOP-Workstation remains at PIN; user must connect it personally. Do not
+claim both installations, provider sandbox/live, clean-host or reboot qualification.

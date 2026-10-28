@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "synthetic": true,
+  "realMyAccounts": true,
+  "realDrive": true,
+  "manager": "0.3.0-preview.100",
+  "finance": "0.1.0-preview.1",
+  "encryptedBackupVisible": true,
+  "driveDownloadMatchesFinanceSnapshot": true,
+  "backupBytes": 30957
+}
