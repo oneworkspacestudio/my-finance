@@ -52,7 +52,7 @@ type snapshotSettings struct {
 }
 
 func (a *App) snapshotRoutes() error {
-	if e := a.h.Migrate(2, `CREATE TABLE finance_snapshot_schedule(id INTEGER PRIMARY KEY CHECK(id=1),enabled INTEGER NOT NULL,owner_id TEXT NOT NULL,secret BLOB,copy_drive INTEGER NOT NULL,daily INTEGER NOT NULL,weekly INTEGER NOT NULL,monthly INTEGER NOT NULL,next_run TEXT NOT NULL,last_success TEXT NOT NULL,last_error TEXT NOT NULL);INSERT INTO finance_snapshot_schedule VALUES(1,0,'',NULL,0,7,4,6,'','','');CREATE TABLE finance_snapshot_files(root_id TEXT NOT NULL,tier TEXT NOT NULL,period TEXT NOT NULL,name TEXT NOT NULL,sha256 TEXT NOT NULL,created TEXT NOT NULL,PRIMARY KEY(root_id,tier,period));`); e != nil {
+	if e := a.migrate(2, `CREATE TABLE finance_snapshot_schedule(id INTEGER PRIMARY KEY CHECK(id=1),enabled INTEGER NOT NULL,owner_id TEXT NOT NULL,secret BLOB,copy_drive INTEGER NOT NULL,daily INTEGER NOT NULL,weekly INTEGER NOT NULL,monthly INTEGER NOT NULL,next_run TEXT NOT NULL,last_success TEXT NOT NULL,last_error TEXT NOT NULL);INSERT INTO finance_snapshot_schedule VALUES(1,0,'',NULL,0,7,4,6,'','','');CREATE TABLE finance_snapshot_files(root_id TEXT NOT NULL,tier TEXT NOT NULL,period TEXT NOT NULL,name TEXT NOT NULL,sha256 TEXT NOT NULL,created TEXT NOT NULL,PRIMARY KEY(root_id,tier,period));`); e != nil {
 		return e
 	}
 	a.h.Mux.HandleFunc("GET /api/finance/snapshots/settings", a.h.Owner(a.snapshotStatus))

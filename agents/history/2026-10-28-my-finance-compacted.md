@@ -186,3 +186,10 @@ Suite97 became public during work; current main also adds Forms using base+33.
 Finance moves to base+34/default9024 and minimum planned Workspace100 to avoid
 concurrent release collisions. App compatibility updated; final binary must
 record the latest clean commit. Suite rebase preserves Forms/Drive broker paths.
+
+Final launcher restart caught an ordered migration bug before publication: calling
+apphost.Migrate(1) against schema2 is rejected as a downgrade. Finance now checks
+latest supported schema, skips already applied steps, and still refuses future
+schema3. Regression closes/reopens the store and verifies settings preserved and
+future-schema rejection. All Go tests pass. Old AppRelease/Final binaries built
+from0ce5731 are NOT releasable; rebuild and rerun restart/ledger/snapshot checks.

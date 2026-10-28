@@ -24,7 +24,7 @@ type connection struct {
 }
 
 func (a *App) connectionRoutes() error {
-	if e := a.h.Migrate(1, `CREATE TABLE finance_connections(id TEXT PRIMARY KEY,user_id TEXT NOT NULL,session_hash TEXT NOT NULL,secret BLOB,bank TEXT NOT NULL,expires TEXT NOT NULL,status TEXT NOT NULL,accounts INTEGER NOT NULL,created TEXT NOT NULL,UNIQUE(user_id,session_hash));`); e != nil {
+	if e := a.migrate(1, `CREATE TABLE finance_connections(id TEXT PRIMARY KEY,user_id TEXT NOT NULL,session_hash TEXT NOT NULL,secret BLOB,bank TEXT NOT NULL,expires TEXT NOT NULL,status TEXT NOT NULL,accounts INTEGER NOT NULL,created TEXT NOT NULL,UNIQUE(user_id,session_hash));`); e != nil {
 		return e
 	}
 	a.h.Mux.HandleFunc("GET /api/finance/connections", a.h.Owner(a.connections))
