@@ -6,7 +6,7 @@ parts=['My Finance third-party notices\n\nMy Finance gateway source is MIT. Bund
 def section(name,directory):
  d=pathlib.Path(directory);texts=[]
  for f in sorted(d.iterdir()):
-  if f.is_file() and (f.name.lower().startswith(('license','licence','copying','notice','copyright'))):
+  if f.is_file() and (f.name.lower().startswith(('license','licence','copying','notice','copyright')) or d in [root/'LICENSES',root/'LICENSES/npm'] and f.suffix=='.txt'):
    try:texts.append(f.name+'\n'+f.read_text(encoding='utf-8'))
    except UnicodeError:pass
  if not texts:
