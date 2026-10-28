@@ -10,6 +10,11 @@ updater. It provisions the OneAccount client, chooses a free app port, starts/st
 Finance with Workspace and retains financial data across upgrades. Existing
 Workspace autostart applies; no separate admin service is required.
 
+Each Workspace server keeps its own Finance store. To use the same budgets from
+another PC or phone, open the same Workspace web address. Installing Finance on
+both servers does not automatically merge their budgets; use the encrypted export
+and native import workflow for an intentional transfer.
+
 For standalone evaluation, double-click MyFinance.exe. Data defaults to your
 per-user AppData/OneWorkspace/MyFinance folder. First setup uses the private one-time
 link printed/opened by the launcher. Managed installations use only OneAccount.
