@@ -1,0 +1,9 @@
+My Finance is a One Workspace application powered by Actual Budget.
+Actual Budget 26.10.0 is MIT licensed; its original copyright and licence are
+included at node_modules/@actual-app/sync-server/LICENSE in finance-runtime.zip.
+The original client, API and dependencies retain their respective notices.
+Node.js 24.22.1 includes its complete third-party notices under LICENSES/.
+Source: https://github.com/actualbudget/actual/tree/v26.10.0
+My Finance's complete pinned server bridge is in apps/integration-server and scripts/patch-actual.mjs.
+This application is not a bank or payment initiation provider. Enable Banking
+and Lunch Flow services have their own agreements, eligibility and charges.

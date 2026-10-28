@@ -1,0 +1,16 @@
+{
+  "name": "my-finance-runtime",
+  "version": "0.1.0-preview.1",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "patch": "node scripts/patch-actual.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@actual-app/sync-server": "26.10.0",
+    "@actual-app/api": "26.10.0"
+  },
+  "devDependencies": {"@playwright/test": "1.56.1"}
+}
