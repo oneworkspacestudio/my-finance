@@ -7,10 +7,13 @@ assert 'x-finance-capability' in (c/'node_modules/@actual-app/sync-server/build/
 node=c/'node-v24.22.1-win-x64';expected=next(s.split()[0] for s in (c/'node-shasums.txt').read_text().splitlines() if s.endswith(' node-v24.22.1-win-x64.zip'))
 assert hashlib.sha256((c/'node.zip').read_bytes()).hexdigest()==expected
 with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
- z.write(node/'node.exe','node.exe');z.write(node/'LICENSE','LICENSES/Node-LICENSE.txt')
+ def add(f,name):
+  info=zipfile.ZipInfo(name,date_time=(2026,10,1,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.create_system=3;info.external_attr=0o100644<<16
+  z.writestr(info,f.read_bytes(),compresslevel=6)
+ add(node/'node.exe','node.exe');add(node/'LICENSE','LICENSES/Node-LICENSE.txt')
  for f in sorted((c/'node_modules').rglob('*')):
   if not f.is_file():continue
   rel=f.relative_to(c).as_posix()
-  if any(x in rel for x in ('node_modules/@playwright/','node_modules/playwright/','node_modules/playwright-core/','node_modules/.bin/')):continue
-  z.write(f,rel)
+  if rel=='node_modules/.package-lock.json' or any(x in rel for x in ('node_modules/@playwright/','node_modules/playwright/','node_modules/playwright-core/','node_modules/.bin/')):continue
+  add(f,rel)
 print(json.dumps({'file':out.name,'size':out.stat().st_size,'sha256':hashlib.sha256(out.read_bytes()).hexdigest()}))

@@ -27,6 +27,8 @@ func run() error {
 	noBrowser := flag.Bool("no-browser", false, "Run in background")
 	email := flag.String("bootstrap-email", "", "Standalone first owner")
 	showVersion := flag.Bool("version", false, "Show version")
+	restore := flag.String("restore-snapshot", "", "Restore an encrypted server snapshot into an empty stopped server")
+	confirmRestore := flag.Bool("confirm-restore", false, "Confirm this clean server restore")
 	flag.Parse()
 	if *showVersion {
 		fmt.Println(version)
@@ -49,6 +51,15 @@ func run() error {
 		return e
 	}
 	defer h.Close()
+	if *restore != "" {
+		password := os.Getenv("MYFINANCE_RECOVERY_PASSPHRASE")
+		os.Unsetenv("MYFINANCE_RECOVERY_PASSPHRASE")
+		if e = finance.RestoreServerSnapshot(h, *restore, password, *confirmRestore); e != nil {
+			return e
+		}
+		fmt.Println("Server snapshot restored. Existing source installation is retained. Start My Finance through Workspace and reconnect bank providers.")
+		return nil
+	}
 	if *email != "" {
 		if e = h.Bootstrap(*email, os.Getenv("WORKSPACE_BOOTSTRAP_PASSWORD")); e != nil {
 			return e
@@ -63,7 +74,10 @@ func run() error {
 	defer cancel()
 	done := make(chan error, 1)
 	go func() { e := a.Run(ctx); done <- e; cancel() }()
-	link:=c.Origin+"/";if h.SetupURL()!=""{link=h.SetupURL()}
+	link := c.Origin + "/"
+	if h.SetupURL() != "" {
+		link = h.SetupURL()
+	}
 	fmt.Println("My Finance: " + link)
 	if !*noBrowser {
 		a.OpenBrowser(link)

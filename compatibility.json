@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "id": "finance",
+  "name": "My Finance",
+  "version": "0.1.0-preview.1",
+  "route": "/finance",
+  "callback": "/finance/auth/callback",
+  "workspaceInstallerIntegration": 2,
+  "minimumWorkspaceVersion": "0.3.0-preview.97",
+  "dataDirectory": "finance",
+  "ledger": "Actual Budget 26.10.0",
+  "headlessBankSync": false,
+  "providerSandboxVerified": false,
+  "liveBankImportVerified": false,
+  "productionEligible": false
+}

@@ -24,3 +24,10 @@ The documented Enable Banking integration remains experimental. Restricted produ
 permits only individually whitelisted own accounts; do not infer permission to access
 another family member's accounts. Lunch Flow requires the user's subscription and
 supported institutions. No price or universal UK coverage is hardcoded.
+
+HyperFormula3.5.0 is GPL-3.0-only within the Actual distribution. Retain the
+full GPL text, Actual copyright and collected module notices; provide matching
+Actual26.10 and HyperFormula3.5.0 source archives alongside binaries. My Finance
+gateway is a separate MIT process using authenticated HTTP. Node and other
+runtime packages retain their own terms. The npm published files alone do not
+contain all preferred TypeScript source, so the release includes upstream source.

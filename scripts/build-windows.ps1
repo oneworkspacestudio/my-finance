@@ -8,10 +8,14 @@ Push-Location $Cache
 try{npm ci --omit=dev --no-audit --no-fund;if($LASTEXITCODE){throw 'npm ci failed'}}finally{Pop-Location}
 node (Join-Path $source 'scripts/patch-actual.mjs') $Cache
 if($LASTEXITCODE){throw 'Upstream patch gate failed'}
-python (Join-Path $source 'scripts/package-runtime.py') --cache $Cache --output (Join-Path $Output 'finance-runtime.zip')
+python (Join-Path $source 'scripts/package-runtime.py') --cache $Cache --output (Join-Path $Cache 'finance-runtime.zip')
 if($LASTEXITCODE){throw 'Runtime packaging failed'}
+Copy-Item -LiteralPath (Join-Path $Cache 'finance-runtime.zip') -Destination (Join-Path $Output 'finance-runtime.zip')
 $digest=(Get-FileHash (Join-Path $Output 'finance-runtime.zip')).Hash.ToLowerInvariant()
 $env:GOTMPDIR=Join-Path $Cache 'go-tmp'
 Push-Location $source
 try{& $Go build -trimpath -ldflags "-s -w -X main.runtimeSHA=$digest" -o (Join-Path $Output 'MyFinance.exe') ./cmd/my-finance;if($LASTEXITCODE){throw 'Launcher build failed'}}finally{Pop-Location}
 Copy-Item (Join-Path $source 'README.md'),(Join-Path $source 'LICENSE'),(Join-Path $source 'NOTICE') $Output
+python (Join-Path $source 'scripts/collect-notices.py') --cache $Cache --output (Join-Path $Output 'THIRD-PARTY-LICENSES.txt') --go $Go
+if($LASTEXITCODE){throw 'Licence collection failed'}
+Copy-Item -LiteralPath (Join-Path $source 'LICENSES') -Destination $Output -Recurse -Force

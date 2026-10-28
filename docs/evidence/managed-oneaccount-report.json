@@ -1,0 +1,14 @@
+{
+  "synthetic": true,
+  "realLocalOneAccount": true,
+  "publicHTTPS": false,
+  "checks": [
+    "FIN-02 real Workspace -> OneAccount code/PKCE -> Finance, no second password",
+    "FIN-02 native budget opens with mapped owner ADMIN",
+    "FIN-03/18 real OneAccount member denied unshared file and owner snapshots",
+    "FIN-03/18 real OneAccount share grants download; revoke denies it",
+    "FIN-04 forged managed callback rejected",
+    "FIN-04 managed member sign-out removes server access and retains owner session"
+  ],
+  "complete": true
+}

@@ -10,9 +10,10 @@
 - Bank management is owner-only. Native Actual is not a strong tenant boundary
   for mutually untrusted households. Shared budgets expose every account in them.
   Read-only viewer and private accounts inside a shared budget are unsupported.
-- Encrypted backups wrap manually exported native budget ZIPs. Clean restoration
-  requires native Import budget. Automatic daily snapshots/tiered retention are
-  not delivered. Provider credentials must be reconfigured after recovery.
+- Native ZIP export backups restore through Actual Import budget. Optional daily
+  encrypted server snapshots have daily/weekly/monthly retention and a tested
+  clean CLI restore; they require explicit Windows DPAPI recovery-key storage.
+  Provider credentials must be reconfigured after either recovery path.
 - The native Actual budgeting UI is retained. The Finance welcome/settings screen
   is not a second ledger or a custom dashboard with copied financial figures.
 - The native PWA service worker is disabled on Workspace's shared origin to avoid

@@ -1,0 +1,12 @@
+[
+  {
+    "name": "bufbuild-protobuf",
+    "source": "https://raw.githubusercontent.com/bufbuild/protobuf-es/v2.16.0/LICENSE",
+    "size": 11357
+  },
+  {
+    "name": "keyv",
+    "source": "https://raw.githubusercontent.com/jaredwray/keyv/main/LICENSE",
+    "size": 546
+  }
+]

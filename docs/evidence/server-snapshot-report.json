@@ -1,0 +1,11 @@
+{
+  "data": "strictly fictional",
+  "checks": [
+    "FIN-17 encrypted daily/weekly/monthly copies match downloaded server snapshot",
+    "FIN-17 unattended server snapshot uses DPAPI-protected key without decrypting a budget",
+    "FIN-17 clean CLI restore preserves native budget blobs/sync databases and excludes credentials",
+    "FIN-17 restore refuses to overwrite existing budget history",
+    "FIN-17 disabling schedule removes remembered recovery key"
+  ],
+  "complete": true
+}

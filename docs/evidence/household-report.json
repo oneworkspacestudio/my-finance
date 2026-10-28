@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "synthetic": true,
+  "checks": [
+    "native member BASIC",
+    "unshared file list/download denied",
+    "member backup/bank/admin denied",
+    "Origin required",
+    "native share grants download",
+    "native revoke denies download"
+  ],
+  "oneAccountLive": false
+}

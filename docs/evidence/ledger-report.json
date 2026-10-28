@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "data": "strictly fictional",
+  "upstream": "26.10.0",
+  "checks": [
+    "FIN-05 exact £1,234.56 native opening balance",
+    "FIN-05 native monthly budget (Actual signed aggregate)",
+    "FIN-10 100 native transactions imported ten times without duplicates",
+    "FIN-10 manual category/notes survive refresh",
+    "FIN-11 stable remote ID pending/booked does not duplicate",
+    "FIN-12 native linked credit repayment preserves combined balance without spending category",
+    "FIN-17 native export encrypted with no plaintext SQLite header",
+    "FIN-17 authenticated backup restores identical export",
+    "FIN-17 clean Actual store restore preserves ledger, categories, balances and budget",
+    "FIN-21 restored budget survives native API restart"
+  ],
+  "complete": true,
+  "transactionCount": 103,
+  "cleanRestore": true,
+  "providerSandbox": false,
+  "liveBank": false
+}

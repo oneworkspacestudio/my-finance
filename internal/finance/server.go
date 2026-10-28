@@ -6,6 +6,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"embed"
+	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
@@ -40,6 +41,7 @@ type App struct {
 	mu                   sync.Mutex
 	states               map[string]consent
 	ready                bool
+	snapshotMu           sync.Mutex
 }
 
 func New(h *apphost.Host, digest string) (*App, error) {
@@ -54,7 +56,15 @@ func New(h *apphost.Host, digest string) (*App, error) {
 	addr := l.Addr().String()
 	l.Close()
 	a := &App{h: h, engine: "http://" + addr, cap: apphost.ID() + apphost.ID(), runtime: root, states: map[string]consent{}}
-	h.Mux.HandleFunc("/ledger/", a.engineHandler)
+	if e = a.connectionRoutes(); e != nil {
+		return nil, e
+	}
+	if e = a.snapshotRoutes(); e != nil {
+		return nil, e
+	}
+	for _, method := range []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"} {
+		h.Mux.HandleFunc(method+" /ledger/", a.engineHandler)
+	}
 	h.Mux.HandleFunc("GET /ledger", func(w http.ResponseWriter, r *http.Request) { http.Redirect(w, r, h.Base+"/ledger/", 303) })
 	h.Mux.HandleFunc("GET /api/finance/status", h.Require(a.status))
 	h.Mux.HandleFunc("GET /api/finance/providers", h.Require(func(w http.ResponseWriter, r *http.Request) {
@@ -68,6 +78,10 @@ func (a *App) OpenBrowser(link string) {
 	_ = exec.Command("rundll32", "url.dll,FileProtocolHandler", link).Start()
 }
 func (a *App) Run(ctx context.Context) error {
+	snapshotCtx, stopSnapshots := context.WithCancel(ctx)
+	snapshotsDone := make(chan struct{})
+	go func() { defer close(snapshotsDone); a.snapshotLoop(snapshotCtx) }()
+	defer func() { stopSnapshots(); <-snapshotsDone }()
 	data := filepath.Join(a.h.Config.Data, "actual")
 	if e := os.MkdirAll(data, 0700); e != nil {
 		return e
@@ -130,7 +144,7 @@ func (a *App) status(w http.ResponseWriter, r *http.Request) {
 	a.mu.Lock()
 	ready := a.ready
 	a.mu.Unlock()
-	apphost.JSON(w, 200, map[string]any{"actual": "26.10.0", "engineReady": ready, "currency": "GBP", "headlessSync": "Unavailable with this enforced OneAccount/E2EE configuration. Use native Sync while your budget is open.", "backups": "Encrypted native budget exports. Provider credentials are excluded. Scheduled backup is not enabled.", "driveConfigured": os.Getenv("MYFINANCE_BACKUP_DIR") != ""})
+	apphost.JSON(w, 200, map[string]any{"actual": "26.10.0", "engineReady": ready, "currency": "GBP", "headlessSync": "Unavailable with this enforced OneAccount/E2EE configuration. Use native Sync while your budget is open.", "backups": "Encrypted budget exports and optional daily credential-free server snapshots. Enable the schedule in Finance settings.", "driveConfigured": os.Getenv("MYFINANCE_BACKUP_DIR") != ""})
 }
 func originOf(s string) string {
 	u, e := url.Parse(s)
@@ -157,6 +171,10 @@ func (a *App) engineHandler(w http.ResponseWriter, r *http.Request) {
 func (a *App) proxy(w http.ResponseWriter, r *http.Request) {
 	s := apphost.Current(r)
 	p := strings.TrimPrefix(r.URL.Path, "/ledger")
+	if strings.HasPrefix(p, "/finance-internal/") {
+		apphost.Problem(w, 403, "This is a private server operation")
+		return
+	}
 	if p == "/sw.js" {
 		http.Error(w, "Service worker unavailable on the shared Workspace origin", 404)
 		return
@@ -166,7 +184,7 @@ func (a *App) proxy(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if strings.HasPrefix(p, "/enablebanking/") || strings.HasPrefix(p, "/simplefin/") || strings.HasPrefix(p, "/secret/") {
-		if s.User.Role != "owner" {
+		if s.User.Role != "owner" && !strings.HasSuffix(p, "/status") {
 			apphost.Problem(w, 403, "Only the household owner manages bank access")
 			return
 		}
@@ -174,7 +192,7 @@ func (a *App) proxy(w http.ResponseWriter, r *http.Request) {
 	if p == "/finance-bridge.js" {
 		w.Header().Set("Content-Type", "text/javascript")
 		w.Header().Set("Content-Security-Policy", "script-src 'self'")
-		io.WriteString(w, bridgeJS(a.h.Base))
+		io.WriteString(w, bridgeJS(a.h.Base, s.User.ID))
 		return
 	}
 	if p == "/enablebanking/complete-auth" {
@@ -239,6 +257,7 @@ func (a *App) proxy(w http.ResponseWriter, r *http.Request) {
 		req.Header.Del("X-Forwarded-Host")
 		req.Header.Set("X-Finance-Capability", a.cap)
 		req.Header.Set("X-Finance-Identity", s.User.ID)
+		req.Header.Set("X-Finance-Display-Name", base64.RawURLEncoding.EncodeToString([]byte(s.User.Name)))
 		req.Header.Set("X-Finance-Owner", map[bool]string{true: "1", false: "0"}[s.User.Role == "owner"])
 		req.Header.Del("Accept-Encoding")
 	}
@@ -253,7 +272,7 @@ func (a *App) proxy(w http.ResponseWriter, r *http.Request) {
 		resp.Header.Set("Cross-Origin-Opener-Policy", "same-origin")
 		resp.Header.Set("Cross-Origin-Embedder-Policy", "require-corp")
 		ct := resp.Header.Get("Content-Type")
-		if p == "/enablebanking/start-auth" || strings.Contains(ct, "text/html") || strings.Contains(ct, "javascript") || strings.HasSuffix(p, ".css") {
+		if p == "/enablebanking/start-auth" || p == "/enablebanking/poll-auth" || strings.Contains(ct, "text/html") || strings.Contains(ct, "javascript") || strings.HasSuffix(p, ".css") || strings.HasSuffix(p, ".webmanifest") {
 			body, e := io.ReadAll(io.LimitReader(resp.Body, 40<<20))
 			resp.Body.Close()
 			if e != nil {
@@ -268,13 +287,22 @@ func (a *App) proxy(w http.ResponseWriter, r *http.Request) {
 					a.addState(result.Data.State, s)
 				}
 			}
-			if strings.Contains(ct, "text/html") || strings.Contains(ct, "javascript") || strings.HasSuffix(p, ".css") {
+			if p == "/enablebanking/poll-auth" {
+				if e = a.captureConnection(body, s); e != nil {
+					return e
+				}
+			}
+			if strings.Contains(ct, "text/html") || strings.Contains(ct, "javascript") || strings.HasSuffix(p, ".css") || strings.HasSuffix(p, ".webmanifest") {
 				body = []byte(rebase(string(body), a.h.Base+"/ledger"))
 			}
 			if strings.Contains(ct, "text/html") && strings.Contains(string(body), "<head>") {
 				body = bytes.Replace(body, []byte("<head>"), []byte("<head><script src=\""+a.h.Base+"/ledger/finance-bridge.js\"></script>"), 1)
 			}
 			resp.Body = io.NopCloser(bytes.NewReader(body))
+			if strings.Contains(ct, "javascript") && (strings.HasPrefix(p, "/kcab/") || strings.Contains(p, "browser-server")) {
+				body = append([]byte(`if(typeof WorkerGlobalScope!=="undefined"&&self instanceof WorkerGlobalScope){for(const k of ['log','info','debug','warn','error','trace','group','groupCollapsed','groupEnd'])console[k]=()=>{}}`+"\n"), body...)
+				resp.Body = io.NopCloser(bytes.NewReader(body))
+			}
 			resp.ContentLength = int64(len(body))
 			resp.Header.Del("Content-Length")
 			resp.Header.Del("Etag")
@@ -284,6 +312,9 @@ func (a *App) proxy(w http.ResponseWriter, r *http.Request) {
 	proxy.ErrorHandler = func(w http.ResponseWriter, r *http.Request, e error) {
 		apphost.Problem(w, 503, "The budgeting engine is starting or needs a restart. Your saved data is retained.")
 	}
+	// ReverseProxy appends upstream headers. Remove apphost's document CSP first
+	// so the native engine's dedicated WASM policy is the only enforced policy.
+	w.Header().Del("Content-Security-Policy")
 	proxy.ServeHTTP(w, r)
 }
 func (a *App) addState(state string, s apphost.Session) {
@@ -313,17 +344,29 @@ func (a *App) checkState(state string, s apphost.Session, consume bool) bool {
 	return true
 }
 func rebase(body, base string) string {
-	for _, p := range []string{"/static/", "/kcab/", "/data/", "/sql-wasm.wasm", "/favicon", "/apple-touch-icon", "/site.webmanifest", "/manifest.webmanifest"} {
-		body = strings.ReplaceAll(body, p, base+p)
+	for _, p := range []string{"/static/", "/data/", "/data-file-index.txt", "/sql-wasm.wasm", "/favicon", "/apple-touch-icon", "/site.webmanifest", "/manifest.webmanifest", "/android-chrome-", "/maskable-", "/shortcut-", "/mstile-", "/browserconfig.xml"} {
+		for _, quote := range []string{"\"", "'", "`", "("} {
+			body = strings.ReplaceAll(body, quote+p, quote+base+p)
+		}
 	}
+	for _, quote := range []string{"\"", "'", "`"} {
+		body = strings.ReplaceAll(body, quote+"static/", quote+strings.TrimPrefix(base, "/")+"/static/")
+	}
+	body = strings.ReplaceAll(body, "publicUrl:`/`.slice(0,-1)", "publicUrl:"+strconvQuote(base))
+	body = strings.ReplaceAll(body, "baseURL=`/`", "baseURL="+strconvQuote(base+"/"))
+	body = strings.ReplaceAll(body, "if(!avoidUpload&&!testMode)try{await upload()}", "if(!testMode){await saveSyncedPrefs({id:`defaultCurrencyCode`,value:`GBP`});await saveSyncedPrefs({id:`flags.currency`,value:`true`});await saveSyncedPrefs({id:`numberFormat`,value:`comma-dot`});await saveSyncedPrefs({id:`dateFormat`,value:`dd/MM/yyyy`})}if(!avoidUpload&&!testMode)try{await upload()}")
 	body = strings.ReplaceAll(body, "let serverURL=window.location.origin,", "let serverURL=window.location.origin+"+strconvQuote(base)+",")
 	body = strings.ReplaceAll(body, "setUrl(window.location.origin)", "setUrl(window.location.origin+"+strconvQuote(base)+")")
 	body = strings.ReplaceAll(body, "BrowserRouter,{children:", "BrowserRouter,{basename:"+strconvQuote(base)+",children:")
 	body = strings.ReplaceAll(body, "${window.location.origin}/enablebanking/auth_callback", "${window.location.origin}"+base+"/enablebanking/auth_callback")
+	body = strings.ReplaceAll(body, "<title>Actual</title>", "<title>My Finance</title>")
+	body = strings.ReplaceAll(body, ", minimum-scale=1, maximum-scale=1, user-scalable=no", "")
 	return body
 }
 func strconvQuote(s string) string { b, _ := json.Marshal(s); return string(b) }
-func bridgeJS(base string) string  { return `document.title='My Finance · Actual Budget';` }
+func bridgeJS(base, identity string) string {
+	return `(()=>{const base=` + strconvQuote(base) + `,expected=` + strconvQuote(identity) + `;const check=()=>fetch(base+'/api/me',{cache:'no-store',headers:{'X-Workspace-Expected-Account':expected}}).then(r=>{if(r.status===401||r.status===409)location.replace(base+'/')}).catch(()=>{});window.addEventListener('focus',check);document.addEventListener('visibilitychange',()=>{if(!document.hidden)check()});setInterval(check,15000)})();`
+}
 
 func unpack(data, digest string) (string, error) {
 	exe, e := os.Executable()
@@ -340,7 +383,9 @@ func unpack(data, digest string) (string, error) {
 		return "", errors.New("Finance runtime checksum mismatch")
 	}
 	root := filepath.Join(data, "engine", hex.EncodeToString(sum[:8]))
-	if e=safeAncestors(root);e!=nil{return "",e}
+	if e = safeAncestors(root); e != nil {
+		return "", e
+	}
 	if _, e = os.Stat(filepath.Join(root, ".complete")); e == nil {
 		return root, nil
 	}

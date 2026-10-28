@@ -47,5 +47,9 @@ Only native budget exports are accepted: no server credential database is copied
 The user exports a budget through Actual, encrypts it in Finance, and restores by
 decrypting and importing into a fresh Actual budget. Owner-only My Drive copies use
 a configured dedicated folder, with link/traversal checks; no automatic per-user Drive
-mapping is presumed. Scheduled snapshots require a protected recovery key design
-and are not enabled merely by installing the app.
+mapping is presumed. Optional daily server snapshots quiesce native requests, use
+SQLite online backup for metadata, scrub credentials/sessions from that copy and
+retain opaque native budget/sync files. An authenticated encrypted manifest records
+allowed paths and SHA256. Scheduling requires explicit CurrentUser DPAPI recovery
+key consent and remains disabled on installation. Clean CLI restore refuses existing
+budget history. Daily/weekly/monthly retention deletes only hash-receipted copies.
