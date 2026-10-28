@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "sourceCommit": "f85eeab221c9ec435f945b09532f81634856093a",
+  "version": "0.1.0-preview.1",
+  "runtimeSHA256": "f3c4675bf401042356310325a35de736de3c7b2f53aab2e74b611839f98da3ca",
+  "executableSHA256": "3eb8a47edded3df880136197815bfbd099d8b27a164538dba172c15edc0af1ed",
+  "portableSHA256": "ff42aa929855eaf0422a4f1ba55857b10ae54edb8b5e84c325d719b7ac3b9004",
+  "anonymousDownloadVerified": true,
+  "defenderFinalExecutable": "no threats",
+  "restartMigrationRegression": true,
+  "finalLedgerChecks": 10,
+  "finalHouseholdChecks": 6,
+  "finalSnapshotChecks": 6,
+  "officialProviderSandbox": false,
+  "liveBank": false,
+  "ownerInstallationsComplete": false
+}

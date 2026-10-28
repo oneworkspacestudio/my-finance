@@ -7,8 +7,8 @@ Neither owner installation has been modified by this Finance task yet.
 
 The hash-pinned candidate launcher ran against fresh NTFS data with runtime SHA256
 `f3c4675bf401042356310325a35de736de3c7b2f53aab2e74b611839f98da3ca`.
-The earlier hand-edited diagnostic runtime is excluded. Final released launcher
-and managed acceptance remain to be recorded.
+The earlier hand-edited diagnostic runtime is excluded. Release1 final launcher f85eeab and anonymous portable download are verified;
+real local managed OneAccount acceptance passes. Owner delivery remains pending.
 
 | ID | Result | Evidence and remaining limit |
 |---|---|---|
@@ -30,9 +30,9 @@ and managed acceptance remain to be recorded.
 | FIN-16 | PASS | Native CSV applied import gives Grocer -1234p / Refund +250p and correct 122472p balance. |
 | FIN-17 | PASS (local) | Export encrypt/decrypt byte-identical; clean import preserves ledger/categories/balances/budget. Snapshot/My Drive encrypted copies match; browser-closed scheduled run and clean CLI restore pass; overwrite refused. Managed Drive browsing pending. |
 | FIN-18 | PASS (local) | File ACL and owner-only bank/backup/snapshot/private-primitive/admin guards exercised. Real local MyAccounts member checks also pass. |
-| FIN-19 | PARTIAL | Go tests/vet pass. govulncheck: zero affected symbols/imported-package vulnerabilities; three unreachable required-module records. npm: zero high/critical, three moderate records through disabled Akahu/uuid. Final artifact sweep pending. |
+| FIN-19 | PARTIAL | Go tests/vet pass. govulncheck: zero affected symbols/imported-package vulnerabilities; three unreachable required-module records. npm: zero high/critical, three moderate records through disabled Akahu/uuid. Defender candidate-directory and rebuilt final executable scans found no threats. Public asset size/SHA256 and anonymous portable download verified. |
 | FIN-20 | PARTIAL | Welcome/native 360px and 768px have no document overflow; screenshots reviewed. Full keyboard-only editing pending. |
-| FIN-21 | PARTIAL | Native API restart/clean server restore preserve data. Installer sidecar selection regression fixed/tested. Final update/rollback, reboot/power-loss pending. |
+| FIN-21 | PARTIAL | Native API restart/clean server restore preserve data. Installer sidecar selection regression fixed/tested. Launcher interruption/restart exposed and fixed ordered-migration downgrade rejection; restart regression and final ledger/snapshot checks pass. Owner update/rollback and reboot/power-loss pending. |
 | FIN-22 | NOT TESTED | Public HTTPS callbacks not tested. Real local MyAccounts redirect observed; banking needs provider application/consent. |
 
 ## Tests

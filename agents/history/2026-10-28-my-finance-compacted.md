@@ -193,3 +193,12 @@ latest supported schema, skips already applied steps, and still refuses future
 schema3. Regression closes/reopens the store and verifies settings preserved and
 future-schema rejection. All Go tests pass. Old AppRelease/Final binaries built
 from0ce5731 are NOT releasable; rebuild and rerun restart/ledger/snapshot checks.
+
+Release1 is now PUBLIC at tagv0.1.0-preview.1 from f85eeab. Final executable
+SHA3eb8a47edded3df880136197815bfbd099d8b27a164538dba172c15edc0af1ed,
+portable104778580bytes SHAff42aa929855eaf0422a4f1ba55857b10ae54edb8b5e84c325d719b7ac3b9004.
+All ten uploaded asset sizes/GitHub digests checked; anonymous download matches.
+Full source/licences/Actual+HyperFormula preferred sources provided. Final fixed
+launcher boots existing schema2 data; ledger10/ACL6/snapshot6 checks pass. Defender
+old candidate directory and final rebuilt executable found no threats. Nothing
+installed on owner hosts yet. Suite100 publication/delivery still outstanding.
