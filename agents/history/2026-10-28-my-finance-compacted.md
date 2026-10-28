@@ -181,3 +181,8 @@ Then normal backed-up primary + DESKTOP-Workstation installs, preservation recei
 User confirmed DESKTOP-Workstation is workspace-2 and will unlock Chrome Remote
 Desktop PIN themselves. Own tab585734450 marked handoff. Do not claim remote access
 until connected. No credential guessing. No Actions, no subagents.
+
+Suite97 became public during work; current main also adds Forms using base+33.
+Finance moves to base+34/default9024 and minimum planned Workspace100 to avoid
+concurrent release collisions. App compatibility updated; final binary must
+record the latest clean commit. Suite rebase preserves Forms/Drive broker paths.

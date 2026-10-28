@@ -6,7 +6,7 @@
   "route": "/finance",
   "callback": "/finance/auth/callback",
   "workspaceInstallerIntegration": 2,
-  "minimumWorkspaceVersion": "0.3.0-preview.97",
+  "minimumWorkspaceVersion": "0.3.0-preview.100",
   "dataDirectory": "finance",
   "ledger": "Actual Budget 26.10.0",
   "headlessBankSync": false,
