@@ -1,11 +1,12 @@
-# Acceptance evidence — Windows preview, 28 October 2026
+# Acceptance evidence — Windows preview, 28–29 October 2026
 
 This working preview is under final managed-install acceptance. It is **not a
 complete pass of the master brief**. No official provider sandbox or live banking
 account was used. All users, transactions, statements and screenshots are fictional.
 The primary Windows installation now runs Workspace100/Finance1 after its normal
-protected offline update. Suite publication is still uploading at this checkpoint;
-the exact installed candidate hashes will be reconciled with the published assets.
+protected offline update. Suite100 is public: all30 assets match local hashes,
+the installed candidate matches those published bytes, and the exact anonymous
+update channel and installer check pass.
 DESKTOP-Workstation delivery is deferred at the user's request while this PC finishes.
 
 The hash-pinned candidate launcher ran against fresh NTFS data with runtime SHA256

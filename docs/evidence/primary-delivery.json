@@ -5,7 +5,7 @@
   "installedFromExactOfflineCandidate": true,
   "existingPackagesCompared": 143,
   "schema": 1,
-  "publicPromotionPending": true,
+  "publicPromotionPending": false,
   "unselectedAppContractsAndPackageBytesRetained": true,
   "verifiedBackupReceiptPresent": true,
   "ownerSettingsAndExistingCredentialsRetained": true,
@@ -17,5 +17,7 @@
   "rebootAcceptance": false,
   "unselectedPackagesRetained": 138,
   "existingAppsCompared": 30,
-  "officialBankProviderAcceptance": false
+  "officialBankProviderAcceptance": false,
+  "publicInstalledBytesReconciled": true,
+  "anonymousPublicUpdaterVerified": true
 }

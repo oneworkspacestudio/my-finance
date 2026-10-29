@@ -1,0 +1,190 @@
+{
+  "schema": 1,
+  "tag": "v0.3.0-preview.100",
+  "draft": false,
+  "sourceCommit": "effdc0e7bd8acca50dad0f7371aa5c6e2099f5ae",
+  "everyPublishedAssetMatchesLocal": true,
+  "anonymousPublicChannelVerified": true,
+  "assets": [
+    {
+      "name": "Actual-26.10.0-source.zip",
+      "size": 59799533,
+      "sha256": "aeefc682921f89f49a8ce2f848e3556d4cec72b19be7148e26daadf0bdb062b0",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/Actual-26.10.0-source.zip"
+    },
+    {
+      "name": "ANDROID-BUILD.json",
+      "size": 656,
+      "sha256": "5b3ff2bdcc3995b5485492575addc2f428357ad4fded829bba5aed5b0ffa7a36",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/ANDROID-BUILD.json"
+    },
+    {
+      "name": "ANDROID-LICENSE.txt",
+      "size": 11558,
+      "sha256": "1eb85fc97224598dad1852b5d6483bbcf0aa8608790dcc657a5a2a761ae9c8c6",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/ANDROID-LICENSE.txt"
+    },
+    {
+      "name": "ANDROID-NOTICES.txt",
+      "size": 1061,
+      "sha256": "93d92561cf2a83fb1fea6d020486abf695091e6616e3a3cb588520fe084bbed4",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/ANDROID-NOTICES.txt"
+    },
+    {
+      "name": "ANDROID-SIGNATURE.txt",
+      "size": 985,
+      "sha256": "0af5e3bcad7d74c11ff3ac9bf765e7b61222a9d32d23089c5f90980e4f3cb9bf",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/ANDROID-SIGNATURE.txt"
+    },
+    {
+      "name": "ANDROID.md",
+      "size": 7792,
+      "sha256": "1f2a96fb02b2ea3520effa0e25da086beb366d49c1537718a1c68e90d3f83c52",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/ANDROID.md"
+    },
+    {
+      "name": "BACKUPS.md",
+      "size": 8195,
+      "sha256": "70689385e63b69ff6b2b7ec7ba061c1e18f3c4f39fd64aa3242a4796137975a4",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/BACKUPS.md"
+    },
+    {
+      "name": "build-info.json",
+      "size": 557,
+      "sha256": "e8500533f057c6712e758873e9b2890a7e5889b1320e13174d111af4fb27d621",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/build-info.json"
+    },
+    {
+      "name": "bundle-verification.json",
+      "size": 410,
+      "sha256": "82a2bdb838d55f7607eef5d160c0499eeee117e2cd58d70f422398cfeda77cff",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/bundle-verification.json"
+    },
+    {
+      "name": "catalog.json",
+      "size": 57332,
+      "sha256": "6295b85fab7efa509f362933eb44a05bdbfedc3334783c48b33170d9eccdc0d7",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/catalog.json"
+    },
+    {
+      "name": "HyperFormula-3.5.0-source.zip",
+      "size": 2921182,
+      "sha256": "b06652e52b6594c3c160bffced73063e62e1df81e2ac5432baaebf93d7a91352",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/HyperFormula-3.5.0-source.zip"
+    },
+    {
+      "name": "KNOWN-LIMITATIONS.md",
+      "size": 80073,
+      "sha256": "8604a5c3cdeec1dbe4b46be3ba8dcd996727d26f46d4499cf6432ee94457a9e3",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/KNOWN-LIMITATIONS.md"
+    },
+    {
+      "name": "LICENSE.txt",
+      "size": 11558,
+      "sha256": "1eb85fc97224598dad1852b5d6483bbcf0aa8608790dcc657a5a2a761ae9c8c6",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/LICENSE.txt"
+    },
+    {
+      "name": "my-finance-source.zip",
+      "size": 486016,
+      "sha256": "facfb69fea4dd3837c9021ce1835b98603262e551403d21722d46857a1821d04",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/my-finance-source.zip"
+    },
+    {
+      "name": "MY-SHIELD.md",
+      "size": 3085,
+      "sha256": "4a6c35871a8fe2df840deb7d0251cb08996932afd0b55fd1f0d8d9a918c85d8c",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/MY-SHIELD.md"
+    },
+    {
+      "name": "MY_FINANCE.md",
+      "size": 2545,
+      "sha256": "a9235c15fdb21738761c02506fd0681763838cca94af638262383b3e7e008c3b",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/MY_FINANCE.md"
+    },
+    {
+      "name": "NOTICE.txt",
+      "size": 664,
+      "sha256": "ba5d1ffddbef7cfd9ff5aabab279657194dbb1deab201ca981a546237f8977bc",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/NOTICE.txt"
+    },
+    {
+      "name": "one-workspace-source.zip",
+      "size": 16266857,
+      "sha256": "d05dd41e10a90f7f4bd3105dd37c8966c0adc079887332ccdc5bbe8f28f8a59f",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/one-workspace-source.zip"
+    },
+    {
+      "name": "OneWorkspace-Android-0.1.0-preview.6.apk",
+      "size": 13278715,
+      "sha256": "6adc13fa722b4aea9fdf3cbfb53c84705b09284b3ce661d4a89c4dedc2415b63",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/OneWorkspace-Android-0.1.0-preview.6.apk"
+    },
+    {
+      "name": "OneWorkspace-Android-source.zip",
+      "size": 755181,
+      "sha256": "0c11a9d37c5d7387aa774ba22cbc561517edc0029a0580d62627391f697ad1d7",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/OneWorkspace-Android-source.zip"
+    },
+    {
+      "name": "organization-components.json",
+      "size": 11864,
+      "sha256": "1ea3f8395f48325bd5c4e6ca6cb94b42ec9c6a981542d2f0205dbc8bcc5c0e17",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/organization-components.json"
+    },
+    {
+      "name": "RELEASE-STATUS.md",
+      "size": 80073,
+      "sha256": "8604a5c3cdeec1dbe4b46be3ba8dcd996727d26f46d4499cf6432ee94457a9e3",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/RELEASE-STATUS.md"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "size": 2523,
+      "sha256": "89b87fff30fe745c1efd47bd9adc9d363d1b5e7e3d5251254b541598081a203b",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/SHA256SUMS.txt"
+    },
+    {
+      "name": "SIGN-IN.md",
+      "size": 7224,
+      "sha256": "0ebe62291defaa1d727d6615a0b40bac413f8815a6a6904e239998c437e2123b",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/SIGN-IN.md"
+    },
+    {
+      "name": "SOURCE-MANIFEST.json",
+      "size": 5849,
+      "sha256": "5842e5c5ff267e877392e10ce63cc7d1f9e4d57be2af54a8f7201e8239cd041d",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/SOURCE-MANIFEST.json"
+    },
+    {
+      "name": "UPDATE-CLEANUP.md",
+      "size": 4119,
+      "sha256": "491742295ecdcaebf0865188152834901369cf6fb70b1a8bdb029ae2b1b4cf64",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/UPDATE-CLEANUP.md"
+    },
+    {
+      "name": "UPDATES.md",
+      "size": 19732,
+      "sha256": "657d73060d97d74566733465ea7e44599722696f790928b539825c60917bf68c",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/UPDATES.md"
+    },
+    {
+      "name": "workspace-bundle.zip",
+      "size": 1224659242,
+      "sha256": "28b248b7f56051bb908ab718dcbd92c352a0ae66178f9099b4411a1888ba5566",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/workspace-bundle.zip"
+    },
+    {
+      "name": "Workspace.exe",
+      "size": 17475584,
+      "sha256": "528595d7d4e35e5cd0308460adcb4d3898ec507abe5fd5a5cde4f4ce2b5ecdea",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/Workspace.exe"
+    },
+    {
+      "name": "WorkspaceSetup-windows-amd64.exe",
+      "size": 1238519808,
+      "sha256": "e0f976a593d0d6b542f639d2c61900aeb190fb69c8782ecebeaeb1b937efc415",
+      "url": "https://github.com/oneworkspacestudio/one-workspace/releases/download/v0.3.0-preview.100/WorkspaceSetup-windows-amd64.exe"
+    }
+  ]
+}

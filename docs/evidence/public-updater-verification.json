@@ -1,0 +1,12 @@
+{
+  "indexPublishedAt": "2026-10-29T00:17:16.03118Z",
+  "anonymous": true,
+  "managerSHA256": "528595d7d4e35e5cd0308460adcb4d3898ec507abe5fd5a5cde4f4ce2b5ecdea",
+  "schema": 1,
+  "installedCandidateMatchesPublishedAssets": true,
+  "allThreeUpToDateWithoutErrors": true,
+  "workspace": "0.3.0-preview.100",
+  "installedManagerMatchesPublicSHA256": true,
+  "forms": "0.1.0-preview.2",
+  "finance": "0.1.0-preview.1"
+}

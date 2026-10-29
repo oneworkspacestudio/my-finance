@@ -241,3 +241,16 @@ and source-copy checks. All synthetic services stopped; owner services untouched
 by cleanup. User connected the other chat's reserved remote tab; this chat's own
 connection still needs PIN. User explicitly chose continue with local machine for
 now, so secondary installation remains deferred, never claim both completed.
+
+Final public delivery: Workspace v0.3.0-preview.100 is PUBLIC fromeffdc0e,
+30assets size/SHA verified, signed Android6 anonymous download verified. Supported
+publisher promoted exact raw-main index and pushed7ba2958. Independent public
+proof reconciles all assets and the exact installed candidate; anonymous installed
+updater reports Workspace100/Finance1/Forms2 current without errors. Primary
+receipt publicPromotionPending=false. App source/evidence pushed; final app1 tag
+stillf85eeab (no mutable release files). All source/artifacts retained on I; C task
+cache removed and synthetic services stopped. Live Finance/native entry remains
+open in Chrome. Primary startup setting remained as found (autostart=false).
+Secondary explicitly deferred by user; official banking sandbox/live, headless
+bank sync, clean-host/reboot/power-loss remain incomplete. No need to re-release
+or reinstall primary; continue secondary only when its own remote tab is unlocked.
