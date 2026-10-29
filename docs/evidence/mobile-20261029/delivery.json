@@ -1,0 +1,10 @@
+{
+  "existingCredentialsRetained": true,
+  "schema": 1,
+  "servedStylesMatchSource": true,
+  "finance": "0.1.0-preview.2",
+  "normalProtectedUpdate": true,
+  "ownerLedgerUsedAsFixture": false,
+  "allServicesRunning": true,
+  "otherAppContractsAndExecutablesRetained": true
+}
