@@ -1,0 +1,15 @@
+{
+  "secondPasswordRequired": false,
+  "ownerFinancialDataUsedAsTestFixture": false,
+  "officialBankProviderAcceptance": false,
+  "bankConnectionCreated": false,
+  "actual": "26.10.0",
+  "workspace": "0.3.0-preview.100",
+  "existingSignedInBrowserSessionReused": true,
+  "schema": 1,
+  "nativeServerOnline": true,
+  "finance": "0.1.0-preview.1",
+  "liveHTTPSWelcomeVerified": true,
+  "budgetCreated": false,
+  "nativeBudgetEntryScreenVerified": true
+}

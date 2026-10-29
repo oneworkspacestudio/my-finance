@@ -221,3 +221,23 @@ still96/30apps at last read; secondary Forms98/Forms2 per its handoff. Inspect a
 state before installing, preserving credentials/contracts/bytes and recovery.
 Chrome DESKTOP-Workstation remains at PIN; user must connect it personally. Do not
 claim both installations, provider sandbox/live, clean-host or reboot qualification.
+
+Primary protected installation96→100 completed on29OctoberUTC from exact verified
+offline effdc0e candidate while its GitHub upload continues. Normal updater verified
+1.47GB recovery, kept newest rollback, all31 services healthy. In-memory comparisons
+prove all30 old app contracts,143 package records checked/138 unselected payload
+bytes, all prior owner/settings/credentials retained. Finance1 EXE/runtime match
+public app release. Direct/public anonymous ledger denied, OneAccount configured,
+native engine running, deployed blue icon hash matches central source; Forms ready.
+Real Chrome HTTPS Finance welcome and native Actual entry reuse existing signed-in
+session without second password; no budget created or owner banking accessed.
+Sanitized delivery/runtime/browser/cleanup reports are under docs/evidence.
+
+Signed Android6 sourceeffdc0e SHA6adc13fa722b4aea9fdf3cbfb53c84705b09284b3ce661d4a89c4dedc2415b63.
+Supported publisher draft427317950 uploading remaining large assets; must verify
+public asset hashes/exact index/anonymous update check before announcing release.
+Retained candidate and source on I; removed own C cache only after process/reparse
+and source-copy checks. All synthetic services stopped; owner services untouched
+by cleanup. User connected the other chat's reserved remote tab; this chat's own
+connection still needs PIN. User explicitly chose continue with local machine for
+now, so secondary installation remains deferred, never claim both completed.

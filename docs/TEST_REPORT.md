@@ -3,17 +3,24 @@
 This working preview is under final managed-install acceptance. It is **not a
 complete pass of the master brief**. No official provider sandbox or live banking
 account was used. All users, transactions, statements and screenshots are fictional.
-Neither owner installation has been modified by this Finance task yet.
+The primary Windows installation now runs Workspace100/Finance1 after its normal
+protected offline update. Suite publication is still uploading at this checkpoint;
+the exact installed candidate hashes will be reconciled with the published assets.
+DESKTOP-Workstation delivery is deferred at the user's request while this PC finishes.
 
 The hash-pinned candidate launcher ran against fresh NTFS data with runtime SHA256
 `f3c4675bf401042356310325a35de736de3c7b2f53aab2e74b611839f98da3ca`.
 The earlier hand-edited diagnostic runtime is excluded. Release1 final launcher f85eeab and anonymous portable download are verified;
-real local managed OneAccount acceptance passes. Owner delivery remains pending.
+real local managed OneAccount acceptance passes. Primary delivery preserves all
+30 existing app contracts, 143 prior package records checked, 138 unselected package
+bytes and existing identity/hosting credentials. All31 services run; latest verified
+recovery is retained. The live HTTPS welcome/native entry uses the existing signed-in
+session without a second password. No owner budget or bank was used as a test fixture.
 
 | ID | Result | Evidence and remaining limit |
 |---|---|---|
 | FIN-01 | PARTIAL | Bundled Windows Node/native SQLite starts from fresh data; corrected managed installer includes runtime. Separate host without development tools not tested. |
-| FIN-02 | PASS (local) | Real local MyAccounts code/PKCE -> Finance -> native budget passes, with no second password; owner maps to ADMIN. |
+| FIN-02 | PASS (local/live entry) | Real local MyAccounts code/PKCE -> Finance -> native budget passes, with no second password; owner maps to ADMIN. Installed primary HTTPS welcome/native entry also reuses the existing signed-in browser session. |
 | FIN-03 | PASS (local) | BASIC member cannot list/download unshared file; sharing grants access and revocation denies it. Real local MyAccounts owner/member flow also passes. |
 | FIN-04 | PARTIAL | Anonymous/forged native tokens and missing mutation Origin denied. Real managed callback forgery and member logout denied; independent owner session retained. Expiry-by-clock acceptance pending. |
 | FIN-05 | PASS | Native account opens at 123456 pence; GBP/dates, monthly allocation and clean-store persistence verified. |
@@ -32,8 +39,8 @@ real local managed OneAccount acceptance passes. Owner delivery remains pending.
 | FIN-18 | PASS (local) | File ACL and owner-only bank/backup/snapshot/private-primitive/admin guards exercised. Real local MyAccounts member checks also pass. |
 | FIN-19 | PARTIAL | Go tests/vet pass. govulncheck: zero affected symbols/imported-package vulnerabilities; three unreachable required-module records. npm: zero high/critical, three moderate records through disabled Akahu/uuid. Defender candidate-directory and rebuilt final executable scans found no threats. Public asset size/SHA256 and anonymous portable download verified. |
 | FIN-20 | PARTIAL | Welcome/native 360px and 768px have no document overflow; screenshots reviewed. Keyboard Tab/Enter reaches Add New, edits notes/payment and saves exactly 101p; balance becomes 122371p. Full accessibility audit remains outstanding. |
-| FIN-21 | PARTIAL | Native API restart/clean server restore preserve data. Installer sidecar selection regression fixed/tested. Launcher interruption/restart exposed and fixed ordered-migration downgrade rejection; restart regression and final ledger/snapshot checks pass. Owner update/rollback and reboot/power-loss pending. |
-| FIN-22 | NOT TESTED | Public HTTPS callbacks not tested. Real local MyAccounts redirect observed; banking needs provider application/consent. |
+| FIN-21 | PARTIAL | Native API restart/clean server restore preserve data. Installer sidecar selection regression fixed/tested. Launcher interruption/restart exposed and fixed ordered-migration downgrade rejection; restart regression passes. Primary protected96→100 update retains all30 existing contracts,138 unselected package bytes and credentials; all31 services healthy,1.47GB recovery copy verified. Owner rollback/reboot/power-loss pending. |
+| FIN-22 | PARTIAL | Real local MyAccounts redirect observed; installed primary HTTPS welcome/native entry works with its existing signed-in session. Public bank callback/official provider consent remains unverified. |
 
 ## Tests
 

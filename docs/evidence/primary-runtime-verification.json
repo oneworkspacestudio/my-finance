@@ -1,0 +1,15 @@
+{
+  "ownerBudgetOpened": false,
+  "schema": 1,
+  "officialBankProviderAcceptance": false,
+  "ownerBrowserSSOVerified": false,
+  "formsReadinessPassed": true,
+  "anonymousLedgerDenied": true,
+  "manager": "0.3.0-preview.100",
+  "rebootAcceptance": false,
+  "managedOneAccountConfigured": true,
+  "finance": "0.1.0-preview.1",
+  "ownerBankAccountAccessed": false,
+  "deployedFinanceIconSHA256": "b36dc46ffcfd69b24df7c49792560a7ab281db72406773e369ffa79b835cf2d0",
+  "bundledNativeEngineRunning": true
+}

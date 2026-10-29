@@ -1,0 +1,21 @@
+{
+  "financeSHA256": "3eb8a47edded3df880136197815bfbd099d8b27a164538dba172c15edc0af1ed",
+  "normalProtectedWorkspaceUpdate": true,
+  "allServicesRunning": 31,
+  "installedFromExactOfflineCandidate": true,
+  "existingPackagesCompared": 143,
+  "schema": 1,
+  "publicPromotionPending": true,
+  "unselectedAppContractsAndPackageBytesRetained": true,
+  "verifiedBackupReceiptPresent": true,
+  "ownerSettingsAndExistingCredentialsRetained": true,
+  "previous": "0.3.0-preview.96",
+  "activeUpdate": false,
+  "finance": "0.1.0-preview.1",
+  "ownerBrowserSSOVerified": false,
+  "manager": "0.3.0-preview.100",
+  "rebootAcceptance": false,
+  "unselectedPackagesRetained": 138,
+  "existingAppsCompared": 30,
+  "officialBankProviderAcceptance": false
+}
