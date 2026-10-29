@@ -1,0 +1,18 @@
+{
+  "widths": [
+    320,
+    360,
+    390,
+    768,
+    1280
+  ],
+  "views": [
+    "home",
+    "banking",
+    "backup",
+    "security"
+  ],
+  "overflow": false,
+  "keyboardEscapePassed": true,
+  "fictionalProviderFixture": true
+}

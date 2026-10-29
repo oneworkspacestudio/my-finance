@@ -2,7 +2,7 @@
   "schema": 1,
   "id": "finance",
   "name": "My Finance",
-  "version": "0.1.0-preview.1",
+  "version": "0.1.0-preview.2",
   "route": "/finance",
   "callback": "/finance/auth/callback",
   "workspaceInstallerIntegration": 2,
