@@ -39,6 +39,8 @@ def main():
         raise SystemExit('Executable version does not match source')
     source = git('rev-parse', 'HEAD')
     old = json.loads((args.baseline / 'workspace-update.json').read_text())
+    if contract['workspaceInstallerIntegration'] != old['integration'] or contract['minimumWorkspaceVersion'] != old['minimumManager']:
+        raise SystemExit('Unchanged-runtime packaging requires the existing manager compatibility contract')
     baseline = args.baseline / old['packages']['finance']['asset']
     if old['repository'] != REPO or old['tag'] == 'v' + version:
         raise SystemExit('Use an earlier public Finance baseline')
@@ -78,7 +80,7 @@ def main():
     shutil.copyfile(args.exe, args.output / 'MyFinance.exe')
     shutil.copyfile(ROOT / 'compatibility.json', args.output / 'compatibility.json')
     info = json.loads((args.baseline / 'build-info.json').read_text())
-    info.update(commit=source, version=version, financeDataSchema=3,
+    info.update(commit=source, version=version, financeDataSchema=contract['financeDataSchema'],
                 aiProviders=['openai', 'deepseek'], liveAIProviderVerified=False)
     (args.output / 'build-info.json').write_text(json.dumps(info, indent=2), encoding='utf-8')
     subprocess.run(['git', '-C', str(ROOT), 'archive', '--format=zip',

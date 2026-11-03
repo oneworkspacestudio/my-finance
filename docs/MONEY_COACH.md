@@ -1,91 +1,116 @@
-# Money coach
+# Money manager
 
-Open **My Finance → Money coach** to turn income and spending into a plan.
-Actual remains your ledger. The coach never moves money, makes investments or
-changes your budget automatically.
+Open **My Finance → Money manager** to set monthly category allowances and keep
+savings and investment reserves out of your spending plan. Existing `#coach`
+links still work. Actual remains your ledger.
 
-1. Choose **Choose a budget** and open the budget you want to review in Actual.
-   Use the coach button there to bring back a summary of the last three complete
-   months. An encrypted budget must be unlocked by you in Actual first.
-2. Review the incoming/outgoing totals and categories. Incoming includes refunds
-   and other credits, so it is not a salary estimate. Internal transfers and
-   standard opening balances are excluded; check that all relevant accounts are present.
-   You can also start with monthly figures entered yourself.
-3. Enter essential monthly costs, money already reserved for emergencies, debt
-   status and savings goals. Include irregular bills and commitments not captured
-   in the reviewed months. Calculate a plan without contacting an AI provider.
-4. For an explanation, choose OpenAI or DeepSeek and save your own API key. Each
-   household member has separate settings and keys. A saved key can be removed.
-5. Review the exact information shown in the send preview, tick the consent box
-   and request AI guidance. Your provider charges your account for the request.
-   Saving a key does not make any paid API call.
+## Using the manager
 
-The plan uses integer pence. Planning income uses the lower of the observed
-average and lowest monthly incoming amount. It reserves the greater of average outgoings and your stated essential costs
-before allocating surplus. Goals show the monthly amount needed, the affordable amount
-and the estimated time to reach them without assuming investment returns.
-If income is short or your financial context is incomplete, the plan says so.
+1. Choose a budget, open/unlock it in Actual and use native **Sync**. Select
+   **Use this budget** to bring back complete-month history and this month's
+   spending through today. Only totals return. A new budget with no complete-month
+   transactions needs manual estimates until it has historical income to plan from.
+2. Review totals, essential costs, emergency savings, debt, horizon and goals.
+   Incoming includes refunds and other credits, so check irregular amounts.
+3. Review category rules. New categories default to essential to protect bills.
+   Mark adjustable categories flexible. A blank target uses historical spending;
+   zero means a deliberate zero target. Set desired monthly savings, investments
+   and a cash buffer. Savings here are additional to your named goals.
+4. The manager automatically recalculates on summary and rule changes. It shows
+   allowances, spent/remaining money, overspending, reserves and funding gaps.
+   Save rules explicitly to remember them for this budget and OneAccount user.
+   Next visit, select the budget again to refresh figures and load saved rules.
+   Remove saved rules or download a private plan whenever you want.
 
-Buckets are proposed envelopes, not bank accounts. Review the suggested amounts
-and create categories/category groups and targets in Actual, or adapt existing
-ones. Only budget money you actually have; future monthly income is a planning
-estimate. Transfers between your own accounts do not create income.
+This is a monthly plan, **not a bank balance or cash available today**. Planning
+income uses the lowest incoming month in the selected period, and might not have
+arrived yet. Spending is a snapshot as of its displayed date, not a live bank
+feed. Refresh after native sync/import and when the month changes. Check upcoming
+bills and money actually held before spending or setting up transfers.
 
-Native Actual identifies starting balances by their usual payee/category label.
-If you renamed or translated those labels, check the reviewed totals: an opening
-balance may appear as an incoming credit or outgoing amount. Tracking/off-budget
-accounts are excluded. Check irregular credits before treating them as reliable
-income and committing to a savings schedule.
+## Allocation rules
 
-Investment readiness is an educational checklist. It considers data coverage,
-cash flow, emergency savings, debt, time horizon and risk. It does not assess
-product suitability or recommend particular funds, shares, platforms, tax
-wrappers or trades. Returns are not guaranteed and investments can lose value.
-For personal investment decisions, consider a regulated financial adviser.
+Integer-pence arithmetic protects essential requirements and already-incurred
+spending first. Essentials above configured category costs create an additional
+reserve. Funding gaps remain visible. Priority debt/emergency savings precede
+general savings and ordered goals, eligible investment reservations and the cash
+buffer. Flexible categories share remaining funds up to their targets with
+deterministic penny rounding. Total funded allocations cannot exceed planning
+income. Already-spent money cannot be reused for saving. Investment reservations
+respect the requested cash cushion. A category can remain over its original
+target even when the plan must fund that spending.
 
-## What leaves your computer
+The emergency estimate starts at three months of essentials. Debt, emergency
+funding, recent history, horizon and risk answers gate investment reservations.
+This checklist does not establish product suitability. Reserved savings and
+investments are unavailable for spending **in this plan**; the app does not move
+cash, trade or write Actual budgets. Apply the plan in Actual to money you have.
+Check existing savings and pension payments to avoid counting them twice.
 
-The native bridge reads the open budget in your browser. It returns only monthly
-and category totals and transaction/exclusion counts. It never sends payees,
-transaction notes, bank/account identifiers or raw transactions to the coach
-server. A short-lived, account-bound sessionStorage handoff is deleted on receipt.
+Transfers and off-budget/tracking accounts are excluded. Actual has no stable
+opening-balance flag: renamed/translated opening-balance labels can be included,
+so check unusual totals. Category names are combined case-insensitively. Review
+rules after renaming categories; absent categories' saved rules are ignored.
 
-Nothing is sent to OpenAI or DeepSeek until you consent for that request. The
-reviewed summary, financial context, goal labels, question and calculated plan
-then pass through the Finance server to your selected provider. Labels and your
-question can contain personal information, so review them too. Do not enter bank
-credentials, account numbers or information you do not want that provider to see.
+## AI proposals
 
-Keys are stored on the Windows server under your Windows account's DPAPI
-protection and your OneAccount user ID. Finance does not return them to the
-browser or store conversation history. OpenAI requests disable response storage
-with `store: false`; provider retention policies still apply. Finance's encrypted
-budget exports and credential-free server snapshots omit AI keys. A normal
-Workspace recovery copy can include the DPAPI-protected private database.
+Choose OpenAI or DeepSeek and save your own key. Review the exact payload and
+consent for each request. AI can propose category limits/classifications and
+savings/investment reserves, explain trade-offs and discuss UK options. Review
+and explicitly apply a proposal; the deterministic allocator then recalculates
+affordability. Save the resulting rules if you want to retain them. Models have
+no tools or ledger-write access. Provider requests are manual and charge your
+API account; calculation and rule saving do not contact providers.
 
-The service uses fixed provider addresses, bounded requests and responses,
-timeouts, per-user throttling and no automatic paid retry. If a provider is
-unavailable or returns an invalid response, your arithmetic plan still works.
-Neither provider's output is a verified financial fact; review the explanation
-against the figures and your current circumstances.
+## UK options
 
-## Sources and verification
+Guidance checked **3 November 2026**; this is general guidance rather than a
+regulated personal investment recommendation.
 
-Implementation references checked 3 November 2026:
+- Emergency money and near-term goals: consider accessible cash savings.
+  [MoneyHelper: saving or investing](https://www.moneyhelper.org.uk/en/savings/how-to-save/should-i-save-or-invest).
+- Retirement: check workplace pension employer matching and access restrictions.
+  Payroll contributions may already be deducted from the net pay in your budget.
+  [MoneyHelper: workplace pensions](https://www.moneyhelper.org.uk/en/pensions-and-retirement/pensions-basics/workplace-pensions).
+- Long-term surplus: compare a stocks-and-shares ISA and diversified fund types,
+  such as global index/tracker funds or multi-asset funds. A UK wrapper does not
+  mean UK-only shares. Check eligibility/current allowances on
+  [GOV.UK](https://www.gov.uk/individual-savings-accounts). Diversification cannot
+  prevent losses: [FCA guidance](https://www.fca.org.uk/investsmart/diversification).
+- Compare fund, platform, dealing and currency costs, access and loss capacity.
+  Check [FCA permissions](https://www.fca.org.uk/consumers/fca-firm-checker) and
+  consider regulated advice when choosing products. The app does not promise
+  returns, verify product suitability or recommend individual shares.
 
-- [OpenAI text generation and Responses API](https://developers.openai.com/api/docs/guides/text)
-- [OpenAI GPT-4.1 mini](https://developers.openai.com/api/docs/models/gpt-4.1-mini)
-- [DeepSeek chat completions](https://api-docs.deepseek.com/api/create-chat-completion/)
-- [DeepSeek JSON output](https://api-docs.deepseek.com/guides/json_mode/)
-- [DeepSeek model names](https://api-docs.deepseek.com/quick_start/pricing/)
+Current rates, tax allowances and security prices are not hard-coded. Follow
+official links for rules that can change.
 
-The educational guidance uses MoneyHelper's
-[emergency savings guide](https://www.moneyhelper.org.uk/en/savings/types-of-savings/emergency-savings-how-much-is-enough)
-and [investing introduction](https://www.moneyhelper.org.uk/en/savings/investing/investing-beginners-guide).
-An accessible emergency buffer of three to six months of essential costs is a
-general rule of thumb, not an individual recommendation. The app uses three
-months as its initial calculation and highlights uncertainty.
+## Privacy and recovery
 
-Provider adapters are tested with synthetic responses. No paid provider account
-or real financial data was used as a test fixture. Model availability, quota and
-billing are determined by your provider account.
+Only monthly/current/category totals and exclusion counts leave the native
+browser bridge; payees, notes, account identifiers and transactions do not.
+The short-lived account-bound sessionStorage handoff is consumed and deleted.
+A digest of the budget ID scopes saved rules and is not sent to the AI provider.
+
+Saved profiles/rules contain financial context and possibly private goal labels.
+They are explicitly saved with Windows CurrentUser DPAPI, per user and budget,
+in Finance's private database. API keys are separately protected and never
+returned to the browser. Shared budget members do not share manager rules.
+Finance's credential-free snapshots and native exports omit rules/keys; normal
+Workspace recovery can include their protected database. Another Windows account
+must enter them again. Working summaries and model answers are not persisted.
+
+Each consented AI request sends the reviewed summary/current snapshot, profile,
+calculated plan and question. Review labels/questions too. OpenAI sets
+`store:false`; provider retention terms still apply. Fixed HTTPS endpoints,
+bounded data, timeouts, throttling and no automatic paid retry limit exposure.
+AI failure leaves arithmetic available. Output is untrusted plain text; bounded
+proposals must use known category names and require explicit application.
+
+Adapters use fictional data and synthetic responses in acceptance tests. Live
+model availability, quota and billing depend on the user's key.
+
+API references: [OpenAI](https://developers.openai.com/api/docs/guides/text),
+[GPT-4.1 mini](https://developers.openai.com/api/docs/models/gpt-4.1-mini),
+[DeepSeek](https://api-docs.deepseek.com/api/create-chat-completion/),
+[DeepSeek JSON](https://api-docs.deepseek.com/guides/json_mode/).

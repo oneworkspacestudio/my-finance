@@ -26,16 +26,34 @@ function addMinor(a, b) {
   return result;
 }
 
+function localDate(now) {
+  if (!(now instanceof Date) || !Number.isFinite(+now)) throw Error('The current date is unavailable.');
+  return [now.getFullYear(), String(now.getMonth() + 1).padStart(2, '0'), String(now.getDate()).padStart(2, '0')].join('-');
+}
+
+function categoryLabel(value) {
+  return [...String(value || 'Uncategorised').replace(/[\u0000-\u001f\u007f]/g, ' ').trim()].slice(0, 80).join('') || 'Uncategorised';
+}
+
+const sortedCategories = totals => [...totals.values()].sort((a, b) => b.outgoingMinor - a.outgoingMinor || a.name.localeCompare(b.name));
+
 export function aggregateBudget({ accounts, categories, payees, transactions, currency }, from, to, now = new Date()) {
-  if (currency !== 'GBP') throw Error('Money coach currently supports GBP budgets. Set and verify the budget currency before continuing.');
+  if (currency !== 'GBP') throw Error('Money manager currently supports GBP budgets. Set and verify the budget currency before continuing.');
   for (const items of [accounts, categories, payees, transactions]) if (!Array.isArray(items)) throw Error('The budget could not be read completely.');
   if (transactions.length > 100000) throw Error('Choose a shorter period with fewer than 100,000 transaction lines.');
   const months = periodMonths(from, to, now).map(month => ({ month, incomeMinor: 0, outgoingMinor: 0 }));
   const monthMap = new Map(months.map(m => [m.month, m]));
+  const asOf = localDate(now), currentStart = asOf.slice(0, 7) + '-01';
+  const current = { month: asOf.slice(0, 7), asOf, incomeMinor: 0, outgoingMinor: 0, categories: [] };
   const accountMap = new Map(accounts.map(a => [a.id, a]));
   const categoryMap = new Map(categories.map(c => [c.id, c]));
   const payeeMap = new Map(payees.map(p => [p.id, p]));
   const totals = new Map();
+  const currentTotals = new Map(), categoryNames = new Map();
+  for (const category of categories) {
+    const name = categoryLabel(category.name), key = name.toLowerCase();
+    if (!categoryNames.has(key)) categoryNames.set(key, name);
+  }
   const seen = new Set();
   let transactionCount = 0, excludedTransfers = 0;
   const rows = [];
@@ -53,31 +71,34 @@ export function aggregateBudget({ accounts, categories, payees, transactions, cu
   for (const row of rows) {
     if (!row || typeof row.id !== 'string' || seen.has(row.id)) throw Error('The budget returned duplicate or invalid transaction lines.');
     seen.add(row.id);
-    if (row.tombstone || row.date < from || row.date > to) continue;
+    if (row.tombstone || row.date < from || row.date > asOf) continue;
     if (!/^\d{4}-\d{2}-\d{2}$/.test(row.date || '')) throw Error('A transaction has an invalid date.');
     const transactionDate = new Date(row.date + 'T00:00:00Z');
     if (!Number.isFinite(+transactionDate) || transactionDate.toISOString().slice(0, 10) !== row.date) throw Error('A transaction has an invalid date.');
-    const month = monthMap.get(String(row.date).slice(0, 7));
-    if (!month) throw Error('A transaction has an invalid date.');
+    const isCurrent = row.date >= currentStart;
+    const month = isCurrent ? current : monthMap.get(String(row.date).slice(0, 7));
+    // A requested older historical period may have a gap before this month.
+    if (!month) continue;
     const account = accountMap.get(row.account);
     if (!account) throw Error('A transaction account could not be verified.');
     if (account.offbudget) continue;
     const payee = payeeMap.get(row.payee), category = categoryMap.get(row.category);
-    if (row.transfer_id || payee?.transfer_acct) { excludedTransfers++; continue; }
+    if (row.transfer_id || payee?.transfer_acct) { if (!isCurrent) excludedTransfers++; continue; }
     if (payee?.name?.trim().toLowerCase() === 'starting balance' || category?.is_income && category.name?.trim().toLowerCase() === 'starting balances') continue;
     if (!Number.isSafeInteger(row.amount)) throw Error('A transaction has an invalid amount.');
     if (row.amount === 0) continue;
     // Incoming credits include refunds; no inference that every credit is earnings.
-    const name = [...String(category?.name || 'Uncategorised').replace(/[\u0000-\u001f\u007f]/g, ' ').trim()].slice(0, 80).join('') || 'Uncategorised';
-    const key = name.toLowerCase();
-    if (!totals.has(key)) totals.set(key, { name, incomeMinor: 0, outgoingMinor: 0 });
-    if (totals.size > 200) throw Error('This period has more than 200 active categories. Choose a shorter period.');
-    const bucket = totals.get(key), field = row.amount > 0 ? 'incomeMinor' : 'outgoingMinor';
+    const rawName = categoryLabel(category?.name), key = rawName.toLowerCase(), name = categoryNames.get(key) || rawName;
+    const targetTotals = isCurrent ? currentTotals : totals;
+    if (!targetTotals.has(key)) targetTotals.set(key, { name, incomeMinor: 0, outgoingMinor: 0 });
+    if (targetTotals.size > 200) throw Error('This period has more than 200 active categories. Review category grouping before continuing.');
+    const bucket = targetTotals.get(key), field = row.amount > 0 ? 'incomeMinor' : 'outgoingMinor';
     month[field] = addMinor(month[field], Math.abs(row.amount));
     bucket[field] = addMinor(bucket[field], Math.abs(row.amount));
-    transactionCount++;
+    if (!isCurrent) transactionCount++;
   }
-  return { source: 'actual', currency, months, categories: [...totals.values()].sort((a, b) => b.outgoingMinor - a.outgoingMinor || a.name.localeCompare(b.name)), transactionCount, excludedTransfers };
+  current.categories = sortedCategories(currentTotals);
+  return { source: 'actual', currency, months, categories: sortedCategories(totals), transactionCount, excludedTransfers, current };
 }
 
 const workerReaders = new WeakMap();
@@ -110,20 +131,27 @@ export function workerReader(worker) {
 }
 
 export async function readNativeSummary(read, authorise, request, now = new Date()) {
+  return (await readNativeSnapshot(read, authorise, request, now)).summary;
+}
+
+export async function readNativeSnapshot(read, authorise, request, now = new Date()) {
   periodMonths(request.from, request.to, now);
   const before = await read('load-prefs');
-  if (!before?.id || !before.cloudFileId) throw Error('Open your budget and sync it to this Finance server before using Money coach.');
+  if (!before?.id || !before.cloudFileId) throw Error('Open your budget and sync it to this Finance server before using Money manager.');
   if (request.expectedBudget && before.id !== request.expectedBudget) throw Error('The open budget changed. Review its name and try again.');
   await authorise(before.cloudFileId);
   const prefs = await read('preferences/get');
   const [accounts, categories, payees, transactions] = await Promise.all([
     read('api/accounts-get'), read('api/categories-get'), read('api/payees-get'),
-    read('api/transactions-get', { startDate: request.from, endDate: request.to })
+    read('api/transactions-get', { startDate: request.from, endDate: localDate(now) })
   ]);
   const after = await read('load-prefs');
   if (before.id !== after?.id || before.cloudFileId !== after?.cloudFileId) throw Error('The open budget changed. Select it again before continuing.');
   await authorise(after.cloudFileId);
-  return aggregateBudget({ accounts, categories, payees, transactions, currency: prefs?.defaultCurrencyCode }, request.from, request.to, now);
+  const summary = aggregateBudget({ accounts, categories, payees, transactions, currency: prefs?.defaultCurrencyCode }, request.from, request.to, now);
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(before.cloudFileId));
+  const budgetRef = [...new Uint8Array(digest)].map(value => value.toString(16).padStart(2, '0')).join('');
+  return { summary, budgetRef };
 }
 
 export function install({ base, expected }) {
@@ -137,16 +165,16 @@ export function install({ base, expected }) {
   try { periodMonths(request.from, request.to); } catch { sessionStorage.removeItem(REQUEST_KEY); return; }
   const show = () => {
     const tray = document.createElement('section');
-    tray.setAttribute('aria-label', 'Money coach budget selection');
+    tray.setAttribute('aria-label', 'Money manager budget selection');
     tray.style.cssText = 'position:fixed;z-index:100000;bottom:12px;left:12px;right:12px;max-width:560px;margin:auto;padding:14px;border:1px solid #c5d7e8;border-radius:14px;background:#fff;color:#172b3a;box-shadow:0 4px 24px #172b3a33;font:14px/1.45 system-ui;box-sizing:border-box';
-    const title = document.createElement('strong'); title.textContent = 'Choose a budget for Money coach';
+    const title = document.createElement('strong'); title.textContent = 'Choose a budget for Money manager';
     const status = document.createElement('p'); status.style.margin = '6px 0 10px'; status.setAttribute('role', 'status');
-    status.textContent = 'Open and unlock the budget you want, then continue. Only monthly and category totals will be carried back. Nothing is sent to an AI yet.';
+    status.textContent = 'Open and unlock the budget you want, then continue. Monthly and category totals, including this month so far, will be carried back. Nothing is sent to an AI yet.';
     const controls = document.createElement('div'); controls.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px';
     const use = document.createElement('button'); use.type = 'button'; use.textContent = 'Use this budget';
     const cancel = document.createElement('button'); cancel.type = 'button'; cancel.textContent = 'Cancel';
     const minimise = document.createElement('button'); minimise.type = 'button'; minimise.textContent = 'Minimise';
-    const restore = document.createElement('button'); restore.type = 'button'; restore.textContent = 'Money coach'; restore.hidden = true;
+    const restore = document.createElement('button'); restore.type = 'button'; restore.textContent = 'Money manager'; restore.hidden = true;
     for (const button of [use, cancel, minimise, restore]) button.style.cssText = 'min-height:44px;padding:9px 14px;border:1px solid #b9cbdc;border-radius:8px;font:600 14px/1.3 system-ui;cursor:pointer';
     restore.style.cssText += ';position:fixed;z-index:100000;right:12px;bottom:12px;background:#fff;color:#172b3a;box-shadow:0 2px 12px #172b3a33';
     minimise.onclick = () => { tray.hidden = true; restore.hidden = false; restore.focus(); };
@@ -157,7 +185,7 @@ export function install({ base, expected }) {
     const authorise = async fileId => {
       const options = { cache: 'no-store', headers: { 'X-Workspace-Expected-Account': expected } };
       const session = await fetch(base + '/api/me', options);
-      if (!session.ok || (await session.json()).user?.id !== expected) throw Error('Your sign-in changed or expired. Return to Money coach and sign in again.');
+      if (!session.ok || (await session.json()).user?.id !== expected) throw Error('Your sign-in changed or expired. Return to Money manager and sign in again.');
       const filesResponse = await fetch(base + '/ledger/sync/list-user-files', options);
       if (!filesResponse.ok) throw Error('Your budget access could not be verified. Connect to your Finance server and try again.');
       const files = await filesResponse.json();
@@ -171,7 +199,7 @@ export function install({ base, expected }) {
         const read = workerReader(await globalThis.Actual.getServerSocket()), prefs = await read('load-prefs');
         if (busy) return;
         displayedBudget = prefs?.id || '';
-        title.textContent = displayedBudget ? 'Selected budget: ' + String(prefs.budgetName || 'Untitled budget').slice(0, 120) : 'Choose a budget for Money coach';
+        title.textContent = displayedBudget ? 'Selected budget: ' + String(prefs.budgetName || 'Untitled budget').slice(0, 120) : 'Choose a budget for Money manager';
       } catch { displayedBudget = ''; } finally { polling = false; }
     };
     const nameTimer = setInterval(refreshName, 2000);
@@ -183,12 +211,12 @@ export function install({ base, expected }) {
       const selectedBudget = displayedBudget;
       busy = true; use.disabled = true; status.textContent = 'Reading the selected budget on this device…';
       try {
-        if (Date.now() - request.created > MAX_AGE) throw Error('This selection expired. Return to Money coach and choose a budget again.');
+        if (Date.now() - request.created > MAX_AGE) throw Error('This selection expired. Return to Money manager and choose a budget again.');
         if (!globalThis.Actual?.getServerSocket) throw Error('Wait for your budget to finish opening, then try again.');
         const worker = await globalThis.Actual.getServerSocket();
-        const summary = await readNativeSummary(workerReader(worker), authorise, { ...request, expectedBudget: selectedBudget });
+        const { summary, budgetRef } = await readNativeSnapshot(workerReader(worker), authorise, { ...request, expectedBudget: selectedBudget });
         if (disposed) return;
-        sessionStorage.setItem(SUMMARY_KEY, JSON.stringify({ nonce, account: expected, created: Date.now(), summary }));
+        sessionStorage.setItem(SUMMARY_KEY, JSON.stringify({ nonce, account: expected, created: Date.now(), summary, budgetRef }));
         sessionStorage.removeItem(REQUEST_KEY);
         location.assign(base + '/#coach');
       } catch (error) { status.textContent = error.message || 'Could not read this budget. Try again.'; busy = false; use.disabled = false; }

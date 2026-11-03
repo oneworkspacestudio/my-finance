@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { aggregateBudget, periodMonths, readNativeSummary, workerReader } from '../internal/finance/ui/coach-ledger.js';
+import { createHash } from 'node:crypto';
+import { aggregateBudget, periodMonths, readNativeSnapshot, readNativeSummary, workerReader } from '../internal/finance/ui/coach-ledger.js';
 
 const now = new Date('2026-11-03T12:00:00Z');
 const period = { from: '2026-08-01', to: '2026-10-31' };
@@ -36,7 +37,39 @@ test('summary uses integer gross flows, zero months and split children; excludes
   assert.equal(result.excludedTransfers, 2);
   assert.equal(result.categories.reduce((s, c) => s + c.incomeMinor, 0), 200100);
   assert.equal(result.categories.reduce((s, c) => s + c.outgoingMinor, 0), 2099);
-  for (const forbidden of ['Private note', 'Fictional card', 'private', 'salary1', 'current', 'starting']) assert.ok(!JSON.stringify(result).includes(forbidden));
+  for (const forbidden of ['Private note', 'Fictional card', 'private', 'salary1', 'starting']) assert.ok(!JSON.stringify(result).includes(forbidden));
+  assert.deepEqual(result.current, { month: '2026-11', asOf: '2026-11-03', incomeMinor: 500000, outgoingMinor: 0, categories: [{ name: 'Income', incomeMinor: 500000, outgoingMinor: 0 }] });
+});
+
+test('current month is separate, includes new categories and refunds, and excludes future/transfer/opening/tracking rows', () => {
+  const f = fixture();
+  f.categories.push({ id: 'health', name: 'Health' });
+  f.transactions.push(
+    { id: 'current-split', account: 'current', date: '2026-11-03', amount: -1234, is_parent: true, subtransactions: [
+      { id: 'current-food', amount: -1000, category: 'food' }, { id: 'current-health', amount: -234, category: 'health' }
+    ] },
+    { id: 'current-refund', account: 'current', date: '2026-11-03', amount: 50, category: 'food' },
+    { id: 'current-transfer', account: 'current', date: '2026-11-03', amount: -10000, payee: 'transfer', transfer_id: 'another-leg' },
+    { id: 'current-opening', account: 'current', date: '2026-11-03', amount: 50000, payee: 'starting' },
+    { id: 'current-tracking', account: 'investment', date: '2026-11-03', amount: 20000 },
+    { id: 'future-tomorrow', account: 'current', date: '2026-11-04', amount: -80000, category: 'bills' }
+  );
+  const result = aggregateBudget(f, period.from, period.to, now);
+  assert.equal(result.transactionCount, 5, 'historical count stays historical');
+  assert.equal(result.excludedTransfers, 2, 'historical exclusion count stays historical');
+  assert.equal(result.current.incomeMinor, 500050);
+  assert.equal(result.current.outgoingMinor, 1234);
+  assert.deepEqual(result.current.categories.find(c => c.name === 'Health'), { name: 'Health', incomeMinor: 0, outgoingMinor: 234 });
+  assert.equal(result.current.categories.reduce((n, c) => n + c.outgoingMinor, 0), result.current.outgoingMinor);
+  assert.equal(result.current.categories.reduce((n, c) => n + c.incomeMinor, 0), result.current.incomeMinor);
+  assert.ok(!result.categories.some(c => c.name === 'Health'), 'new current category does not change historical totals');
+});
+
+test('empty current month remains explicit and history gaps are not mistaken for current spending', () => {
+  const f = fixture(); f.transactions = f.transactions.filter(t => t.date < '2026-11-01');
+  const result = aggregateBudget(f, '2026-08-01', '2026-09-30', now);
+  assert.deepEqual(result.current, { month: '2026-11', asOf: '2026-11-03', incomeMinor: 0, outgoingMinor: 0, categories: [] });
+  assert.equal(result.categories.reduce((n, c) => n + c.outgoingMinor, 0), 2000);
 });
 
 test('invalid currency, duplicate rows, incomplete split and invalid amounts fail without a partial result', () => {
@@ -77,6 +110,25 @@ test('read-only bridge checks current cloud access twice and rejects a switched 
   let count = 0;
   await assert.rejects(readNativeSummary(async name => name === 'load-prefs' ? { id: ++count === 1 ? 'a' : 'b', cloudFileId: 'cloud' } : read(name), async () => {}, period, now), /changed/);
   await assert.rejects(readNativeSummary(read, async () => { throw Error('Revoked'); }, period, now), /Revoked/);
+});
+
+test('native snapshot reads through today and scopes rules with a stable hash outside the financial summary', async () => {
+  const f = fixture(), requests = [];
+  let cloudFileId = 'synthetic-cloud-one';
+  const read = async (name, args) => {
+    requests.push({ name, args });
+    return ({ 'load-prefs': { id: 'budget', cloudFileId }, 'preferences/get': { defaultCurrencyCode: 'GBP' },
+      'api/accounts-get': f.accounts, 'api/categories-get': f.categories, 'api/payees-get': f.payees, 'api/transactions-get': f.transactions })[name];
+  };
+  const first = await readNativeSnapshot(read, async () => {}, period, now);
+  assert.equal(first.budgetRef, createHash('sha256').update(cloudFileId).digest('hex'));
+  assert.deepEqual(requests.find(r => r.name === 'api/transactions-get').args, { startDate: period.from, endDate: '2026-11-03' });
+  assert.equal(first.summary.current.incomeMinor, 500000);
+  assert.ok(!JSON.stringify(first.summary).includes('synthetic-cloud-one'));
+  assert.equal(first.summary.budgetRef, undefined, 'reference is never part of provider summary');
+  assert.equal((await readNativeSnapshot(read, async () => {}, period, now)).budgetRef, first.budgetRef);
+  cloudFileId = 'synthetic-cloud-two';
+  assert.notEqual((await readNativeSnapshot(read, async () => {}, period, now)).budgetRef, first.budgetRef);
 });
 
 test('pinned desktop worker adapter without removeEventListener supports bounded concurrent reads', async () => {

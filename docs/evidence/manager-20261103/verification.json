@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "version": "0.1.0-preview.4",
+  "syntheticDataOnly": true,
+  "goTests": "pass",
+  "goVet": "pass",
+  "nativeSummaryTests": 9,
+  "allocationConservationScenarios": 600,
+  "largeProtectedRulesCategories": 200,
+  "schema3To4CredentialsRetained": true,
+  "userAndBudgetIsolation": true,
+  "managerUIAcceptance": "pass",
+  "responsiveWidths": [
+    320,
+    390,
+    768,
+    1280
+  ],
+  "nativeManagerAPI": "pass",
+  "livePaidAIProviderVerified": false,
+  "ownerLedgerUsedAsFixture": false,
+  "sourceChecksDate": "2026-11-03",
+  "sources": [
+    "https://www.gov.uk/individual-savings-accounts",
+    "https://www.fca.org.uk/investsmart/diversification",
+    "https://www.fca.org.uk/consumers/fca-firm-checker",
+    "https://www.moneyhelper.org.uk/en/savings/how-to-save/should-i-save-or-invest",
+    "https://www.moneyhelper.org.uk/en/pensions-and-retirement/pensions-basics/workplace-pensions"
+  ]
+}

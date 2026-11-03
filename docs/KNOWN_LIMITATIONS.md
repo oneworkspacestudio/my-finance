@@ -14,8 +14,10 @@
   encrypted server snapshots have daily/weekly/monthly retention and a tested
   clean CLI restore; they require explicit Windows DPAPI recovery-key storage.
   Provider credentials must be reconfigured after either recovery path.
-- Actual remains the only ledger. Money coach analyses a user-selected summary;
-  it does not run unattended, update categories automatically or move money.
+- Actual remains the only ledger. Money manager recalculates allowances from a
+  selected summary and rules. Refresh after native sync/import; it does not run
+  bank sync unattended, write Actual budgets or move money. Remaining monthly
+  allowances are forecasts, not cash held or a bank balance.
   Imported data must be reviewed for completeness, transfers and unusual credits.
   AI responses can be wrong and are educational, not regulated investment advice.
   Provider integration is tested with synthetic HTTP responses; no live paid

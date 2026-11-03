@@ -2,7 +2,7 @@ package finance
 
 import "errors"
 
-const latestFinanceSchema = 3
+const latestFinanceSchema = 4
 
 // Apphost's step runner rejects any lower version as a downgrade. When applying
 // our ordered migration list on restart, skip already-applied steps only after

@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { createRequire } from 'node:module';
+import { createHash } from 'node:crypto';
 const require = createRequire(process.env.FINANCE_MODULE_ROOT + '/package.json');
 const { chromium } = require('playwright');
 if (process.env.FINANCE_SYNTHETIC_ONLY !== '1' || !process.env.FINANCE_TEST_URL) throw Error('Set FINANCE_SYNTHETIC_ONLY=1 and an explicit synthetic FINANCE_TEST_URL');
@@ -9,7 +10,8 @@ const base = process.env.FINANCE_TEST_URL;
 if (!['localhost', '127.0.0.1'].includes(new URL(base).hostname)) throw Error('Synthetic loopback fixture required');
 const out = process.env.FINANCE_EVIDENCE || 'C:/Projects/.cache/finance-ai-20261103/evidence';
 await fs.mkdir(out, { recursive: true });
-const context = await chromium.launchPersistentContext(out + '/coach-synthetic-browser', {
+const profile = process.env.FINANCE_BROWSER_PROFILE || out + '/coach-synthetic-browser';
+const context = await chromium.launchPersistentContext(profile, {
   executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true,
   viewport: { width: 390, height: 844 }
 });
@@ -58,20 +60,40 @@ try {
   await page.waitForFunction(() => !!globalThis.Actual?.getServerSocket, {}, { timeout: 90000 });
   await page.waitForTimeout(2500);
   if (await start.isVisible()) await start.click();
+  else if ((await page.locator('body').innerText()).startsWith('Files\n')) await page.getByText('My Finances', { exact: true }).click();
   await attachRPC();
-  await page.waitForFunction(async () => !!(await globalThis.fixtureRPC('load-prefs'))?.id, {}, { timeout: 60000 });
+  let ready = false;
+  for (let i = 0; i < 60; i++) {
+    ready = await page.evaluate(async () => {
+      try { const prefs = await globalThis.fixtureRPC('load-prefs'); return !!prefs?.id && Array.isArray(await globalThis.fixtureRPC('api/accounts-get')); }
+      catch { return false; }
+    });
+    if (ready) break;
+    await new Promise(resolve => setTimeout(resolve, 1000));
+  }
+  assert.ok(ready, 'native budget finished opening before seeding');
   const seeded = await page.evaluate(async () => {
     const rpc = globalThis.fixtureRPC;
+    // Explicit fixture currency also handles recovery of a creation interrupted
+    // before the launcher's default-currency setup finished.
+    await rpc('preferences/save', { id: 'defaultCurrencyCode', value: 'GBP' });
+    await rpc('preferences/save', { id: 'flags.currency', value: 'true' });
+    if (!(await rpc('load-prefs')).cloudFileId) {
+      const uploaded = await rpc('upload-budget');
+      if (uploaded?.error) throw Error('Could not upload fictional fixture budget');
+    }
     const categories = await rpc('api/categories-get');
     const food = categories.find(c => c.name === 'Food') || categories.find(c => !c.is_income);
+    const general = categories.find(c => c.name === 'General');
     const income = categories.find(c => c.is_income && c.name !== 'Starting Balances');
-    if (!food || !income) throw Error('Fictional native categories unavailable');
+    if (!food || !income || !general) throw Error('Fictional native categories unavailable');
     const now = new Date(), dates = [];
     for (let i = 3; i > 0; i--) dates.push(new Date(Date.UTC(now.getFullYear(), now.getMonth() - i, 2)).toISOString().slice(0, 10));
     const from = dates[0].slice(0, 7) + '-01';
     const to = new Date(Date.UTC(now.getFullYear(), now.getMonth(), 0)).toISOString().slice(0, 10);
+    const asOf = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())).toISOString().slice(0, 10);
     const existing = (await rpc('api/accounts-get')).find(a => a.name === 'Fictional AI current');
-    if (existing) return { from, to, before: await rpc('api/transactions-get', { startDate: from, endDate: to }), prefs: await rpc('load-prefs') };
+    if (existing) return { from, to, asOf, before: await rpc('api/transactions-get', { startDate: from, endDate: asOf }), prefs: await rpc('load-prefs') };
     const account = await rpc('api/account-create', { account: { name: 'Fictional AI current', offbudget: false }, initialBalance: 123456 });
     const card = await rpc('api/account-create', { account: { name: 'Fictional AI card', offbudget: false }, initialBalance: -50000 });
     const offbudget = await rpc('api/account-create', { account: { name: 'Fictional tracking', offbudget: true }, initialBalance: 0 });
@@ -88,9 +110,17 @@ try {
     await rpc('api/transactions-add', { accountId: account, runTransfers: true, transactions: [{ date: dates[2], amount: -10000, payee: transfer.id }] });
     await rpc('api/transactions-add', { accountId: offbudget, transactions: [{ date: dates[1], amount: 999999 }] });
     await rpc('api/transactions-add', { accountId: card, transactions: [{ date: dates[2], amount: 100, category: food.id, payee_name: 'Fictional refund' }] });
+    await rpc('api/transactions-add', { accountId: account, transactions: [
+      { date: asOf, amount: 200000, category: income.id, payee_name: 'Fictional current salary' },
+      { date: asOf, amount: -12345, category: food.id, payee_name: 'Fictional current groceries' },
+      { date: asOf, amount: 345, category: food.id, payee_name: 'Fictional current refund' },
+      { date: asOf, amount: -5000, category: general.id, payee_name: 'Fictional current-only category' }
+    ] });
+    await rpc('api/transactions-add', { accountId: account, runTransfers: true, transactions: [{ date: asOf, amount: -10000, payee: transfer.id }] });
+    await rpc('api/transactions-add', { accountId: offbudget, transactions: [{ date: asOf, amount: 888888 }] });
     await rpc('api/sync');
-    const before = await rpc('api/transactions-get', { startDate: from, endDate: to });
-    return { from, to, before, prefs: await rpc('load-prefs') };
+    const before = await rpc('api/transactions-get', { startDate: from, endDate: asOf });
+    return { from, to, asOf, before, prefs: await rpc('load-prefs') };
   });
   assert.ok(seeded.prefs.cloudFileId, 'native budget uploaded');
   const me = await context.request.get(base + 'api/me').then(r => r.json());
@@ -109,7 +139,7 @@ try {
   }
   await page.getByRole('button', { name: 'Minimise', exact: true }).click();
   await use.waitFor({ state: 'hidden' });
-  await page.getByRole('button', { name: 'Money coach', exact: true }).click();
+  await page.getByRole('button', { name: 'Money manager', exact: true }).click();
   await use.waitFor();
   await use.click();
   await page.waitForURL('**/#coach', { timeout: 60000 });
@@ -120,19 +150,60 @@ try {
   assert.equal(summary.summary.months.reduce((s, m) => s + m.outgoingMinor, 0), 300000);
   assert.equal(summary.summary.excludedTransfers, 2);
   assert.equal(summary.summary.transactionCount, 7);
+  assert.deepEqual({ month: summary.summary.current.month, asOf: summary.summary.current.asOf, incomeMinor: summary.summary.current.incomeMinor, outgoingMinor: summary.summary.current.outgoingMinor }, { month: seeded.asOf.slice(0, 7), asOf: seeded.asOf, incomeMinor: 200345, outgoingMinor: 17345 });
+  assert.equal(summary.summary.current.categories.find(c => c.name === 'General')?.outgoingMinor, 5000, 'current-only category included');
+  assert.equal(summary.budgetRef, createHash('sha256').update(seeded.prefs.cloudFileId).digest('hex'));
+  assert.equal(summary.summary.budgetRef, undefined, 'budget scope does not enter provider summary');
+  assert.ok(!JSON.stringify(summary.summary).includes(seeded.prefs.cloudFileId), 'raw budget identifier stays in native tab');
   assert.ok(!JSON.stringify(summary.summary).includes('Fictional'), 'payees/accounts absent from aggregate');
   assert.equal(providerRequests, 0, 'import sends no provider request');
+  const profile = {
+    essentialMonthlyMinor: 100000, emergencySavingsMinor: 300000,
+    highCostDebt: 'no', horizonYears: 10, risk: 'balanced', goals: [],
+    manager: { enabled: true, savingsMonthlyMinor: 10000, investmentMonthlyMinor: 5000, cashBufferMinor: 1000, categories: [] }
+  };
+  const financeHeaders = { Origin: new URL(base).origin, 'X-CSRF-Token': me.csrf, 'X-Workspace-Expected-Account': me.user.id };
+  const planResponse = await context.request.post(base + 'api/finance/ai/plan', { data: { summary: summary.summary, profile }, headers: financeHeaders });
+  assert.equal(planResponse.status(), 200, 'real server accepts the imported native snapshot');
+  const plan = await planResponse.json(), manager = plan.manager;
+  assert.ok(manager?.currentAvailable, 'manager uses current Actual spending');
+  assert.equal(manager.spentMinor, 17345);
+  assert.ok(manager.categories.every(c => c.essential), 'unclassified categories are protected by default');
+  const foodPlan = manager.categories.find(c => c.name === 'Food'), generalPlan = manager.categories.find(c => c.name === 'General');
+  assert.equal(foodPlan.historicalMonthlyMinor, 100000);
+  assert.equal(foodPlan.spentMinor, 12345);
+  assert.ok(foodPlan.limitMinor >= foodPlan.spentMinor, 'protected costs cover spending already made');
+  assert.equal(generalPlan.spentMinor, 5000);
+  assert.equal(generalPlan.overspentMinor, 5000, 'new category spending is flagged for review');
+  assert.equal(manager.savingsReservedMinor, 10000);
+  const allocation = ['categoryAllocatedMinor', 'unassignedEssentialsAllocatedMinor', 'debtReservedMinor', 'emergencyReservedMinor', 'savingsReservedMinor', 'goalReservedMinor', 'investmentReservedMinor', 'cashBufferReservedMinor', 'unallocatedMinor'].reduce((n, key) => n + manager[key], 0);
+  assert.equal(allocation, manager.planningIncomeMinor, 'all category allowances and reserves conserve the forecast exactly');
+  const settingsURL = base + 'api/finance/ai/manager-settings';
+  try {
+    const saved = await context.request.post(settingsURL, { data: { scope: summary.budgetRef, profile }, headers: financeHeaders });
+    assert.equal(saved.status(), 200, 'rules save in the fictional account and native budget scope');
+    const loaded = await context.request.get(settingsURL + '?scope=' + summary.budgetRef, { headers: financeHeaders });
+    assert.equal(loaded.status(), 200);
+    const savedRules = await loaded.json(); assert.equal(savedRules.configured, true); assert.deepEqual(savedRules.profile, profile);
+    const otherScope = await context.request.get(settingsURL + '?scope=manual', { headers: financeHeaders });
+    assert.equal((await otherScope.json()).configured, false, 'native rules do not leak into the manual-estimates scope');
+  } finally {
+    const removed = await context.request.post(settingsURL, { data: { scope: summary.budgetRef, remove: true }, headers: financeHeaders });
+    assert.equal(removed.status(), 200, 'fictional rules removed after roundtrip');
+  }
+  const removedRules = await context.request.get(settingsURL + '?scope=' + summary.budgetRef, { headers: financeHeaders });
+  assert.equal((await removedRules.json()).configured, false);
   await page.goto(base + 'ledger/');
   await page.waitForFunction(() => !!globalThis.Actual?.getServerSocket, {}, { timeout: 60000 });
   await page.waitForTimeout(2500);
-  const after = await page.evaluate(async ({ from, to, base }) => {
+  const after = await page.evaluate(async ({ from, asOf, base }) => {
     const { workerReader } = await import(base + 'coach-ledger.js');
     const read = workerReader(await globalThis.Actual.getServerSocket());
-    return read('api/transactions-get', { startDate: from, endDate: to });
+    return read('api/transactions-get', { startDate: from, endDate: asOf });
   }, { ...seeded, base });
   assert.deepEqual(after, seeded.before, 'import does not mutate native ledger');
-  await fs.writeFile(out + '/native-coach-report.json', JSON.stringify({ synthetic: true, upstream: '26.10.0', localOnlyAggregation: true, exactGrossIncomeMinor: 600100, exactOutgoingMinor: 300000, transferLegsExcluded: 2, openingBalanceExcluded: true, offbudgetExcluded: true, providerRequests, ledgerUnchanged: true, phoneOverflow: false }, null, 2));
-  console.log('PASS native Actual read-only coach import: exact totals, transfers/opening/offbudget exclusion, mobile ribbon and unchanged ledger');
+  await fs.writeFile(out + '/native-coach-report.json', JSON.stringify({ synthetic: true, upstream: '26.10.0', localOnlyAggregation: true, exactGrossIncomeMinor: 600100, exactOutgoingMinor: 300000, currentGrossIncomeMinor: 200345, currentOutgoingMinor: 17345, currentOnlyCategoryIncluded: true, hashedBudgetScopeOutsideSummary: true, managerServerPlan: true, unclassifiedCategoriesProtected: true, forecastAllocationConserved: true, rulesSaveLoadRemove: true, transferLegsExcluded: 2, openingBalanceExcluded: true, offbudgetExcluded: true, providerRequests, ledgerUnchanged: true, phoneOverflow: false }, null, 2));
+  console.log('PASS native Actual manager import: exact historical/current totals, hashed budget scope, exclusions, mobile ribbon and unchanged ledger');
 } catch (error) {
   await page.screenshot({ path: out + '/native-coach-failure.png' }).catch(() => {});
   console.log((await page.locator('body').innerText()).slice(0, 4000));

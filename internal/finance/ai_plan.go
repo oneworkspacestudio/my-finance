@@ -30,6 +30,7 @@ type aiSummary struct {
 	Categories        []aiCategory `json:"categories"`
 	TransactionCount  int          `json:"transactionCount"`
 	ExcludedTransfers int          `json:"excludedTransfers"`
+	Current           *aiCurrent   `json:"current,omitempty"`
 }
 type aiGoal struct {
 	Name   string `json:"name"`
@@ -38,12 +39,13 @@ type aiGoal struct {
 	Months int64  `json:"months"`
 }
 type aiProfile struct {
-	Essentials int64    `json:"essentialMonthlyMinor"`
-	Emergency  int64    `json:"emergencySavingsMinor"`
-	Debt       string   `json:"highCostDebt"`
-	Horizon    int      `json:"horizonYears"`
-	Risk       string   `json:"risk"`
-	Goals      []aiGoal `json:"goals"`
+	Essentials int64           `json:"essentialMonthlyMinor"`
+	Emergency  int64           `json:"emergencySavingsMinor"`
+	Debt       string          `json:"highCostDebt"`
+	Horizon    int             `json:"horizonYears"`
+	Risk       string          `json:"risk"`
+	Goals      []aiGoal        `json:"goals"`
+	Manager    *aiManagerRules `json:"manager,omitempty"`
 }
 type aiPlanInput struct {
 	Summary aiSummary `json:"summary"`
@@ -62,21 +64,22 @@ type aiGoalPlan struct {
 	MonthsToGoal *int64 `json:"monthsToGoal"`
 }
 type aiPlan struct {
-	Currency         string       `json:"currency"`
-	AverageIncome    int64        `json:"averageIncomeMinor"`
-	AverageOutgoing  int64        `json:"averageOutgoingMinor"`
-	SpendingReserve  int64        `json:"spendingReserveMinor"`
-	PlanningIncome   int64        `json:"planningIncomeMinor"`
-	Surplus          int64        `json:"surplusMinor"`
-	Deficit          int64        `json:"deficitMinor"`
-	Essentials       int64        `json:"essentialMonthlyMinor"`
-	EmergencyTarget  int64        `json:"emergencyTargetMinor"`
-	EmergencyGap     int64        `json:"emergencyGapMinor"`
-	Buckets          []aiBucket   `json:"buckets"`
-	Goals            []aiGoalPlan `json:"goals"`
-	InvestmentReady  bool         `json:"investmentReady"`
-	InvestmentReason string       `json:"investmentReason"`
-	Warnings         []string     `json:"warnings"`
+	Currency         string         `json:"currency"`
+	AverageIncome    int64          `json:"averageIncomeMinor"`
+	AverageOutgoing  int64          `json:"averageOutgoingMinor"`
+	SpendingReserve  int64          `json:"spendingReserveMinor"`
+	PlanningIncome   int64          `json:"planningIncomeMinor"`
+	Surplus          int64          `json:"surplusMinor"`
+	Deficit          int64          `json:"deficitMinor"`
+	Essentials       int64          `json:"essentialMonthlyMinor"`
+	EmergencyTarget  int64          `json:"emergencyTargetMinor"`
+	EmergencyGap     int64          `json:"emergencyGapMinor"`
+	Buckets          []aiBucket     `json:"buckets"`
+	Goals            []aiGoalPlan   `json:"goals"`
+	InvestmentReady  bool           `json:"investmentReady"`
+	InvestmentReason string         `json:"investmentReason"`
+	Warnings         []string       `json:"warnings"`
+	Manager          *aiManagerPlan `json:"manager,omitempty"`
 }
 
 func aiText(s string, max int) bool {
@@ -102,7 +105,7 @@ func buildAIPlan(in aiPlanInput, now time.Time) (aiPlan, error) {
 		return bad("Choose an Actual budget summary or clearly labelled manual estimates")
 	}
 	if len(s.Categories) > 200 || s.TransactionCount < 0 || s.Source == "actual" && s.TransactionCount == 0 || s.TransactionCount > 1_000_000 || s.ExcludedTransfers < 0 || s.ExcludedTransfers > 1_000_000 {
-		return bad("Choose a smaller period with at least one Actual transaction, or use manual estimates")
+		return bad("Choose a period with at least one transaction in the complete-month history, within the supported size limits, or use manual estimates")
 	}
 	var totalIn, totalOut int64
 	lowest := aiMaxMoney
@@ -135,22 +138,11 @@ func buildAIPlan(in aiPlanInput, now time.Time) (aiPlan, error) {
 	if categoryIn != totalIn || categoryOut != totalOut {
 		return bad("Category totals must match the monthly income and outgoing totals")
 	}
-	if !aiMoney(p.Essentials) || !aiMoney(p.Emergency) || p.Horizon < 0 || p.Horizon > 80 || len(p.Goals) > 8 {
-		return bad("Check your essential spending, savings and planning horizon")
+	if e := validateAIProfile(p); e != nil {
+		return bad(e.Error())
 	}
-	if p.Debt != "yes" && p.Debt != "no" && p.Debt != "unknown" {
-		return bad("Choose whether you have priority arrears or expensive debt")
-	}
-	if p.Risk != "unknown" && p.Risk != "cautious" && p.Risk != "balanced" && p.Risk != "adventurous" {
-		return bad("Choose a risk preference or leave it unknown")
-	}
-	seen = map[string]bool{}
-	for _, g := range p.Goals {
-		name := strings.ToLower(strings.TrimSpace(g.Name))
-		if !aiText(g.Name, 80) || seen[name] || !aiMoney(g.Target) || !aiMoney(g.Saved) || g.Months < 1 || g.Months > 600 {
-			return bad("Use distinct savings goal names, valid amounts and a one to six-hundred month deadline")
-		}
-		seen[name] = true
+	if e := validateAICurrent(s.Current, now); e != nil {
+		return bad(e.Error())
 	}
 	n := int64(len(s.Months))
 	out.AverageIncome = totalIn / n
@@ -231,6 +223,14 @@ func buildAIPlan(in aiPlanInput, now time.Time) (aiPlan, error) {
 	}
 	if remaining > 0 {
 		out.Buckets = append(out.Buckets, aiBucket{"Uncommitted buffer", remaining, "Keep available for irregular bills and decisions you have not yet made. It is not automatically allocated to investments."})
+	}
+	if p.Manager != nil && p.Manager.Enabled {
+		manager, e := buildAIManager(in, out, now)
+		if e != nil {
+			return bad(e.Error())
+		}
+		out.Manager = &manager
+		applyAIManagerPlan(&out, manager)
 	}
 	return out, nil
 }

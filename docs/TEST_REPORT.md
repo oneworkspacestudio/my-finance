@@ -9,7 +9,27 @@ the installed candidate matches those published bytes, and the exact anonymous
 update channel and installer check pass.
 DESKTOP-Workstation delivery is deferred at the user's request while this PC finishes.
 
-## Money coach acceptance, 3 November 2026
+## Money manager acceptance, 3 November 2026
+
+Finance4 adds current-month category allowances, saved manager rules and reviewed
+AI rule proposals. Go tests/vet pass, including a600-case allocation conservation
+sweep, extreme-value rounding, essential/flexible priorities, existing spending,
+goal/cash-buffer investment gating, current-date checks and proposal validation.
+Schema3→4 preserves AI keys; encrypted rule tests cover user/budget substitution,
+CSRF/Origin/account guards, fifty-scope bounds and a200-category DPAPI roundtrip.
+The existing4KiB credential bound is preserved with a separate bounded manager
+envelope. Focused suite catalog/update-group checks pass.
+
+Nine native-summary tests pass. Real pinned Actual verification reads exact
+historical600100p incoming/300000p outgoing and current200345p incoming/17345p
+outgoing, including a current-only category, while keeping every ledger row
+unchanged and making no provider request. Mobile helper fits320/360/390px.
+The UI acceptance suite covers auto recalculation, download without AI, scoped
+save/load/remove, proposal application, invalid/stale responses and phone layouts.
+Final source, screenshot and installed delivery receipts are recorded separately
+under `docs/evidence/manager-20261103/` after completion.
+
+## Money coach acceptance, 3 November 2026 (Finance3)
 
 The Finance3 change adds optional OpenAI/DeepSeek coaching over reviewed aggregates
 and a provider-independent plan calculator. `go test ./...` and `go vet ./...`

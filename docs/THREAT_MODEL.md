@@ -17,7 +17,9 @@
 | AI prompt injection or invented figures | Only bounded summary data is accepted; no tools or ledger writes. Arithmetic and allocation limits run in Go. Model output is untrusted plain text and must be reviewed. Prompts cannot guarantee factual advice. |
 | AI data disclosure | Per-request explicit consent and exact payload preview. No raw transactions, payees, notes or account identifiers sent by the native summary bridge. Category/goal labels and the user's question can still contain private information. |
 | AI key theft or cross-account use | Per-user CurrentUser DPAPI credentials, authenticated CSRF-protected routes, fixed provider endpoints, redirect rejection and sanitized errors. Same-Windows-user compromise remains outside the guarantee. |
+| Saved manager rule disclosure or substitution | Profiles use DPAPI envelopes bound to user and budget digest, no-store responses and authenticated/CSRF-protected writes. Fifty scopes per user; no ledger access is granted by a digest. |
+| AI allocation or stale-data error | Explicit proposal review/application, known-category and money bounds, deterministic penny allocation. Current snapshots display date; refresh after sync and month change. Planned allowances are not cash available today. |
 
 No automated bank consent, payment endpoint or banking-password collection is
-provided. Optional AI coaching transmits only the reviewed summary and context
+provided. Optional AI management guidance transmits only the reviewed summary and context
 when the signed-in user explicitly requests it.
