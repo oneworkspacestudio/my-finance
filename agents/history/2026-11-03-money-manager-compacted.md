@@ -61,3 +61,34 @@ Tooling I:/Projects/tooling/finance-manager-20261103; dedicated NTFS fixture
 C:/Projects/.cache/finance-manager-20261103, loopback48642. Track/stop task processes
 and remove only verified disposable root at completion. Release path is existing
 package-release.py + verified draft upload + public channel/component pin.
+
+Published Finance4 from11e8dd24e2942dbe9b05a7bff38bf34720ebe6df. Ten immutable
+assets verified against GitHub digests; public anonymous checksum bytes match.
+PortableSHA8e9cc6bcd513fba0616757ee37c8a81e3cdd06e2b5a61dd53ee0feaab93cb366.
+ShippingEXE21c88be7bce7ac26c2ca6f1ba4d82ba40faf7ca7cbd81597c46cdc67f52e6bf4
+passed enhanced native test after clean-commit rebuild: current17345p out,
+historical300000p out, exact manager allocation conservation, saved-rule real
+DPAPI roundtrip and native ledger unchanged. No provider request. Source helper
+tests9, full Go/vet and final UI/exponent-input regression pass.
+
+Suitec05fb03 promoted only Finance4, preserving all existing public rows and
+concurrent MyAI23 pin. Same anonymous channel now includes all10Finance4assets.
+Primary normal public113 Finance-only update launched; append completion receipt.
+Synthetic service28916 and browser stopped; exact NTFS root verified without
+reparse/active references and removed. No owner backup manually removed.
+
+Local delivery COMPLETE at19:59:46UTC: Workspace113 retained, Finance4 installed,
+all5 owned payload hashes and ai.js/coach-ledger.js/style.css/index served bytes
+match source. All423 unselected package contracts/existence/bytes, other app
+contracts, existing Workspace credentials and configured locations retained.
+36 services healthy, no new startup failure. Public HTTPS returns the expected
+unauthenticated Workspace sign-in gate. Owner ledger was never a test fixture.
+
+Normal backup382.4MB verified (290.6MB reused,91.9MB newly copied; no live data
+hard-links). Normal cleanup completed, retiring one eligible older automatic
+backup and retaining the latest verified recovery. Cleanup took over20minutes
+while actively verifying many small files; do not interrupt an active healthy
+update merely because its completed transaction predates cleanup completion.
+Sanitized delivery/served/update-cleanup receipts are in the evidence directory.
+No synthetic service/browser/cache remains; build/public assets retained on I.
+Second PC remains deferred for this change. No live paid API test was performed.

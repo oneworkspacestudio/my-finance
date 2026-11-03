@@ -29,6 +29,21 @@ save/load/remove, proposal application, invalid/stale responses and phone layout
 Final source, screenshot and installed delivery receipts are recorded separately
 under `docs/evidence/manager-20261103/` after completion.
 
+Published Finance4 shipping-byte native verification passes on source11e8dd24.
+The real plan endpoint conserves forecast income, protects unclassified costs,
+uses current spending and persists/reads/removes encrypted budget-scoped rules.
+Every native transaction remains unchanged afterward. See shipping-byte-check,
+native-coach-report, package-validation and publication receipts. Ten public
+assets and the anonymous channel were verified. Local protected update status
+is recorded in the delivery receipt when complete; second PC remains deferred.
+
+Primary delivery completed: Finance4 on Workspace113, five Finance payloads and
+served UI match the release;423 unselected package contracts/bytes, other apps,
+existing credentials and locations preserved.36 services healthy, no new failure.
+Recovery382.4MB verified; normal cleanup completed and retained the latest copy.
+Public HTTPS requires Workspace sign-in. See delivery.json, served-verification.json
+and update-cleanup.json. No owner ledger was opened for testing.
+
 ## Money coach acceptance, 3 November 2026 (Finance3)
 
 The Finance3 change adds optional OpenAI/DeepSeek coaching over reviewed aggregates

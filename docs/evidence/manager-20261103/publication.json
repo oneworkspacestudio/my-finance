@@ -1,0 +1,57 @@
+{
+  "tag": "v0.1.0-preview.4",
+  "source": "11e8dd24e2942dbe9b05a7bff38bf34720ebe6df",
+  "allAssetHashesVerified": true,
+  "assets": [
+    {
+      "name": "Actual-26.10.0-source.zip",
+      "size": 59799533,
+      "digest": "sha256:aeefc682921f89f49a8ce2f848e3556d4cec72b19be7148e26daadf0bdb062b0"
+    },
+    {
+      "name": "build-info.json",
+      "size": 695,
+      "digest": "sha256:df9f248418616edb81aff426926dbc0c9620c57f92438d01e14bab5f8f717826"
+    },
+    {
+      "name": "compatibility.json",
+      "size": 485,
+      "digest": "sha256:e6e2843ab1e4b05bcf54a63c8118691c1ad5e6cac41742a624f2615daaf8c119"
+    },
+    {
+      "name": "HyperFormula-3.5.0-source.zip",
+      "size": 2921182,
+      "digest": "sha256:b06652e52b6594c3c160bffced73063e62e1df81e2ac5432baaebf93d7a91352"
+    },
+    {
+      "name": "my-finance-0.1.0-preview.4-windows-amd64.zip",
+      "size": 106052369,
+      "digest": "sha256:8e9cc6bcd513fba0616757ee37c8a81e3cdd06e2b5a61dd53ee0feaab93cb366"
+    },
+    {
+      "name": "my-finance-source.zip",
+      "size": 1782285,
+      "digest": "sha256:fa63f0a5e48b58bbecd1b797bcaacb1f9fac935aff661ea04346203189aa0aee"
+    },
+    {
+      "name": "MyFinance.exe",
+      "size": 13771264,
+      "digest": "sha256:21c88be7bce7ac26c2ca6f1ba4d82ba40faf7ca7cbd81597c46cdc67f52e6bf4"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "size": 822,
+      "digest": "sha256:1002170046e2b1ae1405348b240decefef0d4eed7f0ca4d91faa80bb329f0872"
+    },
+    {
+      "name": "THIRD-PARTY-LICENSES.txt",
+      "size": 755479,
+      "digest": "sha256:9ec9b2cea61f17709d2e40552f9970689ac600c348a13e8832cb9738e2a5f4d8"
+    },
+    {
+      "name": "workspace-update.json",
+      "size": 2437,
+      "digest": "sha256:4ac1e987ecc4d49e87af6a49a013d76b58ae0c93169e35615a7a4145f4b91b57"
+    }
+  ]
+}

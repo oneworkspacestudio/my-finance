@@ -1,0 +1,11 @@
+{
+  "sourceCommit": "11e8dd24e2942dbe9b05a7bff38bf34720ebe6df",
+  "executableSha256": "21c88be7bce7ac26c2ca6f1ba4d82ba40faf7ca7cbd81597c46cdc67f52e6bf4",
+  "executableBytes": 13771264,
+  "nativeReportSha256": "665e2997adc0dd392f8a66d4699b467ae33051b1cddc800c7a6a56a654aa1af5",
+  "synthetic": true,
+  "fullNativePass": true,
+  "providerRequests": 0,
+  "browserClosed": true,
+  "verifiedAt": "2026-11-03T19:21:59.1979915Z"
+}
