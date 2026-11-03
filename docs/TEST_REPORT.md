@@ -123,3 +123,11 @@ browser: exact3-month totals600100p in/300000p out,7included lines,2transfer leg
 excluded, standard opening balance/off-budget exclusions and identical ledger
 before/after. No provider request. The selection helper fits320/360/390px and
 minimises/restores without covering native controls. See native-coach-report.json.
+
+Finance3 is public from09a7029 with10 verified immutable assets and promoted
+channel790dd02. Local normal protected Finance-only update2→3 on Workspace113
+completed. All5 owned payloads/served assets match,423 unselected payload records
+and bytes retained, existing credentials/settings/locations retained,36 services
+healthy, verified recovery kept and normal cleanup finished. Secondary installation
+remains deferred. See ai-20261103/publication.json and delivery.json. The public
+HTTPS proxy still requires Workspace sign-in; no owner ledger was used for QA.

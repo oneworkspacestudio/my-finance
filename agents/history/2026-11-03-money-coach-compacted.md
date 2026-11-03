@@ -53,3 +53,26 @@ call and identical ledger before/after. 320/360/390px helper and minimise/restor
 pass. UI320/390/768/1280 passes, including provider-save/delete cancellation races.
 Fixtures are strictly fictional. Production key/provider use awaits user setup.
 Evidence: docs/evidence/ai-20261103. Native browser closed after verification.
+
+Published immutable v0.1.0-preview.3 from09a7029819d330beb4e62f701606ffee1713911c.
+Ten public assets size/SHA256 verified; anonymous checksum file matches. Portable
+SHAb0c9919ef7c92c443a1fd811ad745a12e1ee8b9ba7365c5d36077352bf25efde.
+Release-byte native browser pass repeated after clean source build. No owner data
+used. All synthetic browsers/services stopped and named C NTFS fixture removed
+with process/reparse/containment checks; receipts remain in source/I tooling.
+Channel and ordinary Finance pin promoted in Workspace790dd02. Concurrent Books
+and MyAI22 changes reconciled; every existing channel row/asset retained. No suite
+release/APK replaced. Primary normal protected Finance-only update has started;
+append completed delivery receipt below before claiming installed.
+
+Primary delivery COMPLETE: normal protected Finance2→3 update on Workspace113.
+All5 Finance payloads match the public release; live ai.js/coach-ledger.js/style.css
+match tested source. All423 unselected package contracts/existence/bytes and all
+other app contracts retained. Existing DPAPI credential contents and installation
+locations/settings unchanged.36 services running, no new startup failure.382.3MB
+recovery verified, latest copy retained; ordinary cleanup completed and removed one
+eligible older backup. No manual owner recovery cleanup, owner ledger fixture,
+real key configuration or paid AI request. Public HTTPS requires Workspace sign-in.
+Second PC remains deferred for this change. Final receipts in docs/evidence/ai-20261103.
+No preview process, browser profile or task NTFS cache remains. Local release
+artifacts are retained in tooling/finance-ai-20261103; release assets immutable.
