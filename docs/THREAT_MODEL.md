@@ -14,6 +14,10 @@
 | CSRF | Native mutation routes require exact Origin plus apphost session; custom backup routes also require apphost CSRF. Cross-origin CORS headers are stripped. |
 | Runtime tampering/path links | Launcher pins archive SHA256; private runtime folder; reject path escapes/symlinks and reparse ancestors. A compromised same-user session remains outside the isolation guarantee. |
 | Malicious imported ZIP | Size/decompression/member allowlists, CRC checks, SQLite signature and valid metadata; no extraction to arbitrary files. Native Actual remains responsible for validating its own ledger format on import. |
+| AI prompt injection or invented figures | Only bounded summary data is accepted; no tools or ledger writes. Arithmetic and allocation limits run in Go. Model output is untrusted plain text and must be reviewed. Prompts cannot guarantee factual advice. |
+| AI data disclosure | Per-request explicit consent and exact payload preview. No raw transactions, payees, notes or account identifiers sent by the native summary bridge. Category/goal labels and the user's question can still contain private information. |
+| AI key theft or cross-account use | Per-user CurrentUser DPAPI credentials, authenticated CSRF-protected routes, fixed provider endpoints, redirect rejection and sanitized errors. Same-Windows-user compromise remains outside the guarantee. |
 
-No automated live consent, payment endpoint, banking-password collection or external
-LLM categorisation is part of this application.
+No automated bank consent, payment endpoint or banking-password collection is
+provided. Optional AI coaching transmits only the reviewed summary and context
+when the signed-in user explicitly requests it.

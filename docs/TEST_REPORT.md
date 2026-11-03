@@ -3,11 +3,38 @@
 This working preview is under final managed-install acceptance. It is **not a
 complete pass of the master brief**. No official provider sandbox or live banking
 account was used. All users, transactions, statements and screenshots are fictional.
-The primary Windows installation now runs Workspace100/Finance1 after its normal
+The original October primary delivery installed Workspace100/Finance1 after its normal
 protected offline update. Suite100 is public: all30 assets match local hashes,
 the installed candidate matches those published bytes, and the exact anonymous
 update channel and installer check pass.
 DESKTOP-Workstation delivery is deferred at the user's request while this PC finishes.
+
+## Money coach acceptance, 3 November 2026
+
+The Finance3 change adds optional OpenAI/DeepSeek coaching over reviewed aggregates
+and a provider-independent plan calculator. `go test ./...` and `go vet ./...`
+pass, including integer rounding, deficit/goal affordability, essential-cost
+overrides, investment prerequisites, schema2→3/restart/future-schema refusal,
+DPAPI credential binding, account isolation, CSRF/Origin/session checks, explicit
+consent, request limits, redirected/failed/truncated/malformed provider responses
+and sanitized errors. Provider transport tests use fictional responses only.
+
+`test/coach-ledger.test.mjs` verifies splits, complete months including zero months,
+currency/amount/date validation, transfers/opening/tracking exclusions, category
+reconciliation, revoked/switched budget checks and the pinned desktop worker
+adapter. Standard starting-balance labels are recognized; renamed/localized
+opening entries need user review.
+
+`test/e2e/coach-ui.cjs` runs on its own synthetic loopback server. It covers summary
+handoff consumption, manual input, plan preview without an AI call, provider
+settings, per-request consent, failed requests, edits during verification/inference,
+safe text output and complete account-change clearing. Screenshots are reviewed
+at320/390/768/1280px with no document overflow; physical-phone testing is not claimed.
+
+No live OpenAI/DeepSeek account, personal transaction data or owner's installation
+was used as a development fixture. Existing official-bank/clean-host/reboot gates
+below remain unchanged. Final native and delivery receipts live in
+`docs/evidence/ai-20261103/` when completed.
 
 The hash-pinned candidate launcher ran against fresh NTFS data with runtime SHA256
 `f3c4675bf401042356310325a35de736de3c7b2f53aab2e74b611839f98da3ca`.
@@ -90,3 +117,9 @@ Real-local managed acceptance: `test/e2e/managed-oneaccount.mjs` passes six chec
 including owner/native budget, BASIC isolation, share/revoke, callback forgery and
 sign-out. Fresh Accounts/Finance fixture uses an actual MyAccounts executable,
 not a mock issuer. No public HTTPS/provider callback claim follows from this.
+
+Native shipping-source acceptance also passes against the real pinned Actual
+browser: exact3-month totals600100p in/300000p out,7included lines,2transfer legs
+excluded, standard opening balance/off-budget exclusions and identical ledger
+before/after. No provider request. The selection helper fits320/360/390px and
+minimises/restores without covering native controls. See native-coach-report.json.

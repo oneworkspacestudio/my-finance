@@ -1,6 +1,7 @@
 param([string]$Cache='C:/Projects/.cache/my-finance-20261028',[string]$Output='I:/Projects/tooling/my-finance-20261028/release',[string]$Go='go')
 $ErrorActionPreference='Stop'
 $source=Split-Path $PSScriptRoot -Parent
+$version=(Get-Content -LiteralPath (Join-Path $source 'package.json') -Raw|ConvertFrom-Json).version
 New-Item -ItemType Directory -Force $Cache,$Output,(Join-Path $Cache 'go-tmp')|Out-Null
 Copy-Item (Join-Path $source 'package.json'),(Join-Path $source 'package-lock.json') $Cache
 $env:PATH=(Join-Path $Cache 'node-v24.22.1-win-x64')+';'+$env:PATH
@@ -14,7 +15,7 @@ Copy-Item -LiteralPath (Join-Path $Cache 'finance-runtime.zip') -Destination (Jo
 $digest=(Get-FileHash (Join-Path $Output 'finance-runtime.zip')).Hash.ToLowerInvariant()
 $env:GOTMPDIR=Join-Path $Cache 'go-tmp'
 Push-Location $source
-try{& $Go build -trimpath -ldflags "-s -w -X main.runtimeSHA=$digest" -o (Join-Path $Output 'MyFinance.exe') ./cmd/my-finance;if($LASTEXITCODE){throw 'Launcher build failed'}}finally{Pop-Location}
+try{& $Go build -trimpath -ldflags "-s -w -X main.version=$version -X main.runtimeSHA=$digest" -o (Join-Path $Output 'MyFinance.exe') ./cmd/my-finance;if($LASTEXITCODE){throw 'Launcher build failed'}}finally{Pop-Location}
 Copy-Item (Join-Path $source 'README.md'),(Join-Path $source 'LICENSE'),(Join-Path $source 'NOTICE') $Output
 python (Join-Path $source 'scripts/collect-notices.py') --cache $Cache --output (Join-Path $Output 'THIRD-PARTY-LICENSES.txt') --go $Go
 if($LASTEXITCODE){throw 'Licence collection failed'}

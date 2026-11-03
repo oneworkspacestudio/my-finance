@@ -36,7 +36,24 @@ func TestFinanceMigrationsSurviveRestartAndRefuseNewerSchema(t *testing.T) {
 	if e := a.h.DB.QueryRow("SELECT last_success FROM finance_snapshot_schedule WHERE id=1").Scan(&saved); e != nil || saved != "fictional-retained-receipt" {
 		t.Fatal("restart lost settings", e)
 	}
-	if e := a.h.Migrate(3, "SELECT 1"); e != nil {
+	if e := a.aiRoutes(); e != nil {
+		t.Fatal("schema 2 to 3 upgrade failed", e)
+	}
+	a.h.Close()
+	a = open()
+	if e := a.connectionRoutes(); e != nil {
+		t.Fatal(e)
+	}
+	if e := a.snapshotRoutes(); e != nil {
+		t.Fatal(e)
+	}
+	if e := a.aiRoutes(); e != nil {
+		t.Fatal("schema 3 restart failed", e)
+	}
+	if e := a.h.DB.QueryRow("SELECT last_success FROM finance_snapshot_schedule WHERE id=1").Scan(&saved); e != nil || saved != "fictional-retained-receipt" {
+		t.Fatal("AI migration lost existing snapshot settings", e)
+	}
+	if e := a.h.Migrate(latestFinanceSchema+1, "SELECT 1"); e != nil {
 		t.Fatal(e)
 	}
 	a.h.Close()

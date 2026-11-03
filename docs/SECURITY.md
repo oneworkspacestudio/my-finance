@@ -25,6 +25,21 @@ plaintext exported or decrypted ZIP in a shared Downloads folder.
 
 See THREAT_MODEL and UPSTREAM_ACTUAL for the patch boundaries and residual risks.
 
+Money coach is optional. Each OneAccount user stores their own OpenAI or DeepSeek
+key under Windows CurrentUser DPAPI in Finance's private database. The key is never
+returned to the browser, shared with another household account or included in
+Finance ledger exports/server snapshots. Normal Workspace recovery may contain
+the protected private database; restoring keys under a different Windows account
+requires entering them again.
+
+No AI request runs when opening a budget or calculating a plan. A user must review
+and consent to sending the displayed monthly/category totals, profile, goals and
+question to the selected provider. These summaries can still be sensitive.
+OpenAI requests set store=false; this does not promise zero provider retention.
+Provider terms and API charges apply. Prompts and answers are not saved by Finance.
+The short-lived, account-bound summary handoff uses sessionStorage only until the
+coach consumes it; local browser compromise remains outside the threat model.
+
 Native ledger worker console output is suppressed so reconciliation/debug objects
 cannot print transaction payloads. Engine server output is also discarded; the Go
 gateway records only safe lifecycle/audit categories. Application errors still

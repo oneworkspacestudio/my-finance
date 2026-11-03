@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "nativeLedgerUnchanged": true,
+  "goVet": true,
+  "nativeWidths": [
+    320,
+    360,
+    390
+  ],
+  "consentAndSettingsRaces": true,
+  "livePaidProviderTested": false,
+  "authCSRFIsolationDPAPI": true,
+  "goTests": true,
+  "providerMocks": [
+    "openai",
+    "deepseek"
+  ],
+  "syntheticOnly": true,
+  "schemaUpgrade2To3": true,
+  "summaryRegressions": 6,
+  "uiWidths": [
+    320,
+    390,
+    768,
+    1280
+  ],
+  "ownerLedgerUsedAsFixture": false
+}

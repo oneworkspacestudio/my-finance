@@ -14,8 +14,12 @@
   encrypted server snapshots have daily/weekly/monthly retention and a tested
   clean CLI restore; they require explicit Windows DPAPI recovery-key storage.
   Provider credentials must be reconfigured after either recovery path.
-- The native Actual budgeting UI is retained. The Finance welcome/settings screen
-  is not a second ledger or a custom dashboard with copied financial figures.
+- Actual remains the only ledger. Money coach analyses a user-selected summary;
+  it does not run unattended, update categories automatically or move money.
+  Imported data must be reviewed for completeness, transfers and unusual credits.
+  AI responses can be wrong and are educational, not regulated investment advice.
+  Provider integration is tested with synthetic HTTP responses; no live paid
+  OpenAI or DeepSeek key has been used in acceptance testing.
 - The native PWA service worker is disabled on Workspace's shared origin to avoid
   controlling other apps. Previously loaded Actual local budgets can use its
   local-first store; cold-start offline installation is not certified.

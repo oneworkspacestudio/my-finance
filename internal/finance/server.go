@@ -42,6 +42,7 @@ type App struct {
 	states               map[string]consent
 	ready                bool
 	snapshotMu           sync.Mutex
+	ai                   *aiRuntime
 }
 
 func New(h *apphost.Host, digest string) (*App, error) {
@@ -60,6 +61,9 @@ func New(h *apphost.Host, digest string) (*App, error) {
 		return nil, e
 	}
 	if e = a.snapshotRoutes(); e != nil {
+		return nil, e
+	}
+	if e = a.aiRoutes(); e != nil {
 		return nil, e
 	}
 	for _, method := range []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"} {
@@ -365,7 +369,7 @@ func rebase(body, base string) string {
 }
 func strconvQuote(s string) string { b, _ := json.Marshal(s); return string(b) }
 func bridgeJS(base, identity string) string {
-	return `(()=>{const base=` + strconvQuote(base) + `,expected=` + strconvQuote(identity) + `;const check=()=>fetch(base+'/api/me',{cache:'no-store',headers:{'X-Workspace-Expected-Account':expected}}).then(r=>{if(r.status===401||r.status===409)location.replace(base+'/')}).catch(()=>{});window.addEventListener('focus',check);document.addEventListener('visibilitychange',()=>{if(!document.hidden)check()});setInterval(check,15000)})();`
+	return `(()=>{const base=` + strconvQuote(base) + `,expected=` + strconvQuote(identity) + `;const check=()=>fetch(base+'/api/me',{cache:'no-store',headers:{'X-Workspace-Expected-Account':expected}}).then(r=>{if(r.status===401||r.status===409){try{sessionStorage.removeItem('myfinance.coach.request');sessionStorage.removeItem('myfinance.coach.summary')}catch{}location.replace(base+'/')}}).catch(()=>{});window.addEventListener('focus',check);document.addEventListener('visibilitychange',()=>{if(!document.hidden)check()});setInterval(check,15000);if(new URL(location.href).searchParams.has('finance-coach'))import(base+'/coach-ledger.js').then(m=>m.install({base,expected})).catch(()=>{})})();`
 }
 
 func unpack(data, digest string) (string, error) {

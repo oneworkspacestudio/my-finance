@@ -10,6 +10,12 @@ Open **My Finance** from Workspace, continue with your OneAccount and open your
 budgets. Start with a manual account or import a CSV, OFX or QIF statement.
 Actual also offers an explicitly fictional demo budget when you choose it.
 
+**Money coach** helps you review incoming and outgoing money, plan affordable
+buckets and work towards savings goals. Bring a summary from an open budget or
+enter monthly figures, then optionally ask OpenAI or DeepSeek to explain your
+plan using your own API key. Review the information before sending it. Investment
+guidance is educational; the coach cannot place trades or move money.
+
 Bank connectivity uses your own Enable Banking application or an optional Lunch
 Flow subscription through SimpleFIN. You approve access on the provider/bank's
 own page. Installing My Finance does not link a bank, and no payment actions are
@@ -21,6 +27,7 @@ before putting real financial data into it.
 
 - [Windows setup](docs/INSTALL_WINDOWS.md)
 - [Connect a UK bank](docs/OPEN_BANKING_SETUP_UK.md)
+- [Money coach and AI privacy](docs/MONEY_COACH.md)
 - [Encrypted backups and restore](docs/MY_DRIVE_BACKUPS.md)
 - [OneAccount and household access](docs/ONEACCOUNT_INTEGRATION.md)
 - [Security and threat model](docs/SECURITY.md)

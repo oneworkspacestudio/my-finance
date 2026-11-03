@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 )
 
-var version = "0.1.0-preview.1"
+var version = "0.1.0-preview.3"
 var runtimeSHA = "development"
 
 func main() {

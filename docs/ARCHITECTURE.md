@@ -53,3 +53,12 @@ retain opaque native budget/sync files. An authenticated encrypted manifest reco
 allowed paths and SHA256. Scheduling requires explicit CurrentUser DPAPI recovery
 key consent and remains disabled on installation. Clean CLI restore refuses existing
 budget history. Daily/weekly/monthly retention deletes only hash-receipted copies.
+
+Money coach adds a read-only, browser-side summary over an explicitly opened
+Actual budget. Fixed native worker read operations preserve E2EE and native access;
+no server-side decryption or parallel ledger is introduced. Only aggregate totals
+cross into the Go plan API. Integer arithmetic validates the data and calculates
+the affordable plan independently from a model. Optional per-request consent sends
+that reviewed context to a fixed OpenAI/DeepSeek endpoint. Models have no tools or
+write path. Per-user API keys use CurrentUser DPAPI; responses remain ephemeral.
+Schema3 adds only the key table and refuses older executables after migration.

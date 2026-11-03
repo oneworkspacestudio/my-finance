@@ -1,0 +1,13 @@
+{
+  "synthetic": true,
+  "upstream": "26.10.0",
+  "localOnlyAggregation": true,
+  "exactGrossIncomeMinor": 600100,
+  "exactOutgoingMinor": 300000,
+  "transferLegsExcluded": 2,
+  "openingBalanceExcluded": true,
+  "offbudgetExcluded": true,
+  "providerRequests": 0,
+  "ledgerUnchanged": true,
+  "phoneOverflow": false
+}
