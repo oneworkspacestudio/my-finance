@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "target": "primary",
+  "workspace": "0.3.0-preview.116",
+  "finance": "0.1.0-preview.6",
+  "transaction": "complete",
+  "verifiedFinancePayloads": 5,
+  "unselectedPackageCount": 481,
+  "unselectedAppsAndPackagesPreserved": true,
+  "existingCredentialsPreserved": true,
+  "locationsPreserved": true,
+  "verifiedRecoveryRetained": true,
+  "servedAIAssetsMatch": true,
+  "ownerLedgerUsedAsFixture": false,
+  "runningAppCount": 38,
+  "newFailures": [],
+  "finished": "2026-11-05T17:29:50.0467879Z"
+}

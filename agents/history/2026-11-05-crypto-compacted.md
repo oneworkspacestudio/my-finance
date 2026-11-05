@@ -136,3 +136,25 @@ The ordinary complete Finance6 public-pin QA build passed all39 apps/509packages
 and every archived payload hash, but was not published or installed. Suite public
 releases115/116 are separately owned concurrent work. Preserve their channel rows
 and pins when merging evidence updates. Second PC still explicitly deferred.
+
+
+## Primary Finance6 delivery completed
+
+Final protected Finance5 -> 6 update completed 2026-11-05T17:29:50.0467879Z using the
+verified public Workspace116 installer after concurrent News115/Commute116 updates
+finished. Primary manager remains 0.3.0-preview.116; all five Finance payloads,
+nine UI assets, index and managed OIDC bootstrap match the released source. All
+481 unselected package records/bytes and all unrelated apps,
+existing credentials/settings/locations are retained; 38 services
+are running with no new failure. Public anonymous Finance access requires sign-in.
+The latest verified recovery backup remains and normal update cleanup completed.
+Owner financial data was not used as a test fixture. This supersedes the pending
+delivery notes above; the first attempt's verified rollback remains recorded.
+
+Finance6 release source remains immutable db88ea4; later commits add evidence only.
+No paid DeepSeek call, real wallet signature/swap or actual push/inbox delivery was
+qualified. Monitoring remains opt-in with the user's own DeepSeek key, Base wallet,
+limits and notification setup; every wallet transaction requires human approval.
+Second-machine installation remains explicitly deferred. Evidence:
+docs/evidence/crypto-20261105/delivery.json, served-verification.json and
+update-cleanup.json. No Finance implementation or deployment work remains locally.
