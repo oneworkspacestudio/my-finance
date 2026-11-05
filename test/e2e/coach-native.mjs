@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { createHash } from 'node:crypto';
+import { syntheticFinanceLogin } from './synthetic-finance-login.mjs';
 const require = createRequire(process.env.FINANCE_MODULE_ROOT + '/package.json');
 const { chromium } = require('playwright');
 if (process.env.FINANCE_SYNTHETIC_ONLY !== '1' || !process.env.FINANCE_TEST_URL) throw Error('Set FINANCE_SYNTHETIC_ONLY=1 and an explicit synthetic FINANCE_TEST_URL');
@@ -47,8 +48,7 @@ async function attachRPC() {
   });
 }
 try {
-  const login = await context.request.post(base + 'api/login', { data: { email: 'owner@example.test', password: 'Fictional-Test-Only-582!' }, headers: { Origin: new URL(base).origin } });
-  assert.equal(login.status(), 200, 'synthetic account login');
+  await syntheticFinanceLogin(context, page, base);
   for (let i = 0; i < 90; i++) {
     const status = await context.request.get(base + 'api/finance/status').then(r => r.json());
     if (status.engineReady) break;
@@ -123,6 +123,15 @@ try {
     return { from, to, asOf, before, prefs: await rpc('load-prefs') };
   });
   assert.ok(seeded.prefs.cloudFileId, 'native budget uploaded');
+  const ledgerHash = createHash('sha256').update(JSON.stringify(seeded.before)).digest('hex');
+  if (process.env.FINANCE_BASELINE_LEDGER) {
+    const baseline = JSON.parse(await fs.readFile(process.env.FINANCE_BASELINE_LEDGER, 'utf8'));
+    assert.equal(ledgerHash, baseline.transactionsSHA256, 'managed update preserved the fictional native ledger exactly');
+  }
+  if (process.env.FINANCE_SEED_ONLY === '1') {
+    await fs.writeFile(out + '/baseline-native-ledger.json', JSON.stringify({ synthetic: true, transactionsSHA256: ledgerHash, count: seeded.before.length, from: seeded.from, asOf: seeded.asOf }, null, 2));
+    console.log('PASS managed baseline: fictional native ledger seeded for supported upgrade comparison');
+  } else {
   const me = await context.request.get(base + 'api/me').then(r => r.json());
   const nonce = await page.evaluate(({ account, from, to }) => {
     const nonce = crypto.randomUUID();
@@ -204,6 +213,7 @@ try {
   assert.deepEqual(after, seeded.before, 'import does not mutate native ledger');
   await fs.writeFile(out + '/native-coach-report.json', JSON.stringify({ synthetic: true, upstream: '26.10.0', localOnlyAggregation: true, exactGrossIncomeMinor: 600100, exactOutgoingMinor: 300000, currentGrossIncomeMinor: 200345, currentOutgoingMinor: 17345, currentOnlyCategoryIncluded: true, hashedBudgetScopeOutsideSummary: true, managerServerPlan: true, unclassifiedCategoriesProtected: true, forecastAllocationConserved: true, rulesSaveLoadRemove: true, transferLegsExcluded: 2, openingBalanceExcluded: true, offbudgetExcluded: true, providerRequests, ledgerUnchanged: true, phoneOverflow: false }, null, 2));
   console.log('PASS native Actual manager import: exact historical/current totals, hashed budget scope, exclusions, mobile ribbon and unchanged ledger');
+  }
 } catch (error) {
   await page.screenshot({ path: out + '/native-coach-failure.png' }).catch(() => {});
   console.log((await page.locator('body').innerText()).slice(0, 4000));
