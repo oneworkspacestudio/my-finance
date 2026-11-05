@@ -25,6 +25,7 @@ def main():
     parser.add_argument('--baseline', required=True, type=Path)
     parser.add_argument('--exe', required=True, type=Path)
     parser.add_argument('--output', required=True, type=Path)
+    parser.add_argument('--go', default='go', help='Go tool used to inspect executable provenance')
     parser.add_argument('--notices', required=True, type=Path,
                         help='Fresh notice collection for this gateway and the verified unchanged runtime')
     args = parser.parse_args()
@@ -40,6 +41,9 @@ def main():
     if actual_version != version:
         raise SystemExit('Executable version does not match source')
     source = git('rev-parse', 'HEAD')
+    build = subprocess.check_output([args.go, 'version', '-m', str(args.exe)], text=True)
+    if '\tvcs.revision=' + source not in build or '\tvcs.modified=false' not in build:
+        raise SystemExit('Build the gateway from the clean committed source before packaging')
     old = json.loads((args.baseline / 'workspace-update.json').read_text())
     if contract['workspaceInstallerIntegration'] != old['integration'] or contract['minimumWorkspaceVersion'] != old['minimumManager']:
         raise SystemExit('Unchanged-runtime packaging requires the existing manager compatibility contract')

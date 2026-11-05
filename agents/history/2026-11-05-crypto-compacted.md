@@ -78,3 +78,19 @@ managed lifecycle once disk space allows, immutable app release/public channel a
 reconciled ordinary suite build, then normal protected primary Finance5→6 update
 with all payload/credential/unrelated-app/recovery verification. Keep every stage
 explicit; second PC stays deferred. Update this handoff with final evidence.
+
+Implementation source9ba7370 was pushed and a ten-asset candidate was validated.
+All14Node, fullGo/vet, threeUI suites and current suite catalog/distribution tests
+pass. Suite fast-forwarded to8a61af9, candidate projection preserved36 unrelated
+historical apps/446packages; current registry39apps. No public6 release/channel
+or managed fixture/local update yet; primary remainsWorkspace114/Finance5.
+C still has roughly750MBfree; user disk-space reply remains pending.
+
+Final provenance review found the first candidate executable retained the expected
+pre-commit dirty Go VCS stamp. It was compiled from the tested worktree, but this
+candidate is superseded by a clean-commit rebuild. package-release now verifies
+embedded vcs.revision matches HEAD and vcs.modified=false before creating assets.
+Use --go with the direct Go1.27.3 binary. Tooling package-validation.json and
+continuation-state.json identify the replacement candidate's exact source/SHA;
+do not publish the pre-commit candidate. Recheck candidate projection on the final
+replacement bytes; runtime, UI and application logic are otherwise unchanged.
