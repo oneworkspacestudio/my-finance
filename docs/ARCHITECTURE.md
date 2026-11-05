@@ -68,3 +68,19 @@ support spent/remaining allowances. Automatic internal recalculation separately
 funds essential/incurred spending, savings and eligible investment reservations.
 AI proposals are reviewed and applied as rules before deterministic reallocation,
 never as ledger instructions.
+
+Schema5 adds one protected paper experiment per user, with fixed fictional
+instruments and a virtual GBP portfolio. Schema6 adds protected Trading212
+read-only credentials. Neither is a second ledger for real transactions. Models
+return bounded paper actions; a separate deterministic engine applies whole-unit
+orders and enforces cash, cost-basis conservation and agreed limits. A finite run
+is bound to the consenting session, revision and model. Attempts are persisted
+before provider calls, and stale/pause/restart responses cannot commit. The browser
+drives the finite sequence; the server does not schedule unattended paid work.
+
+Trading212 uses two fixed GET endpoints for summary and positions. Account
+currency is retained and instrument prices never become guessed GBP values.
+There is no URL passthrough, trading/payment tool or link from broker state to the
+LLM. Results are transient. Both new record types use account-bound CurrentUser
+DPAPI envelopes and are absent from credential-free Finance snapshots; ordinary
+Workspace recovery can preserve them. See INVESTMENTS.md for user-facing limits.

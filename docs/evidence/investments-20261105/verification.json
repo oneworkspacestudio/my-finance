@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "syntheticDataOnly": true,
+  "liveAIProviderUsed": false,
+  "liveBrokerUsed": false,
+  "goTests": true,
+  "goVet": true,
+  "paperConservationScenarios": 700,
+  "brokerTransportAndDPAPITests": true,
+  "paperAuthConcurrencyAndRestartTests": true,
+  "coachLedgerTests": 9,
+  "coachUIRegression": true,
+  "investmentsUI": true,
+  "viewportWidths": [
+    320,
+    390,
+    768,
+    1280
+  ],
+  "panels": [
+    "paper",
+    "broker"
+  ],
+  "overflow": false,
+  "screenshotDrawerSettled": true,
+  "realTradingAvailable": false,
+  "paymentInitiationAvailable": false
+}

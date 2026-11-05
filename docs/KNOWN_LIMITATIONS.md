@@ -22,6 +22,13 @@
   AI responses can be wrong and are educational, not regulated investment advice.
   Provider integration is tested with synthetic HTTP responses; no live paid
   OpenAI or DeepSeek key has been used in acceptance testing.
+- Investments automates only a virtual paper portfolio. Real trades, account
+  creation, bank payments and unattended live investing are unavailable. Scenario
+  prices are entered manually; no live quotes, realistic fills, fees, taxes,
+  dividends or FX are simulated. A paper goal is not a promised return.
+- Trading 212 supports explicit read-only summary/holdings refreshes. Broker data
+  stays separate from the LLM. Official provider sandbox/live account acceptance
+  is pending; mocked transport tests do not establish provider qualification.
 - The native PWA service worker is disabled on Workspace's shared origin to avoid
   controlling other apps. Previously loaded Actual local budgets can use its
   local-first store; cold-start offline installation is not certified.

@@ -81,7 +81,10 @@ def main():
     shutil.copyfile(ROOT / 'compatibility.json', args.output / 'compatibility.json')
     info = json.loads((args.baseline / 'build-info.json').read_text())
     info.update(commit=source, version=version, financeDataSchema=contract['financeDataSchema'],
-                aiProviders=['openai', 'deepseek'], liveAIProviderVerified=False)
+                aiProviders=['openai', 'deepseek'], liveAIProviderVerified=False,
+                paperInvestmentAutomation=contract.get('paperInvestmentAutomation', False),
+                brokerReadOnly=contract.get('brokerReadOnly', False),
+                liveBrokerVerified=False, liveTrading=False, paymentInitiation=False)
     (args.output / 'build-info.json').write_text(json.dumps(info, indent=2), encoding='utf-8')
     subprocess.run(['git', '-C', str(ROOT), 'archive', '--format=zip',
                     '--output=' + str(args.output / 'my-finance-source.zip'), source], check=True)

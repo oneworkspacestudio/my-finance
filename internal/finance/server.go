@@ -43,6 +43,8 @@ type App struct {
 	ready                bool
 	snapshotMu           sync.Mutex
 	ai                   *aiRuntime
+	paper                *investmentRuntime
+	broker               *brokerRuntime
 }
 
 func New(h *apphost.Host, digest string) (*App, error) {
@@ -64,6 +66,12 @@ func New(h *apphost.Host, digest string) (*App, error) {
 		return nil, e
 	}
 	if e = a.aiRoutes(); e != nil {
+		return nil, e
+	}
+	if e = a.investmentRoutes(); e != nil {
+		return nil, e
+	}
+	if e = a.brokerRoutes(); e != nil {
 		return nil, e
 	}
 	for _, method := range []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"} {

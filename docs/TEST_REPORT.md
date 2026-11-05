@@ -9,6 +9,28 @@ the installed candidate matches those published bytes, and the exact anonymous
 update channel and installer check pass.
 DESKTOP-Workstation delivery is deferred at the user's request while this PC finishes.
 
+## Investment workspace acceptance, 5 November 2026
+
+Finance5 adds a virtual paper portfolio and an independent read-only Trading212
+connection. Full Go tests and vet pass. Paper tests cover700 allocation/conservation
+scenarios, exact cost basis, atomic rejected batches, order/cash/position/loss limits,
+bounded history, strict provider responses, persisted attempts, account/DPAPI
+isolation, cancellation races, expired sessions and restart safety. Schema4→6
+retains existing protected settings; older executables reject newer data.
+
+Broker tests use synthetic HTTP responses and verify the two fixed GET endpoints,
+HTTP Basic credentials, redirect rejection, strict numeric data, response bounds,
+rate limits, no account-ID/FX leakage, DPAPI environment/user binding and in-flight
+credential changes. No broker or bank account was used as a fixture and no paid
+AI call was made. Provider sandbox/live qualification remains unverified.
+
+Investment browser acceptance exercises agreed limits, explicit finite-run consent,
+pause/cancel, no automatic retry or resume, key clearing, account switching, plain
+text model output, and paper/broker layouts at320/390/768/1280px. Existing manager
+UI and nine native-summary regressions are retained. Dedicated managed fresh
+setup/upgrade and installed-byte receipts are recorded under
+`docs/evidence/investments-20261105/` as each delivery gate completes.
+
 ## Money manager acceptance, 3 November 2026
 
 Finance4 adds current-month category allowances, saved manager rules and reviewed

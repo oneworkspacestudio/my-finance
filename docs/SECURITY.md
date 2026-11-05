@@ -36,7 +36,7 @@ No AI request runs when opening a budget or calculating a plan. A user must revi
 and consent to sending the displayed monthly/category totals, profile, goals and
 question to the selected provider. These summaries can still be sensitive.
 OpenAI requests set store=false; this does not promise zero provider retention.
-Provider terms and API charges apply. Prompts and answers are not saved by Finance.
+Provider terms and API charges apply. Money manager prompts and answers are not saved by Finance.
 The short-lived, account-bound summary handoff uses sessionStorage only until the
 manager consumes it; local browser compromise remains outside the threat model.
 
@@ -47,6 +47,22 @@ rules are excluded from Finance snapshots/exports but may be in normal protected
 Workspace recovery. Budget digests do not grant Actual access or leave in AI data.
 Current-month totals remain snapshots. AI rules are untrusted bounded proposals;
 users apply them explicitly and integer arithmetic recomputes affordability.
+
+The Investments paper portfolio is separate from Actual. Its rules, virtual
+balances and bounded decision audit are per-user DPAPI records. The LLM can only
+return a validated paper decision; no real order or payment adapter is available
+to it. Run consent, persistent attempt limits, revision checks and deterministic
+money/quantity limits prevent stale responses or model output from widening the
+experiment. A paused or restarted run cannot commit an old in-flight decision.
+Paper portfolio data is sent only after explicit bounded-run consent.
+
+Trading 212 keys use a separate DPAPI account/environment envelope. The adapter
+has two literal GET-only endpoints, bounded responses, no redirects or ambient
+proxy, and sanitized errors. Broker data is displayed transiently, never sent to
+the model or persisted. Users should create read-only keys; the app cannot verify
+all permissions on an entered key. Removing a key locally does not revoke it at
+the provider. Finance snapshots omit both paper state and broker credentials;
+normal Workspace recovery may include their protected records.
 
 Native ledger worker console output is suppressed so reconciliation/debug objects
 cannot print transaction payloads. Engine server output is also discarded; the Go
