@@ -1,0 +1,20 @@
+{
+  "synthetic": true,
+  "passed": true,
+  "action": "rollback",
+  "workspace": "0.3.0-preview.114",
+  "baselineFinance": "0.1.0-preview.5",
+  "finance": "0.1.0-preview.5",
+  "managerAndUnselectedBytesPreserved": true,
+  "accountIdentityAndCredentialsPreserved": true,
+  "pathsPreserved": true,
+  "ownedPayloadsVerified": 5,
+  "ownerInstallationUsed": false,
+  "health": {
+    "apps": {
+      "accounts": "running",
+      "finance": "running"
+    },
+    "status": "ok"
+  }
+}

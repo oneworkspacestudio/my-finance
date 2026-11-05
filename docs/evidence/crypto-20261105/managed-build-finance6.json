@@ -1,0 +1,17 @@
+{
+  "ordinaryEntryPoint": "scripts/rebuild.ps1",
+  "financeVersion": "0.1.0-preview.6",
+  "sourceCommit": "f9dbbb0b640b433ba3e2a68d561abe5ebbe741d9",
+  "localSuiteBuildVersion": "0.3.0-preview.116",
+  "catalogSHA256": "6625ac7b7888b396fe2e578b22af7c0ea7aff29b80db0873b18f785afacb7e36",
+  "archiveSHA256": "e9673763c2e1a870e71536584fdfff7238d38e9a3e71bd9671a8769a9a1f4498",
+  "archiveSize": 1410063587,
+  "setupSHA256": "5f3a31c4d1e64482ef184dda6fc227d0684ad93a7a1bb68d9601972ebbdd0ccc",
+  "apps": 39,
+  "packages": 509,
+  "financeOwnedPayloads": 5,
+  "everyArchivedPayloadVerified": true,
+  "allCurrentRegistryAppsPresent": true,
+  "publicPinsOnly": true,
+  "suiteReleasePublished": false
+}

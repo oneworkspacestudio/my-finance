@@ -253,3 +253,20 @@ gateway and notice bytes change, while the pinned Actual runtime is unchanged.
 Release packaging, current ordinary-suite build, fresh/upgrade/rollback and local
 delivery receipts are pending at this implementation checkpoint. C: disk capacity
 must be available before the required protected installation/recovery tests.
+
+The final clean-source Finance6 release is now public and the standard public
+channel promoted (suite f9dbbb0). Ten release assets, exact committed source archive,
+embedded clean VCS stamp and anonymous checksum/channel access pass. Synthetic
+managed lifecycle with the public114 installer passes Finance1 -> 5 -> 6 ->
+rollback5 -> 6, including byte-verified recovery, unchanged Actual data and
+credentials/unselected programs, native UI regressions and real HTTP crypto guards.
+Fixture services stopped and private test data removed. Sanitized receipts are in
+`docs/evidence/crypto-20261105/`. Paid/provider/wallet delivery limits above remain.
+
+The ordinary public-pin complete build passes all39 apps and509packages; every
+archived member and all Finance payloads match. The first primary update installed
+Finance6 but automatically rolled back after Workspace portal readiness failed
+(the restart log reports public MyAccounts discovery HTTP502). Restored Finance5
+payloads and recovery manifest match; all36 previous services and public discovery
+are healthy. No local Finance6 delivery is claimed yet. Another chat's primary
+Workspace/My News update is now active; Finance retry must wait and recheck state.

@@ -1,0 +1,9 @@
+{
+  "phase": "rolled-back",
+  "finance": "0.1.0-preview.5",
+  "allFiveBaselinePayloadsVerified": true,
+  "recoveryManifestVerified": true,
+  "publicIssuerDiscoveryPassed": true,
+  "reason": "Initial restart failed with public MyAccounts discovery HTTP502",
+  "verified": "2026-11-05T16:46:44.8629703Z"
+}

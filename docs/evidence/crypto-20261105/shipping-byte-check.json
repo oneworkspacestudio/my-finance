@@ -1,0 +1,36 @@
+{
+  "synthetic": true,
+  "source": "db88ea4f9e16cfce96b296e4393b9d62ef517a79",
+  "shippingExecutableSHA256": "85ecbdeb960cf19c296b74dd5aad675698a81752d5bbd27fd35381cbc9a5a849",
+  "runtimeSHA256": "f3c4675bf401042356310325a35de736de3c7b2f53aab2e74b611839f98da3ca",
+  "schema": 10,
+  "managedSequence": "114/Finance1\u21925\u21926\u2192rollback5\u21926",
+  "fivePayloadsAndRecoveryVerified": true,
+  "settingsIdentitiesCredentialsAndUnselectedBytesPreserved": true,
+  "nativeBudgetUnchangedAcrossLifecycle": true,
+  "realHTTPCryptoPausedSettingsAndGuards": true,
+  "servedAssetsMatchSource": {
+    "crypto.js": "f2f0f93d93c9c3771592bd2e8af937377cf6a1a824e0af968548852e48be517e",
+    "crypto-wallet.js": "0ca82f3057dfed5375e150ef1bfb997031326bd50ed095a7eb9b05782e38003f",
+    "finance-push-sw.js": "9bbfc947d61e0feea2509ea5fd88a9b521cdea6547a90cfd8e3feb561fa66b8a",
+    "finance.webmanifest": "8f58a362642d44c7c99d8d58b665402419c6e2cef85c557deeb2643754e0a4c5",
+    "investments.js": "548e2710ceca67de07b2d1702c3d5cf62c0b77a6fb9ddd112feea4432aa38eb0",
+    "coach-ledger.js": "5c0a6ff7563fb82ece072e08c30bf81f43fd113db267d60bd02c2f30d80b3a6d",
+    "ai.js": "9ee85c700b17095b13357d4be1359ffcd0ed6fd272ab876a7a5e6ebfc35580af",
+    "app.js": "5a7f9f75b9cb9180c75033173d88d5f65cd8de417f7dc170ba9c6a9413260188",
+    "style.css": "b2fd80b3ee72e4a57ab64225c16a1b9636bb68cbd5d58b3bce352fc405c5ec21"
+  },
+  "finalHealth": {
+    "apps": {
+      "accounts": "running",
+      "finance": "running"
+    },
+    "status": "ok"
+  },
+  "paidProviderCalls": 0,
+  "walletSignatures": 0,
+  "pushDeliveryQualified": false,
+  "emailDeliveryQualified": false,
+  "browserClosed": true,
+  "ownerInstallationUsed": false
+}

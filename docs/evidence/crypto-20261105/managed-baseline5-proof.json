@@ -1,0 +1,24 @@
+{
+  "synthetic": true,
+  "passed": true,
+  "action": "baseline5",
+  "workspace": "0.3.0-preview.114",
+  "baselineFinance": "0.1.0-preview.1",
+  "finance": "0.1.0-preview.5",
+  "managerAndUnselectedBytesPreserved": true,
+  "accountIdentityAndCredentialsPreserved": true,
+  "pathsPreserved": true,
+  "ownedPayloadsVerified": 5,
+  "ownerInstallationUsed": false,
+  "health": {
+    "apps": {
+      "accounts": "running",
+      "finance": "running"
+    },
+    "status": "ok"
+  },
+  "backupID": "update-20261105T160145-7efe5c9f7826",
+  "backupFilesVerified": 15,
+  "shippingEXESHA256": "9d1d226f3ff8a4a49813d0f9d1e7e8e3323748fc4f37ac74968aa45644d9b03f",
+  "source": "c1b2bc75179c25a2a0c9ec6bbfc92b983bf0a875"
+}

@@ -1,0 +1,24 @@
+{
+  "baselineAllPublicDigestsVerified": true,
+  "sameOwnedPayloadContracts": 5,
+  "unchangedRuntimeLicenseAndUpstreamSources": true,
+  "newLinkedGoNoticesVerified": true,
+  "exactCommittedSourceArchiveVerified": true,
+  "schema": 10,
+  "assets": 10,
+  "tag": "v0.1.0-preview.6",
+  "source": "db88ea4f9e16cfce96b296e4393b9d62ef517a79",
+  "portableSHA256": "e160e4700a7347ee282892eb70df1e5c28b342c73b85bcd6fc459665513aab8a",
+  "assetSHA256": {
+    "Actual-26.10.0-source.zip": "aeefc682921f89f49a8ce2f848e3556d4cec72b19be7148e26daadf0bdb062b0",
+    "HyperFormula-3.5.0-source.zip": "b06652e52b6594c3c160bffced73063e62e1df81e2ac5432baaebf93d7a91352",
+    "MyFinance.exe": "85ecbdeb960cf19c296b74dd5aad675698a81752d5bbd27fd35381cbc9a5a849",
+    "SHA256SUMS.txt": "513f103d841a080460ff3db473037e3cba12168fbc67b13fedc81d7706e59de7",
+    "THIRD-PARTY-LICENSES.txt": "9b6f64d862abdb7064e1d87602ee51dd450d59604b2a6fdc8913eb93b98ad7a8",
+    "build-info.json": "630228ce1ea004bd148a677fb9915253c744b30793e8b896c40e639892647373",
+    "compatibility.json": "e1f4b4f9401565b1215af9ed2e4e848dfe4d3b72a733269e9976b01dfa5c5e4a",
+    "my-finance-0.1.0-preview.6-windows-amd64.zip": "e160e4700a7347ee282892eb70df1e5c28b342c73b85bcd6fc459665513aab8a",
+    "my-finance-source.zip": "95ee0c991d1cee0f83c8a6b4f83fe9591f3b720a391e3e7b2d644784b604ed64",
+    "workspace-update.json": "6298772bd67dc9cbbe22cfa81b210af5302e2f8a226d35109a3337e688402ac3"
+  }
+}

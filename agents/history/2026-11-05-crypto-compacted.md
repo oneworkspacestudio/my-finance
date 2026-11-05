@@ -94,3 +94,45 @@ Use --go with the direct Go1.27.3 binary. Tooling package-validation.json and
 continuation-state.json identify the replacement candidate's exact source/SHA;
 do not publish the pre-commit candidate. Recheck candidate projection on the final
 replacement bytes; runtime, UI and application logic are otherwise unchanged.
+
+## Finance6 released and lifecycle verified
+
+Finance6 is public from clean source db88ea4f9e16cfce96b296e4393b9d62ef517a79.
+All ten immutable assets match SHA256/size receipts; the source archive and embedded
+Go VCS stamp match the commit. Portable SHA256 is
+e160e4700a7347ee282892eb70df1e5c28b342c73b85bcd6fc459665513aab8a.
+The normal suite publisher retained 270 previous channel rows and added only
+Finance6; suite promotion f9dbbb0 is anonymously readable with all ten assets.
+
+Public Workspace114 installer acceptance passed with synthetic NTFS accounts and
+Actual data: Finance1 -> 5 -> 6 -> rollback5 -> 6. Five owned payloads and recovery
+member hashes, unchanged ledger/settings/identity/credentials/unselected bytes,
+managed OIDC, native budget/coach and paper-investment regression, crypto real HTTP
+paused-state/missing-key guards and nine served assets passed. The fixture was
+stopped and its private NTFS root removed. No owner's ledger was a test fixture.
+See docs/evidence/crypto-20261105 for sanitized publication/lifecycle receipts.
+Ordinary complete build and protected primary delivery remain in progress.
+
+## Primary deployment interruption and resume state
+
+The first protected Finance5 -> 6 attempt used public114. All five payloads were
+installed and Finance's health check passed, but Workspace never confirmed portal
+readiness. restart.log recorded public MyAccounts discovery HTTP502. Automatic
+recovery verified the complete backup, preserved the attempted newer state and
+restored Finance5. Verified all five restored payload hashes, recovery manifest,
+36 running services and working public issuer discovery. No manual recovery/data
+cleanup was used. Final delivery remains pending; this is not a successful install.
+
+While recovery ran, other authorized work published Workspace115/116. The public
+channel now requires installer116; its immutable public EXE SHA256 is
+6a94ec72c514242c9a19539eba64bd3f788da417db0a9c49a22d7125eca2d141.
+A subsequent Finance retry did not mutate anything: another chat began the actual
+primary Workspace/My News115 update. Wait for that installer to finish; re-read
+primary version, Finance version, transaction and health before any new update.
+Do not overlap active installer operations. Standalone exact --check-updates
+processes only download/verify bundles and are not mutating installations.
+
+The ordinary complete Finance6 public-pin QA build passed all39 apps/509packages
+and every archived payload hash, but was not published or installed. Suite public
+releases115/116 are separately owned concurrent work. Preserve their channel rows
+and pins when merging evidence updates. Second PC still explicitly deferred.
