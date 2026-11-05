@@ -22,13 +22,22 @@
   AI responses can be wrong and are educational, not regulated investment advice.
   Provider integration is tested with synthetic HTTP responses; no live paid
   OpenAI or DeepSeek key has been used in acceptance testing.
-- Investments automates only a virtual paper portfolio. Real trades, account
-  creation, bank payments and unattended live investing are unavailable. Scenario
+- The Investments paper view automates only a virtual portfolio. Broker trades,
+  account creation, bank payments and unattended live investing are unavailable. Scenario
   prices are entered manually; no live quotes, realistic fills, fees, taxes,
   dividends or FX are simulated. A paper goal is not a promised return.
 - Trading 212 supports explicit read-only summary/holdings refreshes. Broker data
   stays separate from the LLM. Official provider sandbox/live account acceptance
   is pending; mocked transport tests do not establish provider qualification.
+- Crypto supports only human-signed native ETH/Base USDC swaps through one
+  Uniswap v3 0.05% pool. No best-route claim, arbitrary tokens, bridging, exchange
+  accounts, WalletConnect or automatic transaction execution. A compatible injected
+  wallet/browser is required; the host must remain awake/online for monitoring.
+  Public RPC and indexed social/news availability can block analysis. Keys,
+  explicit consent, notification permissions and a verified Resend sender must be
+  configured by the user. Paid DeepSeek, actual push/email delivery and real-wallet
+  signatures/broadcasts are unverified; read-only public checks are separate.
+  Crypto proposals are not a promise of returns or regulated investment advice.
 - The native PWA service worker is disabled on Workspace's shared origin to avoid
   controlling other apps. Previously loaded Actual local budgets can use its
   local-first store; cold-start offline installation is not certified.

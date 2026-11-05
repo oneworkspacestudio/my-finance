@@ -45,6 +45,10 @@ type App struct {
 	ai                   *aiRuntime
 	paper                *investmentRuntime
 	broker               *brokerRuntime
+	crypto               *cryptoRuntime
+	wallet               *cryptoWalletRuntime
+	push                 *cryptoPushRuntime
+	email                *cryptoEmailRuntime
 }
 
 func New(h *apphost.Host, digest string) (*App, error) {
@@ -74,6 +78,18 @@ func New(h *apphost.Host, digest string) (*App, error) {
 	if e = a.brokerRoutes(); e != nil {
 		return nil, e
 	}
+	if e = a.cryptoRoutes(); e != nil {
+		return nil, e
+	}
+	if e = a.cryptoWalletRoutes(); e != nil {
+		return nil, e
+	}
+	if e = a.cryptoPushRoutes(); e != nil {
+		return nil, e
+	}
+	if e = a.cryptoEmailRoutes(); e != nil {
+		return nil, e
+	}
 	for _, method := range []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"} {
 		h.Mux.HandleFunc(method+" /ledger/", a.engineHandler)
 	}
@@ -94,6 +110,12 @@ func (a *App) Run(ctx context.Context) error {
 	snapshotsDone := make(chan struct{})
 	go func() { defer close(snapshotsDone); a.snapshotLoop(snapshotCtx) }()
 	defer func() { stopSnapshots(); <-snapshotsDone }()
+	var background sync.WaitGroup
+	background.Add(3)
+	go func() { defer background.Done(); a.cryptoLoop(snapshotCtx) }()
+	go func() { defer background.Done(); a.cryptoPushLoop(snapshotCtx) }()
+	go func() { defer background.Done(); a.cryptoEmailLoop(snapshotCtx) }()
+	defer func() { stopSnapshots(); background.Wait() }()
 	data := filepath.Join(a.h.Config.Data, "actual")
 	if e := os.MkdirAll(data, 0700); e != nil {
 		return e

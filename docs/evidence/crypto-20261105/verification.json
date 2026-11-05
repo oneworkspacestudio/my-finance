@@ -1,0 +1,26 @@
+{
+  "finance": "0.1.0-preview.6",
+  "schema": 10,
+  "goTests": "passed",
+  "goVet": "passed",
+  "nodeTests": 14,
+  "nodeAllPassed": true,
+  "cryptoUI": "passed",
+  "coachUI": "passed",
+  "investmentsUI": "passed",
+  "reviewedViewports": [
+    320,
+    390,
+    768,
+    1280
+  ],
+  "windowsGatewayBuild": "passed",
+  "publicBaseRPCAndQuoterReadOnly": "passed",
+  "paidDeepSeekVerified": false,
+  "realWalletSignatureOrBroadcast": false,
+  "realPushDelivery": false,
+  "realEmailDelivery": false,
+  "ownerDataUsedAsFixture": false,
+  "managedLifecycle": "pending disk capacity",
+  "releaseAndPrimaryInstall": "pending"
+}

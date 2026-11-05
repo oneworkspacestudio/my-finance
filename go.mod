@@ -3,9 +3,11 @@ module github.com/oneworkspacestudio/my-finance
 go 1.27.3
 
 require (
+	github.com/SherClockHolmes/webpush-go v1.4.1-0.20260422052225-76cc00f5ac2d // indirect
 	github.com/coreos/go-oidc/v3 v3.21.0 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/go-jose/go-jose/v4 v4.1.4 // indirect
+	github.com/golang-jwt/jwt/v5 v5.3.1 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/mattn/go-isatty v0.0.24 // indirect
 	github.com/ncruces/go-strftime v1.0.0 // indirect

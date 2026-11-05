@@ -19,11 +19,18 @@
 | AI key theft or cross-account use | Per-user CurrentUser DPAPI credentials, authenticated CSRF-protected routes, fixed provider endpoints, redirect rejection and sanitized errors. Same-Windows-user compromise remains outside the guarantee. |
 | Saved manager rule disclosure or substitution | Profiles use DPAPI envelopes bound to user and budget digest, no-store responses and authenticated/CSRF-protected writes. Fifty scopes per user; no ledger access is granted by a digest. |
 | AI allocation or stale-data error | Explicit proposal review/application, known-category and money bounds, deterministic penny allocation. Current snapshots display date; refresh after sync and month change. Planned allowances are not cash available today. |
-| Model attempts real trades or money movement | Paper-only action schema and isolated virtual portfolio. No model-accessible broker tools or payment/order API route. Fixed limits and integer conservation checked independently of the model. |
+| Model attempts real trades or money movement | Paper actions affect only virtual portfolios. Separate crypto proposals cannot sign or broadcast; deterministic Base ETH/USDC requests require individual human wallet confirmation. No model-accessible broker or payment tools. |
 | Replayed or interrupted paper decisions | Per-user revision checks, counted attempts before paid request, finite session-bound run consent, pause/restart invalidation and all-or-nothing decision application. |
 | Broker key theft, substitution or redirected request | DPAPI binds user/environment; credentials never returned. Only fixed summary/position GET URLs, redirect denial, request/response bounds, refresh rate limit and in-flight credential-change check. |
 | Misleading simulation performance | Persistent paper labels, user-entered scenario prices, visible activity and stated absence of market execution, fees/tax/FX modelling or promised returns. |
+| Malicious crypto news/social snippets | Fixed bounded searches, dates and supplied evidence IDs; untrusted plain text, no model tools or arbitrary URL fetches. Source claims may still be wrong. |
+| Unbounded background API charges | Explicit opt-in, persisted pre-call reservations, interval/daily caps, fixed flash model and token bounds; no catch-up or uncertain paid retries. Estimates are not invoices or limits on other uses of the key. |
+| Substituted wallet transaction | Fixed Base router/token/fee, independent browser ABI reconstruction, exact amount/recipient/allowance, fresh market/balance/reserve checks, on-chain minimum/deadline and safe-block receipt verification. Compromised wallet/browser/RPC remains a risk. |
+| Stale wallet approval | Session/revision/expiry checks before preparation and wallet prompt; separate human gestures per operation. An already-open wallet prompt cannot be revoked by Finance; decline it if circumstances change. |
+| Notification leakage, redirect or duplicate email | Generic encrypted push, Finance-only worker scope, known push hosts; fixed Resend endpoint, user/origin-bound DPAPI recipient/key, stable idempotency key and three attempts inside30min. Alerts only open authenticated review. Already accepted alerts cannot be recalled. |
 
 No automated bank consent, payment endpoint or banking-password collection is
 provided. Optional AI management guidance transmits only the reviewed summary and context
-when the signed-in user explicitly requests it.
+when the signed-in user explicitly requests it. Separately enabled crypto
+monitoring can send consented wallet balance amounts/objective/public evidence to
+DeepSeek while the browser is closed; it never sends the wallet address or ledger.

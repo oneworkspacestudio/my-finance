@@ -1,0 +1,11 @@
+{
+  "id": "./",
+  "name": "My Finance",
+  "short_name": "My Finance",
+  "start_url": "./#crypto",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f8ff",
+  "theme_color": "#2458c7",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

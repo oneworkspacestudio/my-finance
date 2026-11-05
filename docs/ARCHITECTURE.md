@@ -76,7 +76,7 @@ return bounded paper actions; a separate deterministic engine applies whole-unit
 orders and enforces cash, cost-basis conservation and agreed limits. A finite run
 is bound to the consenting session, revision and model. Attempts are persisted
 before provider calls, and stale/pause/restart responses cannot commit. The browser
-drives the finite sequence; the server does not schedule unattended paid work.
+drives the finite paper sequence; this module does not schedule unattended paid work.
 
 Trading212 uses two fixed GET endpoints for summary and positions. Account
 currency is retained and instrument prices never become guessed GBP values.
@@ -84,3 +84,19 @@ There is no URL passthrough, trading/payment tool or link from broker state to t
 LLM. Results are transient. Both new record types use account-bound CurrentUser
 DPAPI envelopes and are absent from credential-free Finance snapshots; ordinary
 Workspace recovery can preserve them. See INVESTMENTS.md for user-facing limits.
+
+Schema7 adds opt-in continuous crypto monitoring, schema8 wallet reviews,
+schema9 per-user VAPID/subscriptions and a push outbox, and schema10 protected
+Resend settings/email outbox. All loops share host cancellation; monitoring
+persists its schedule and bounded daily cost reservations before requests. Host
+restart postpones the next run and expires old proposals without replay bursts.
+The model emits only bounded hold/proposal data from DEX Screener, read-only Base
+balances and DeepSeek news/indexed-social search. Actual is never queried here.
+
+Wallet requests use fixed Uniswap v3 Base ETH/USDC contracts with checked ABI,
+exact approval, minimum received and deadline. Only the browser wallet signs and
+broadcasts after individual user action; server RPC methods are read-only. Fresh
+quote/preparation checks and independent browser reconstruction precede signing;
+receipt checks verify the exact transaction and canonical safe block. Push/email
+open the signed-in review screen and cannot execute. See CRYPTO_MONITOR.md and
+CRYPTO_IMPLEMENTATION_CONTRACT.md for setup, endpoints and qualification limits.

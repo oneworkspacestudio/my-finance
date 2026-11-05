@@ -15,6 +15,7 @@ func TestFinanceMigrationsSurviveRestartAndRefuseNewerSchema(t *testing.T) {
 		return &App{h: h}
 	}
 	a := open()
+	defer func() { a.h.Close() }()
 	if e := a.connectionRoutes(); e != nil {
 		t.Fatal(e)
 	}
@@ -67,6 +68,18 @@ func TestFinanceMigrationsSurviveRestartAndRefuseNewerSchema(t *testing.T) {
 	if e := a.brokerRoutes(); e != nil {
 		t.Fatal("schema 6 restart failed", e)
 	}
+	for _, routes := range []func() error{a.cryptoRoutes, a.cryptoWalletRoutes, a.cryptoPushRoutes, a.cryptoEmailRoutes} {
+		if e := routes(); e != nil {
+			t.Fatal("schema 6 to 10 crypto upgrade failed", e)
+		}
+	}
+	a.h.Close()
+	a = open()
+	for _, routes := range []func() error{a.connectionRoutes, a.snapshotRoutes, a.aiRoutes, a.investmentRoutes, a.brokerRoutes, a.cryptoRoutes, a.cryptoWalletRoutes, a.cryptoPushRoutes, a.cryptoEmailRoutes} {
+		if e := routes(); e != nil {
+			t.Fatal("schema 10 restart failed", e)
+		}
+	}
 	if e := a.h.DB.QueryRow("SELECT last_success FROM finance_snapshot_schedule WHERE id=1").Scan(&saved); e != nil || saved != "fictional-retained-receipt" {
 		t.Fatal("AI migration lost existing snapshot settings", e)
 	}
@@ -75,7 +88,6 @@ func TestFinanceMigrationsSurviveRestartAndRefuseNewerSchema(t *testing.T) {
 	}
 	a.h.Close()
 	a = open()
-	defer a.h.Close()
 	if e := a.connectionRoutes(); e == nil {
 		t.Fatal("future schema accepted by older executable")
 	}

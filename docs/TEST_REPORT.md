@@ -218,3 +218,38 @@ and bytes retained, existing credentials/settings/locations retained,36 services
 healthy, verified recovery kept and normal cleanup finished. Secondary installation
 remains deferred. See ai-20261103/publication.json and delivery.json. The public
 HTTPS proxy still requires Workspace sign-in; no owner ledger was used for QA.
+
+## Finance6 crypto monitoring verification
+
+The implemented release candidate adds consented continuous DeepSeek monitoring,
+human-signed Base ETH/USDC reviews, Web Push and Resend email. Data schema10 keeps
+Actual as the sole ledger. The existing five managed payload names are unchanged;
+gateway and notice bytes change, while the pinned Actual runtime is unchanged.
+
+- Full Go tests and `go vet ./...` pass, including ordered schema6→10 migration,
+  restart, future-schema rejection, DPAPI isolation, Origin/CSRF/expected-account
+  guards, exact integer/rational limits and bounded malformed-source handling.
+- Monitor tests cover pre-call persisted cost/count reservations, restart opt-in,
+  stale key/account/pause responses, daily limits and no-source/hold/failure states.
+  Submitted/unknown receipts block further paid analysis. Wallet tests cover
+  deterministic ABI, fresh independent prices/balances/reserve checks, session
+  expiry during RPC, one operation per review, cross-proposal pending protection
+  and retention of unresolved records at the bounded history limit.
+- Browser-module tests independently reconstruct calldata, enforce exact allowance
+  and minimum/deadline/recipient, prevent approval-to-swap chaining, and clear
+  account/expiry state. Crypto UI tests exercise consent, safe text/source links,
+  push/email setup and explicit tests, stale saves and twelve responsive panels at
+  320/390/768/1280 pixels. Money manager and paper investment UI regressions pass.
+- Push/email tests use synthetic transports only: fixed endpoints, encrypted
+  account/origin-bound secrets, generic payloads, durable deduplication, bounded
+  retries, disabled/stale-proposal cancellation and email settings changes in flight.
+- A separate live public read-only Base/Uniswap quote smoke passed. No wallet
+  signing/broadcast, paid DeepSeek call, real push delivery or real email delivery
+  was exercised. No owner ledger, wallet or provider key was used as a fixture.
+- All fourteen Node tests pass, including the pinned Actual Enable Banking mock
+  regression with separate synthetic NTFS temporary data. The unchanged runtime
+  was rehashed before extraction. The Finance6 Windows gateway builds successfully.
+
+Release packaging, current ordinary-suite build, fresh/upgrade/rollback and local
+delivery receipts are pending at this implementation checkpoint. C: disk capacity
+must be available before the required protected installation/recovery tests.

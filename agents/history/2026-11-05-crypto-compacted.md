@@ -1,0 +1,80 @@
+# Crypto monitor and human wallet review, 5 November 2026
+
+User accepted final human execution after requesting autonomous crypto management.
+Agreed first network Base, MetaMask/Rabby, both push and email. Continue original
+push/release/local-install authorization; second PC remains explicitly deferred.
+No server signing/broadcast, private keys, standing/session transaction permission
+or automatic real execution. Actual remains the sole household ledger.
+
+Implementation target Finance6/schema10; previous public/local Finance5. Same five
+managed payload contracts and unchanged Actual runtime SHA
+f3c4675bf401042356310325a35de736de3c7b2f53aab2e74b611839f98da3ca.
+Schema7 monitor,8 wallet,9 push,10 email. App origin and private data stay managed
+through normal Workspace. All secrets/state account-bound DPAPI; normal protected
+recovery includes them, Finance ledger exports/sanitized snapshots do not.
+
+Monitor persists enabled schedule and conservative pre-call daily count/$0.009
+reservations. Fixed deepseek-flash with two fixed Search calls and bounded JSON
+inference; no tools. Existing per-user DeepSeek key must select flash. Fixed DEX
+Screener pools and read-only Base balances; wallet address never enters model
+payload, consent includes balance amounts/objective/public evidence. Require a
+cited dated<=7-day context item for a proposal; indexed social is not a firehose.
+No catch-up bursts or paid uncertainty retries; key/model/account/pause/revision
+checks bracket network work. Host must stay awake/online, browser may close.
+Pending proposals preserve displayed evidence. Submitted/unknown receipts block
+paid analysis even after changing monitored wallet, until confirmed/reverted.
+
+Wallet uses fixed documented Uniswap v3 Base 0.05% ETH/USDC pool and Router02,
+QuoterV2, native WETH/Circle USDC. Exact calldata independently built in Go/browser;
+30s UI review and120s on-chain deadline, minimum output, exact USDC allowance with
+separate reset/approve/swap gestures. Fresh independent USD quote/balance/reserve
+checks; total ETH exposure budget includes existing ETH, USDC cash excluded. No
+opaque aggregator calldata, arbitrary assets/recipients or unlimited allowance.
+Prepared swap or submitted/unknown hash blocks another quote for the same wallet
+across proposals. Bounded100 records preserve unresolved outcomes, refuse growth
+when none can be evicted. One wallet operation per quote. Receipts verify exact
+transaction and canonical safe block; unknown remains unresolved. Issued wallet
+prompts cannot be recalled by the app; users must reject stale prompts themselves.
+
+Push uses per-user DPAPI VAPID, known HTTPS browser push hosts, generic encrypted
+payload, Finance-only worker without fetch/cache. Resend uses fixed /emails API,
+bare sender/recipient, per-user/origin/revision DPAPI key, explicit enable/test,
+stable idempotency keys and at most3 attempts within30min. Saving never sends a
+test. Settings removal retains revision/throttle tombstone and cancels jobs; key
+revocation is separate at provider. Both channels only open authenticated review;
+acceptance is not delivery. Recoverable conflicts use412/422; shared api409 is
+reserved for expected-account mismatch and clears private UI.
+
+Full Go/vet passed including schema6→10 restart/future rejection. Focused wallet,
+monitor/email/push tests and mobile/coach/investments UI suites pass with synthetic
+transports. Browser ABI/gesture/logout/expiry tests pass. Public Base/Quoter read-
+only smoke passed. No paid call, live signature/broadcast, actual phone push/email
+or owner financial fixture is claimed. UI reviewed320/390/768/1280, no overflow.
+All14 Node tests including pinned Actual provider mock pass with separate NTFS
+temporary data (harness now supports FINANCE_TEST_TMPDIR and removes its own temp).
+Final Windows gateway builds. Package/lifecycle receipts still to finish.
+
+Tooling: I:/Projects/tooling/finance-crypto-20261105; synthetic NTFS root
+C:/Projects/.cache/finance-crypto-20261105. Direct Go1.27.3 toolchain onI, modules
+C:/Users/fahim/go/pkg/mod (I module cache has incomplete workspace fetch), cacheI.
+Use synthetic fixtures only. C had<1GB free and falling; user was asked to free3GB.
+Do not start protected install/owner upgrade until adequate capacity. No unrelated
+cache/data deletion. Synthetic cold engine cache cleanup allowed only stopped,
+path/reparse/hash-checked fixture, preserving all ledger/state/credentials/recovery.
+
+Source main startedf030e6e, uncommitted implementation at this checkpoint. Public
+Finance6/channel/local install NOT yet done. Suite local d84c798 clean but remote
+8a61af adds News/Commute (39apps/509packages, integration10), publicWorkspace114.
+Reconcile current remote before promoting Finance pin; preserve concurrent apps.
+Use normal verified public114 installer SHA
+208be163bf3b3180eb9e1e80916226448c68219b0ece319b92f9878634f4e125.
+Managed harness targets public114/Finance1→5→6→rollback5→6, fictional NTFS accounts.
+Fresh notices recollect Go webpush/JWT/toolchain and retain verified runtime notices;
+package-release now requires --notices. Immutable assets, Actions disabled. Ordinary
+suite build is QA only; publishing a suite still requires signed Android workflow.
+
+Resume: finish final regression/build, commit/push app source and package6, synthetic
+managed lifecycle once disk space allows, immutable app release/public channel and
+reconciled ordinary suite build, then normal protected primary Finance5→6 update
+with all payload/credential/unrelated-app/recovery verification. Keep every stage
+explicit; second PC stays deferred. Update this handoff with final evidence.

@@ -25,6 +25,8 @@ def main():
     parser.add_argument('--baseline', required=True, type=Path)
     parser.add_argument('--exe', required=True, type=Path)
     parser.add_argument('--output', required=True, type=Path)
+    parser.add_argument('--notices', required=True, type=Path,
+                        help='Fresh notice collection for this gateway and the verified unchanged runtime')
     args = parser.parse_args()
     def git(*values):
         return subprocess.check_output(['git', '-C', str(ROOT), *values], text=True, encoding='utf-8').strip()
@@ -58,6 +60,10 @@ def main():
     filename = 'my-finance-' + version + '-windows-amd64.zip'
     portable = args.output / filename
     files = {**retained, 'finance-runtime.zip': runtime, 'MyFinance.exe': args.exe.read_bytes()}
+    notices = args.notices.read_bytes()
+    if not notices or b'Go standard library/toolchain' not in notices:
+        raise SystemExit('Collect the current gateway and runtime notices before packaging')
+    files['THIRD-PARTY-LICENSES.txt'] = notices
     for name in ['README.md', 'LICENSE', 'NOTICE', 'compatibility.json']:
         files[name] = (ROOT / name).read_bytes()
     for path in (ROOT / 'docs').rglob('*'):
@@ -75,8 +81,9 @@ def main():
         data = files[package['member']]
         package.update(asset=filename, size=len(data), sha256=sha(data))
     (args.output / 'workspace-update.json').write_text(json.dumps(old, indent=2), encoding='utf-8')
-    for name in ['Actual-26.10.0-source.zip', 'HyperFormula-3.5.0-source.zip', 'THIRD-PARTY-LICENSES.txt']:
+    for name in ['Actual-26.10.0-source.zip', 'HyperFormula-3.5.0-source.zip']:
         shutil.copyfile(args.baseline / name, args.output / name)
+    (args.output / 'THIRD-PARTY-LICENSES.txt').write_bytes(notices)
     shutil.copyfile(args.exe, args.output / 'MyFinance.exe')
     shutil.copyfile(ROOT / 'compatibility.json', args.output / 'compatibility.json')
     info = json.loads((args.baseline / 'build-info.json').read_text())
@@ -84,7 +91,11 @@ def main():
                 aiProviders=['openai', 'deepseek'], liveAIProviderVerified=False,
                 paperInvestmentAutomation=contract.get('paperInvestmentAutomation', False),
                 brokerReadOnly=contract.get('brokerReadOnly', False),
-                liveBrokerVerified=False, liveTrading=False, paymentInitiation=False)
+                liveBrokerVerified=False, liveTrading=contract.get('liveTrading', False), paymentInitiation=False,
+                cryptoMonitor=contract.get('cryptoMonitor', False),
+                humanSignedCryptoSwaps=contract.get('humanSignedCryptoSwaps', False),
+                autonomousFinancialExecution=False,
+                liveCryptoTransactionVerified=False)
     (args.output / 'build-info.json').write_text(json.dumps(info, indent=2), encoding='utf-8')
     subprocess.run(['git', '-C', str(ROOT), 'archive', '--format=zip',
                     '--output=' + str(args.output / 'my-finance-source.zip'), source], check=True)

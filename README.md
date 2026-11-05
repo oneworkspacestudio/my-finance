@@ -24,6 +24,14 @@ Use your existing OpenAI or DeepSeek key and approve a bounded run. You can also
 connect Trading 212 to view cash and holdings with read-only API permissions.
 Real investments and bank transfers are completed in your provider's own app.
 
+**Crypto monitor** continuously checks live market data, news and indexed public
+social posts using DeepSeek while the Workspace host is online. Set an ETH
+exposure budget, trade limit, gas reserve and daily AI limits. Proposals generate
+generic browser push alerts. Review a fresh Base ETH/USDC quote, then approve each
+necessary token permission and swap in your own wallet. The server never holds
+wallet keys, signs transactions or broadcasts them. Read the
+[crypto setup and limits](docs/CRYPTO_MONITOR.md) before enabling paid monitoring.
+
 Bank connectivity uses your own Enable Banking application or an optional Lunch
 Flow subscription through SimpleFIN. You approve access on the provider/bank's
 own page. Installing My Finance does not link a bank, and no payment actions are
@@ -37,6 +45,7 @@ before putting real financial data into it.
 - [Connect a UK bank](docs/OPEN_BANKING_SETUP_UK.md)
 - [Money manager and AI privacy](docs/MONEY_COACH.md)
 - [Paper investing and broker connections](docs/INVESTMENTS.md)
+- [Live crypto monitoring and wallet review](docs/CRYPTO_MONITOR.md)
 - [Encrypted backups and restore](docs/MY_DRIVE_BACKUPS.md)
 - [OneAccount and household access](docs/ONEACCOUNT_INTEGRATION.md)
 - [Security and threat model](docs/SECURITY.md)

@@ -32,7 +32,7 @@ Finance ledger exports/server snapshots. Normal Workspace recovery may contain
 the protected private database; restoring keys under a different Windows account
 requires entering them again.
 
-No AI request runs when opening a budget or calculating a plan. A user must review
+No Money manager AI request runs when opening a budget or calculating a plan. A user must review
 and consent to sending the displayed monthly/category totals, profile, goals and
 question to the selected provider. These summaries can still be sensitive.
 OpenAI requests set store=false; this does not promise zero provider retention.
@@ -63,6 +63,28 @@ the model or persisted. Users should create read-only keys; the app cannot verif
 all permissions on an entered key. Removing a key locally does not revoke it at
 the provider. Finance snapshots omit both paper state and broker credentials;
 normal Workspace recovery may include their protected records.
+
+Crypto monitoring is a separate, explicitly enabled background service. Its daily
+attempt and conservative estimated-cost reservations persist before paid DeepSeek
+search/inference calls. User disablement, key/model changes, pause and revisions
+invalidate pending work; logout does not revoke the user's background opt-in.
+Public search snippets and model responses are untrusted data. Only dated cited
+evidence and independently checked native ETH/Base USDC amounts can form proposals.
+The model has no execution tools or key/address access. Exact human-reviewed Base
+transactions are constructed independently by Go and checked again in the browser.
+Every allowance/reset/swap requires a separate wallet confirmation. No server
+signing, broadcast, private keys, arbitrary recipients or unlimited approvals exist.
+Short review expiry, on-chain deadline, minimum output, exact allowances, fresh
+balance/price/reserve checks and verified receipts bound the supported operation.
+An already-open wallet prompt cannot be recalled; users must reject stale prompts.
+
+Finance-scoped Web Push has no fetch/cache handler and displays only generic text.
+Resend email uses a fixed HTTPS endpoint, protected per-user sender/recipient/key,
+explicit enable consent and bounded idempotent retries. Both outboxes recheck
+account/proposal state. Alerts contain no financial details and only open the
+authenticated review page; they never authorize execution. Provider acceptance is
+not delivery. Same-user DPAPI limits and normal recovery scope also apply to all
+crypto settings, evidence, reviews and notification secrets. See CRYPTO_MONITOR.md.
 
 Native ledger worker console output is suppressed so reconciliation/debug objects
 cannot print transaction payloads. Engine server output is also discarded; the Go
