@@ -1,0 +1,21 @@
+{
+  "synthetic": true,
+  "upstream": "26.10.0",
+  "localOnlyAggregation": true,
+  "exactGrossIncomeMinor": 600100,
+  "exactOutgoingMinor": 300000,
+  "currentGrossIncomeMinor": 200345,
+  "currentOutgoingMinor": 17345,
+  "currentOnlyCategoryIncluded": true,
+  "hashedBudgetScopeOutsideSummary": true,
+  "managerServerPlan": true,
+  "unclassifiedCategoriesProtected": true,
+  "forecastAllocationConserved": true,
+  "rulesSaveLoadRemove": true,
+  "transferLegsExcluded": 2,
+  "openingBalanceExcluded": true,
+  "offbudgetExcluded": true,
+  "providerRequests": 0,
+  "ledgerUnchanged": true,
+  "phoneOverflow": false
+}

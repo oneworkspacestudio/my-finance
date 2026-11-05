@@ -1,0 +1,16 @@
+{
+  "synthetic": true,
+  "removedPaths": [
+    "C:\\Projects\\.cache\\finance-investments-20261105\\go-tmp",
+    "C:\\Projects\\.cache\\finance-investments-20261105"
+  ],
+  "removedFiles": 0,
+  "removedBytes": 0,
+  "emptyDirectoriesOnly": true,
+  "reparsePoints": false,
+  "activeProcessReferences": 0,
+  "nonRecursiveDeletion": true,
+  "preservedIEvidenceAndPrograms": true,
+  "ownerInstallationTouched": false,
+  "finished": "2026-11-05T12:59:39.0158663Z"
+}

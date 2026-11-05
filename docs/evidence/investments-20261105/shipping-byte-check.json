@@ -1,0 +1,30 @@
+{
+  "synthetic": true,
+  "source": "c1b2bc75179c25a2a0c9ec6bbfc92b983bf0a875",
+  "shippingExecutableSHA256": "9d1d226f3ff8a4a49813d0f9d1e7e8e3323748fc4f37ac74968aa45644d9b03f",
+  "runtimeSHA256": "f3c4675bf401042356310325a35de736de3c7b2f53aab2e74b611839f98da3ca",
+  "coldCacheRuntimeReextracted": true,
+  "schema": 6,
+  "managedFresh114Finance1": true,
+  "managedUpgradeRollbackReapply": true,
+  "finalFinance": "0.1.0-preview.5",
+  "finalHealth": {
+    "apps": {
+      "accounts": "running",
+      "finance": "running"
+    },
+    "status": "ok"
+  },
+  "servedAssetsMatchSource": {
+    "investments.js": "548e2710ceca67de07b2d1702c3d5cf62c0b77a6fb9ddd112feea4432aa38eb0",
+    "coach-ledger.js": "5c0a6ff7563fb82ece072e08c30bf81f43fd113db267d60bd02c2f30d80b3a6d",
+    "ai.js": "9ee85c700b17095b13357d4be1359ffcd0ed6fd272ab876a7a5e6ebfc35580af",
+    "app.js": "a6ed26b37be5b3eab33c547d3fb08becc29878139689eb4e1e8911ec2ae892fc",
+    "style.css": "a387702125dc24e44836c7fa80957448294a49dfca215939102f2516fd6cd652"
+  },
+  "nativeBudgetUnchangedAcrossLifecycle": true,
+  "paperRealHTTPAndMobilePassed": true,
+  "providerCalls": 0,
+  "browserClosed": true,
+  "ownerInstallationUsed": false
+}

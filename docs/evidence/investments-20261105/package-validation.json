@@ -1,0 +1,9 @@
+{
+  "baselineAllPublicDigestsVerified": true,
+  "sameOwnedPayloadContracts": true,
+  "unchangedRuntimeAndLicences": true,
+  "assets": 10,
+  "tag": "v0.1.0-preview.5",
+  "source": "c1b2bc75179c25a2a0c9ec6bbfc92b983bf0a875",
+  "portableSHA256": "28bb36eb27fd8cb040ad8de6641862af61859df0d9cfb8281547b00816696a43"
+}

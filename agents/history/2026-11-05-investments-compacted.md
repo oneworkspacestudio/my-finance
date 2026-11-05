@@ -56,3 +56,61 @@ C:/Projects/.cache/finance-investments-20261105; managed fixture24620, programs 
 Actual-data agent owns synthetic setup/processes; root owns release/real delivery.
 Source publication, channel/pin, exact final managed upgrade and protected owner
 install pending. Preserve all unrelated apps/credentials/data/latest recovery.
+
+Public Finance5 is released fromc1b2bc75179c25a2a0c9ec6bbfc92b983bf0a875;
+all10 GitHub asset digests and anonymous checksum bytes verified. PortableSHA
+28bb36eb27fd8cb040ad8de6641862af61859df0d9cfb8281547b00816696a43,
+EXE9d1d226f3ff8a4a49813d0f9d1e7e8e3323748fc4f37ac74968aa45644d9b03f.
+Suite d7cdffb promotes5/channel; exact anonymous raw-main URL includesall10.
+
+Found/corrected separate ordinary-build bug: managedSeed ignored myFinance pin,
+so public114 fresh setup containsFinance1 despite prior4pin. New strict Finance
+component mapper consumes5, matchesfivepayloads and preserves36 unrelatedapps/
+446 packagecontracts. Legacy guard2→3 corrected. Candidate planner tests cover
+selection/omission, customportretention, missingruntime and tamper rejection.
+
+Real public114 fresh accounts+finance setup, OneAccounts sign-in, supported1→5
+upgrade and rollback5→1 pass. Original fictional Actual ledgerhash/identities/
+decrypted credentials/paths/unselected bytes retained, fivepayloads and15recovery
+files verified. Native exact history600100/300000 andcurrent200345/17345 pass;
+real paper setup/prices/reload/missingkey/consent/realticker guards andfiveviewport
+sizes pass. No paid/provider calls. Reapply5/finaldelivery receipts toappend.
+
+Fixture runtime cache contains16546files; first pretransaction backup was slow
+and safelycancelled only on the disposable fixture. Alloriginalprograms andfour
+Actualserverfiles remainedhash-identical. Removedonly its incompletebackup and
+deterministicallygeneratedenginecache afterpath/process/reparse checks; normal
+updaterthenverified31.6MBrecovery and re-extractedpinnedruntime. This is cold-cache
+syntheticacceptance, never a workaround forownerdata/recovery. DPAPIciphertext
+re-randomizes duringnormalupdate; preservationcompares plaintext onlyinRAM.
+
+Final cold-cache lifecycle1→5→1→5 now COMPLETE. Reapply5, native ledger and real
+paper tests passed again; all five served UI assets, shipping EXE/runtime and
+schema6 verified. Managed fixture processes/listeners/browser are stopped; guarded
+NTFS managed root removed at12:47:22UTC. Sanitized reapply/shipping/cleanup receipts
+retained in evidence. Public test programs and reports stay onI. Root primary
+normal protected Finance-only delivery started after cleanup, with no owner cache
+removal. Final ordinary QA115 bundle verification and owner receipt pending.
+
+Ordinary suite build verification is now complete. scripts/rebuild.ps1 from
+d7cdffb4b205312bd324f7690d866ec6c1973d40 produced local QA115 with 37 apps and
+451 packages. Every archive member size/SHA and the complete catalog audit pass;
+Finance's five payloads exactly match public release5. See managed-build-proof.json.
+QA115 was not published or installed. All test processes and the remaining empty
+NTFS task cache were removed; evidence and public test programs remain on I:.
+
+Primary delivery is COMPLETE at 2026-11-05 13:14 UTC, superseding all pending
+owner-install notes above. Normal public114 Finance-only update 4→5 completed,
+all five installed payloads/served assets match, 423 unrelated package records
+and bytes plus other apps/settings/locations/existing credentials are preserved.
+All 36 services run with no new failures. Normal 382.5 MB recovery was verified;
+automatic cleanup retained it, removed one older automatic backup and finished
+without warnings. Managed OIDC bootstrap/index match; anonymous public HTTPS
+requires Workspace sign-in. No owner ledger opened or owner cache manually removed.
+Sanitized delivery/served-verification/update-cleanup receipts are in evidence.
+
+Current outcome: Finance5 is public, its channel/pin are promoted, and the primary
+PC has it installed. Second PC remains user-deferred. No real trading/transfers,
+investment account creation, paid model calls or official broker/bank sandbox/live
+qualification are claimed. Future work needs an explicit scope; do not resume the
+deferred remote target or change immutable assets based on older pending notes.

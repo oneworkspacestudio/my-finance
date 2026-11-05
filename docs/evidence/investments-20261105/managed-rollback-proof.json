@@ -1,0 +1,13 @@
+{
+  "synthetic": true,
+  "passed": true,
+  "mode": "rollback",
+  "workspace": "0.3.0-preview.114",
+  "finance": "0.1.0-preview.1",
+  "baselineFinance": "0.1.0-preview.1",
+  "managerAndUnselectedBytesPreserved": true,
+  "accountIdentityAndCredentialsPreserved": true,
+  "pathsPreserved": true,
+  "ownedPayloadsVerified": 5,
+  "ownerInstallationUsed": false
+}

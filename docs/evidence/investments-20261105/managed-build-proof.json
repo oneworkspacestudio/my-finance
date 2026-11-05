@@ -1,0 +1,27 @@
+{
+  "ordinaryEntryPoint": "scripts/rebuild.ps1",
+  "financeVersion": "0.1.0-preview.5",
+  "sourceCommit": "d7cdffb4b205312bd324f7690d866ec6c1973d40",
+  "localSuiteBuildVersion": "0.3.0-preview.115",
+  "catalogSHA256": "7c092bcec87cf704d9255de6006c6e86e40a3050d924b684454176e0284b0b6f",
+  "archiveSHA256": "6fdec48025f2ba32ac42b924e24dbf841d9ece0b5dd89cdbb1e04287c55c1d38",
+  "archiveSize": 1392186415,
+  "setupSHA256": "f93699b493a271885385d483eafbbb42cd773b6a8134dec94dba2c124ab74950",
+  "setupSize": 1406101504,
+  "financePin": {
+    "repository": "oneworkspacestudio/my-finance",
+    "tag": "v0.1.0-preview.5",
+    "asset": "my-finance-0.1.0-preview.5-windows-amd64.zip",
+    "sha256": "28bb36eb27fd8cb040ad8de6641862af61859df0d9cfb8281547b00816696a43"
+  },
+  "apps": 37,
+  "packages": 451,
+  "everyArchivedPayloadSizeAndSHA256Verified": true,
+  "financeOwnedPayloads": 5,
+  "componentProjectionUnrelatedAppsPreserved": 36,
+  "componentProjectionUnrelatedPackagesPreserved": 446,
+  "fullCatalogAuditPassed": true,
+  "publicArtifactsOnly": true,
+  "suiteReleasePublished": false,
+  "githubActionsUsed": false
+}

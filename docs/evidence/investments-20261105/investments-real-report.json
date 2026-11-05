@@ -1,0 +1,24 @@
+{
+  "synthetic": true,
+  "managed": true,
+  "realHTTP": true,
+  "paperSetupViaUI": true,
+  "scenarioPricesViaUI": true,
+  "persistentReload": true,
+  "exactVirtualCashMinor": 100000,
+  "missingProviderKeyRejected": true,
+  "unconsentedRunRejected": true,
+  "realTickerRejected": true,
+  "missingBrokerKeyRejected": true,
+  "anonymousDenied": true,
+  "providerRequests": 0,
+  "mobileOverflow": false,
+  "widths": [
+    320,
+    360,
+    390,
+    768,
+    1366
+  ],
+  "pageErrors": []
+}

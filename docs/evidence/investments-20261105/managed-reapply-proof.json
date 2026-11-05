@@ -1,0 +1,17 @@
+{
+  "synthetic": true,
+  "passed": true,
+  "mode": "reapply",
+  "workspace": "0.3.0-preview.114",
+  "finance": "0.1.0-preview.5",
+  "baselineFinance": "0.1.0-preview.1",
+  "managerAndUnselectedBytesPreserved": true,
+  "accountIdentityAndCredentialsPreserved": true,
+  "pathsPreserved": true,
+  "ownedPayloadsVerified": 5,
+  "ownerInstallationUsed": false,
+  "backupID": "update-20261105T124041-f9545d14e58b",
+  "backupFilesVerified": 15,
+  "shippingEXESHA256": "9d1d226f3ff8a4a49813d0f9d1e7e8e3323748fc4f37ac74968aa45644d9b03f",
+  "source": "c1b2bc75179c25a2a0c9ec6bbfc92b983bf0a875"
+}

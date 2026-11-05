@@ -1,0 +1,8 @@
+{
+  "finance": "0.1.0-preview.5",
+  "servedIndexMatches": true,
+  "managedOIDCBootstrapVerified": true,
+  "publicAnonymousAccessRequiresWorkspaceSignIn": true,
+  "ownerLedgerOpened": false,
+  "verified": "2026-11-05T13:14:42.0806792Z"
+}

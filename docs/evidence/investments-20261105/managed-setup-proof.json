@@ -1,0 +1,11 @@
+{
+  "synthetic": true,
+  "workspace": "0.3.0-preview.114",
+  "finance": "0.1.0-preview.1",
+  "selectedApps": [
+    "accounts",
+    "finance"
+  ],
+  "ready": true,
+  "ownerInstallationUsed": false
+}

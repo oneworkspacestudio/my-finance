@@ -31,6 +31,36 @@ UI and nine native-summary regressions are retained. Dedicated managed fresh
 setup/upgrade and installed-byte receipts are recorded under
 `docs/evidence/investments-20261105/` as each delivery gate completes.
 
+Real public114 fresh selected setup installs Finance1. Its supported upgrade to
+the shipping Finance5 EXE (`9d1d226f…4d9b03f`) passes MyAccounts/proxy acceptance. Five owned
+payloads and fifteen recovery files match their receipts; the original fictional
+Actual ledger, identity, decrypted credentials, paths and unrelated program bytes
+are preserved. Real paper UI/HTTP setup, scenario prices, reload, missing-key and
+consent checks pass. Supported rollback to 1 and re-upgrade to 5 retain the same
+original ledger. Final shipping-byte checks verify the executable, runtime,
+schema 6 and all five served UI assets. The test installation and its remaining
+empty task cache directories were removed after process and path checks.
+The synthetic test used a cold regenerated engine cache after safely cancelling
+an excessively slow pretransaction fixture backup; no owner recovery is bypassed.
+
+Release5's ten immutable assets and exact anonymous public update channel are
+verified. The suite's managed-seed builder now consumes the Finance pin: it had
+previously retained bundled Finance1. Projection tests retain all36 unrelated
+apps/446 unrelated package contracts and candidate checks reject missing runtime
+or corrupt members. The ordinary Workspace build from d7cdffb also passes its
+complete 37-app catalog audit and verifies all 451 archive members, including the
+exact five public Finance 5 payloads. Local QA115 was not published or installed;
+the independent Finance release updates existing Workspace installations.
+
+Primary delivery completed through public Workspace114's normal protected
+Finance-only update from 4 to 5. All five Finance payloads and served assets match
+the release; 423 unrelated package contracts/bytes, other app definitions,
+existing credentials and locations are preserved. All 36 services are running
+with no new failures. The 382.5 MB recovery copy verified; automatic cleanup
+retained it and finished without warnings. Public HTTPS requires Workspace
+sign-in. See delivery.json, served-verification.json and update-cleanup.json.
+No owner ledger was opened for QA. The second PC remains deferred by the user.
+
 ## Money manager acceptance, 3 November 2026
 
 Finance4 adds current-month category allowances, saved manager rules and reviewed
